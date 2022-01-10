@@ -16,7 +16,7 @@ class AuthController extends Controller
         if(Auth::attempt(['username' => $request->username, 'password' => $request->password]))
         {
             $token=$request->user()->createToken($request->username)->plainTextToken;
-            $response=["token"=>$token];
+            $response=["token"=>$token,"user_info"=>$request->user()];
             return response(json_encode($response),200)->header('Content-Type', 'application/json');
         }
         else
