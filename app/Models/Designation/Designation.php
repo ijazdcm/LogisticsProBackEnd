@@ -1,23 +1,19 @@
 <?php
 
-namespace App\Models\Vehicles;
+namespace App\Models\Designation;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Vehicle_Body_Type extends Model
+class Designation extends Model
 {
     use HasFactory;
 
-
-    protected $table="vehicle__body__types";
+    protected $table="designations";
 
     protected $fillable=[
-        "vehicle_body_type",
-        "vehicle_body_type_status",
+        "designation_name",
+        "designation_status",
         "created_by",
     ];
-
-
-
 }

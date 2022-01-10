@@ -16,10 +16,10 @@ class VehicleBodyTypeSeeder extends Seeder
      */
     public function run()
     {
-        for ($i=0; $i <count($this->vehicle_body_types_list) ; $i++) {
+        for ($i=0,$length=count($this->vehicle_body_types_list); $i < $length; $i++) {
 
             $vehicles_body_type=new Vehicle_Body_Type();
-            $vehicles_body_type->vehicle_type=$this->vehicle_body_types_list[$i];
+            $vehicles_body_type->vehicle_body_type=$this->vehicle_body_types_list[$i];
             $vehicles_body_type->save();
         }
     }

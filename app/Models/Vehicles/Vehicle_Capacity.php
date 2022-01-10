@@ -5,16 +5,15 @@ namespace App\Models\Vehicles;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Vehicle_Body_Type extends Model
+class Vehicle_Capacity extends Model
 {
     use HasFactory;
 
-
-    protected $table="vehicle__body__types";
+    protected $table="vehicle__capacities";
 
     protected $fillable=[
-        "vehicle_body_type",
-        "vehicle_body_type_status",
+        "vehicle_capacity",
+        "vehicle_status",
         "created_by",
     ];
 

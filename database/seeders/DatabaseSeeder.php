@@ -15,5 +15,11 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
         $this->call(UserSeeder::class);
+
+        //SECTION TO SEED FOR VEHICLE SMALL MASTERS
+
+        $this->call(VehicleTypeSeeder::class);
+        $this->call(VehicleCapacitySeeder::class);
+        $this->call(VehicleBodyTypeSeeder::class);
     }
 }

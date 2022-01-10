@@ -9,7 +9,7 @@ class VehicleTypeSeeder extends Seeder
 {
 
 
-    public $vehicle_types_list=["Own","Contract","Hire"];
+    public $vehicle_types_list=["Own","Contract","Hire","Party Vehicle"];
     /**
      * Run the database seeds.
      *
@@ -17,7 +17,7 @@ class VehicleTypeSeeder extends Seeder
      */
     public function run()
     {
-        for ($i=0; $i <count($this->vehicle_types_list) ; $i++) {
+        for ($i=0,$length=count($this->vehicle_types_list) ; $i < $length; $i++) {
 
             $vehicles_type=new Vehicle_Type();
             $vehicles_type->vehicle_type=$this->vehicle_types_list[$i];
