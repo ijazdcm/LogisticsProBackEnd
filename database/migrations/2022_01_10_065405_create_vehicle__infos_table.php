@@ -17,7 +17,7 @@ class CreateVehicleInfosTable extends Migration
             $table->id();
             $table->unsignedBigInteger('vehicle_type_id');
             $table->foreign('vehicle_type_id')->references('id')->on('vehicle__types');
-            $table->string('vehicle_number');
+            $table->string('vehicle_number')->unique();
             $table->unsignedBigInteger('vehicle_capacity_id');
             $table->foreign('vehicle_capacity_id')->references('id')->on('vehicle__capacities');
             $table->unsignedBigInteger('vehicle_body_type_id');

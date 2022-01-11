@@ -9,6 +9,12 @@ class Vehicle_Info extends Model
 {
     use HasFactory;
 
+    //FILE PATH CONSTANTS FOR FILE HANDLE FOR THIS MODEL
+    public const RC_FRONT_PATH="Vehicle/Rc_copy_front";
+    public const RC_BACK_PATH="Vehicle/Rc_copy_back";
+    public const INSURANCE_FRONT_PATH="Vehicle/Insurance_copy_front";
+    public const INSURANCE_BACK_PATH="Vehicle/Insurance_copy_back";
+
     protected $table="vehicle__infos";
 
     protected $fillable=[
@@ -25,4 +31,20 @@ class Vehicle_Info extends Model
         "vehicle_status",
         "created_by",
     ];
+
+    public function vehicle_type()
+    {
+        return $this->hasOne(Vehicle_Type::class,'id','vehicle_type_id');
+    }
+
+    public function vehicle_capacity()
+    {
+        return $this->hasOne(Vehicle_Capacity::class,'id','vehicle_capacity_id');
+    }
+
+    public function vehicle_body()
+    {
+        return $this->hasOne(Vehicle_Body_Type::class,'id','vehicle_body_type_id');
+    }
+
 }

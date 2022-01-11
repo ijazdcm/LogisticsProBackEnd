@@ -45,14 +45,16 @@ class VehicleCapacityController extends Controller
      */
     public function show($id)
     {
-        try {
 
-            return new VehicleCapacityResource(Vehicle_Capacity::findOrFail($id));
+        $capacity=Vehicle_Capacity::where('vehicle_status',1)
+        ->where('id',$id)
+        ->first();
 
-        } catch (\Exception $th) {
+            if($capacity){
+                return new VehicleCapacityResource($capacity);
+            }
 
-            return response()->json(['message' => 'Capacity Not found'], 404);
-        }
+        return response()->json(['message' => 'Capacity Not found'], 404);
 
     }
 
@@ -65,14 +67,18 @@ class VehicleCapacityController extends Controller
      */
     public function update(VehicleCapacityRequest $request, $id)
     {
-         try {
-           $new_capacity=Vehicle_Capacity::findOrFail($id);
-           $new_capacity->update($request->validated());
-           return new VehicleCapacityResource($new_capacity);
-         } catch (\Exception $th) {
 
-            return response()->json(['message' => 'Capacity Not found'], 404);
-         }
+           $new_capacity=Vehicle_Capacity::where('vehicle_status',1)
+           ->where('id',$id)
+           ->first();
+           if($new_capacity)
+           {
+                $new_capacity->update($request->validated());
+                return new VehicleCapacityResource($new_capacity);
+           }
+
+        return response()->json(['message' => 'Capacity Not found'], 404);
+
 
     }
 
@@ -84,15 +90,16 @@ class VehicleCapacityController extends Controller
      */
     public function destroy($id)
     {
-        try {
 
-            $new_capacity=Vehicle_Capacity::findOrFail($id);
-            $new_capacity->update([$new_capacity->vehicle_status=0]);
-            return response('',204)->header('Content-Type', 'application/json');
+            $new_capacity=Vehicle_Capacity::where('vehicle_status',1)
+            ->where('id',$id)
+            ->first();
+            if($new_capacity)
+            {
+                $new_capacity->update([$new_capacity->vehicle_status=0]);
+                return response('',204)->header('Content-Type', 'application/json');
+            }
 
-          } catch (\Exception $th) {
-
-             return response()->json(['message' => 'Capacity Not found'], 404);
-          }
+            return response()->json(['message' => 'Capacity Not found'], 404);
     }
 }
