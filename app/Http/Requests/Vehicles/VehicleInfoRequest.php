@@ -36,41 +36,6 @@ class VehicleInfoRequest extends FormRequest
            $file_validation_insurance_copy_front="required|mimes:jpg,jpeg|max:5000";
            $file_validation_insurance_copy_back="required|mimes:jpg,jpeg|max:5000";
 
-        }elseif(request()->isMethod('put'))
-        {
-            if(request()->hasFile('rc_copy_front'))
-            {
-                $file_validation_rc_copy_front="required|mimes:jpg,jpeg|max:5000";
-            }
-            else{
-
-                $file_validation_rc_copy_front="sometimes";
-            }
-            if(request()->hasFile('rc_copy_back'))
-            {
-                $file_validation_rc_copy_back="required|mimes:jpg,jpeg|max:5000";
-            }
-            else{
-
-                $file_validation_rc_copy_back="sometimes";
-            }
-            if(request()->hasFile('insurance_copy_front'))
-            {
-                $file_validation_insurance_copy_front="required|mimes:jpg,jpeg|max:5000";
-            }
-            else{
-
-                $file_validation_insurance_copy_front="sometimes";
-            }
-            if(request()->hasFile('insurance_copy_back'))
-            {
-                $file_validation_insurance_copy_back="required|mimes:jpg,jpeg|max:5000";
-            }
-            else{
-
-                $file_validation_insurance_copy_back="sometimes";
-            }
-
         }
 
 

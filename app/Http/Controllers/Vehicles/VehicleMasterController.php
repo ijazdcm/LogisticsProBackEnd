@@ -23,7 +23,10 @@ class VehicleMasterController extends Controller
     {
         return VehicleInfoResource::collection(Cache::remember('vehicle_info', now()->addDay(), function () {
 
-            return Vehicle_Info::where('vehicle_status',1)->get();
+            return Vehicle_Info::with('Vehicle_Type')
+              ->with('Vehicle_Capacity')
+              ->with('Vehicle_Body_Type')
+              ->where('vehicle_status',1)->get();
 
         }));
     }

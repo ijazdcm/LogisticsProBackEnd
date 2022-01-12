@@ -16,10 +16,10 @@ class VehicleInfoResource extends JsonResource
     {
         return [
         "vehicle_id"=>$this->id,
-        "vehicle_type"=>$this->vehicle_type->vehicle_type,
+        "vehicle_type_info"=>VehicleTypeResource::make($this->whenLoaded('Vehicle_Type')),
         "vehicle_number"=>$this->vehicle_number,
-        "vehicle_capacity"=>$this->vehicle_capacity->vehicle_capacity,
-        "vehicle_body_type"=>$this->vehicle_body->vehicle_body_type,
+        "vehicle_capacity_info"=>VehicleCapacityResource::make($this->whenLoaded('Vehicle_Capacity')) ,
+        "vehicle_body_type_info"=>VehicleBodyResource::make($this->whenLoaded('Vehicle_Body_Type')),
         "rc_copy_front"=>url('/')."/Vehicles/RcFront/".$this->rc_copy_front,
         "rc_copy_back"=>url('/')."/Vehicles/RcBack/".$this->rc_copy_back,
         "insurance_copy_front"=>url('/')."/Vehicles/InsuranceFront".$this->insurance_copy_front,

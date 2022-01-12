@@ -17,7 +17,7 @@ class CreateDriverTypesTable extends Migration
             $table->id();
             $table->string('driver_type');
             $table->tinyInteger('driver_type_status')->default(1)->comment('None 1 - Active, 0 - In-Active');
-            $table->unsignedBigInteger('created_by')->default(null);
+            $table->unsignedBigInteger('created_by')->default(0);
             $table->timestamps();
         });
     }

@@ -25,13 +25,13 @@ class CreateDriverInfosTable extends Migration
             $table->dateTime('license_validity_to');
             $table->string('license_copy_front');
             $table->string('license_copy_back');
-            $table->tinyInteger('license_validity_status');
+            $table->tinyInteger('license_validity_status')->default(1)->comment('1 - Active, 0 - De-active');
             $table->string('driver_address');
             $table->string('driver_photo');
             $table->string('aadhar_card');
             $table->string('pan_card');
             $table->tinyInteger('driver_status')->default(1)->comment('1 - Active, 0 - De-active, 2 - Soft delete ');
-            $table->unsignedBigInteger('created_by')->default(null);
+            $table->unsignedBigInteger('created_by')->default(0);
             $table->timestamps();
         });
     }

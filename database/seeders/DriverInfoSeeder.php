@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Driver\Driver_Info;
 use Illuminate\Database\Seeder;
 
 class DriverInfoSeeder extends Seeder
@@ -13,6 +14,6 @@ class DriverInfoSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Driver_Info::factory()->count(50)->create();
     }
 }

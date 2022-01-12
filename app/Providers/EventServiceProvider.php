@@ -2,8 +2,12 @@
 
 namespace App\Providers;
 
+use App\Models\Driver\Driver_Info;
+use App\Models\Driver\Driver_Type;
 use App\Models\Vehicles\Vehicle_Capacity;
 use App\Models\Vehicles\Vehicle_Info;
+use App\Observers\Drivers\DriverInfoObserver;
+use App\Observers\Drivers\DriverTypeObserver;
 use App\Observers\Vehicle\VehicleCapacityObserver;
 use App\Observers\Vehicle\VehicleInfoObserver;
 use Illuminate\Auth\Events\Registered;
@@ -33,5 +37,6 @@ class EventServiceProvider extends ServiceProvider
     {
         Vehicle_Capacity::observe(VehicleCapacityObserver::class);
         Vehicle_Info::observe(VehicleInfoObserver::class);
+        Driver_Info::observe(DriverInfoObserver::class);
     }
 }

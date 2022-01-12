@@ -32,17 +32,17 @@ class Vehicle_Info extends Model
         "created_by",
     ];
 
-    public function vehicle_type()
+    public function Vehicle_Type()
     {
         return $this->hasOne(Vehicle_Type::class,'id','vehicle_type_id');
     }
 
-    public function vehicle_capacity()
+    public function Vehicle_Capacity()
     {
         return $this->hasOne(Vehicle_Capacity::class,'id','vehicle_capacity_id');
     }
 
-    public function vehicle_body()
+    public function Vehicle_Body_Type()
     {
         return $this->hasOne(Vehicle_Body_Type::class,'id','vehicle_body_type_id');
     }

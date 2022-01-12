@@ -9,7 +9,15 @@ class Driver_Info extends Model
 {
     use HasFactory;
 
-    protected $table="driver__types";
+
+    public const LICENSE_COPY_FRONT_PATH="Driver/LicenseFront";
+    public const LICENSE_COPY_BACK_PATH="Driver/LicenseBack";
+    public const AADHAR_PATH="Driver/Aadhar";
+    public const DRIVER_PHOTO_PATH="Driver/DriverPhoto";
+    public const PAN_CARD_PATH="Driver/PanCard";
+
+
+    protected $table="driver__infos";
 
     protected $fillable=[
         "driver_type_id",
@@ -29,4 +37,10 @@ class Driver_Info extends Model
         "driver_status",
         "created_by",
     ];
+
+
+     public function driver__types()
+     {
+          return $this->hasOne(Driver_Type::class,'id','driver_type_id');
+     }
 }
