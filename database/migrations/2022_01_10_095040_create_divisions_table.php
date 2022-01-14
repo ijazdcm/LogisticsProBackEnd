@@ -17,7 +17,7 @@ class CreateDivisionsTable extends Migration
             $table->id();
             $table->string('division_name');
             $table->tinyInteger('division_status')->default(1)->comment('1 - Active, 0 - In-Active');
-            $table->unsignedBigInteger('created_by')->default(null);
+            $table->unsignedBigInteger('created_by')->default(0);
             $table->timestamps();
         });
     }

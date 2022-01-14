@@ -44,19 +44,26 @@ class RouteServiceProvider extends ServiceProvider
                 ->group(base_path('routes/api.php'));
 
             Route::prefix('api/v1/')
-            ->middleware('api')
-            ->namespace($this->namespace)
-            ->group(base_path('routes/v1/Auth/auth_routes.php'));
+                ->middleware('api')
+                ->namespace($this->namespace)
+                ->group(base_path('routes/v1/Auth/auth_routes.php'));
 
             Route::prefix('api/v1/')
-            ->middleware('api')
-            ->namespace($this->namespace)
-            ->group(base_path('routes/v1/Vehicle/vehicle_routes.php'));
+                ->middleware('api')
+                ->namespace($this->namespace)
+                ->group(base_path('routes/v1/Vehicle/vehicle_routes.php'));
 
             Route::prefix('api/v1/')
-            ->middleware('api')
-            ->namespace($this->namespace)
-            ->group(base_path('routes/v1/Driver/driver_routes.php'));
+                ->middleware('api')
+                ->namespace($this->namespace)
+                ->group(base_path('routes/v1/Driver/driver_routes.php'));
+
+            // -----------------------Added By Alwin------------(Start)--------------------------------
+            Route::prefix('api/v1/')
+                ->middleware('api')
+                ->namespace($this->namespace)
+                ->group(base_path('routes/v1/Division/division_routes.php'));
+            // ------------------------------------(End)-------------------------------
 
             Route::middleware('web')
                 ->namespace($this->namespace)
