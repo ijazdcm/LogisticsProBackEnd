@@ -53,7 +53,7 @@ class DriverMasterController extends Controller
             "pan_card"=>$helper->storeImage($request->pan_card,Driver_Info::PAN_CARD_PATH),
         ]);
 
-    return  new DriverInfoResource($new_driver);
+    return  new DriverInfoResource($new_driver->load('driver__types'));
 
     }
 
@@ -71,7 +71,7 @@ class DriverMasterController extends Controller
 
         if($driver)
         {
-        return new DriverInfoResource($driver);
+        return new DriverInfoResource($driver->load('driver__types'));
         }
         return response()->json(['message' => 'Vehicle Not found'], 404);
     }
@@ -110,7 +110,7 @@ class DriverMasterController extends Controller
               $updated_driver=Driver_Info::where('driver_status',1)
               ->where('id',$id)
               ->first();
-               return new DriverInfoResource($updated_driver);
+               return new DriverInfoResource($updated_driver->load('driver__types'));
            }
 
 

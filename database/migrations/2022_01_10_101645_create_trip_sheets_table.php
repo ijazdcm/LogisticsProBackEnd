@@ -31,7 +31,7 @@ class CreateTripSheetsTable extends Migration
             $table->string('advance_payment_diesel');
             $table->string('remarks');
             $table->string('status')->default(null)->comment('0 -Open , 1 - Assigned, 2 - Closed');
-            $table->unsignedBigInteger('created_by')->default(null);
+            $table->unsignedBigInteger('created_by')->default(0);
             $table->timestamps();
         });
     }

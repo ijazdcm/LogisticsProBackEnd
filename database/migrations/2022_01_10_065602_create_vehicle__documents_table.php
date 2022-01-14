@@ -34,7 +34,7 @@ class CreateVehicleDocumentsTable extends Migration
             $table->string('freight_rate_per_ton');
             $table->string('remarks');
             $table->tinyInteger('document_status')->comment('0 - Reject, 1 - Accept');
-            $table->unsignedBigInteger('created_by')->default(null);
+            $table->unsignedBigInteger('created_by')->default(0);
             $table->timestamps();
         });
     }

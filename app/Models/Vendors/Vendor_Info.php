@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Models\Vendor;
+namespace App\Models\Vendors;
 
+use App\Models\Shed\Shed_Info;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -43,8 +44,15 @@ class Vendor_Info extends Model
         "gst_tax_code",
         "payment_term_3days",
         "remarks",
-        "vandor_status",
+        "vendor_status",
         "created_by",
-
     ];
+
+
+
+    public function Shed_Info()
+    {
+        return $this->hasOne(Shed_Info::class,'id','shed_id');
+    }
+
 }

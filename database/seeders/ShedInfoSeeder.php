@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Shed\Shed_Info;
 use Illuminate\Database\Seeder;
 
 class ShedInfoSeeder extends Seeder
@@ -13,6 +14,6 @@ class ShedInfoSeeder extends Seeder
      */
     public function run()
     {
-        //
+         Shed_Info::factory()->count(50)->create();
     }
 }
