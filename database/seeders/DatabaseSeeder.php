@@ -25,5 +25,7 @@ class DatabaseSeeder extends Seeder
         $this->call(DriverTypeSeeder::class);
         $this->call(DriverInfoSeeder::class);
         $this->call(DivisionSeeder::class); // Added By Alwin
+        $this->call(DepartmentSeeder::class); // Added By Alwin
+        $this->call(DesignationSeeder::class); // Added By Alwin
     }
 }

@@ -17,7 +17,7 @@ class CreateDesignationsTable extends Migration
             $table->id();
             $table->string('designation_name');
             $table->tinyInteger('designation_status')->default(1)->comment('1 - Active, 0 - In-Active');
-            $table->unsignedBigInteger('created_by')->default(null);
+            $table->unsignedBigInteger('created_by')->default(0);
             $table->timestamps();
         });
     }
