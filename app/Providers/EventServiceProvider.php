@@ -4,14 +4,16 @@ namespace App\Providers;
 
 use App\Models\Divison\Division;
 use App\Models\Driver\Driver_Info;
-use App\Models\Driver\Driver_Type;
+use App\Models\Shed\Shed_Info;
 use App\Models\Vehicles\Vehicle_Capacity;
 use App\Models\Vehicles\Vehicle_Info;
+use App\Models\Vendors\Vendor_Info;
 use App\Observers\Drivers\DriverInfoObserver;
-use App\Observers\Drivers\DriverTypeObserver;
 use App\Observers\Vehicle\VehicleCapacityObserver;
 use App\Observers\Vehicle\VehicleInfoObserver;
 use App\Observers\Division\DivisionObserver;
+use App\Observers\Sheds\ShedInfoObserver;
+use App\Observers\Vendor\VendorInfoObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -37,9 +39,11 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Vehicle_Capacity::observe(VehicleCapacityObserver::class); // Added By Alwin
+        Vehicle_Capacity::observe(VehicleCapacityObserver::class);
         Vehicle_Info::observe(VehicleInfoObserver::class);
         Driver_Info::observe(DriverInfoObserver::class);
-        Division::observe(DivisionObserver::class);
+        Division::observe(DivisionObserver::class); // Added By Alwin
+        Shed_Info::observe(ShedInfoObserver::class); // Added By Saravana Sai
+        Vendor_Info::observe(VendorInfoObserver::class); // Added By Saravana Sai
     }
 }
