@@ -9,6 +9,10 @@ class Shed_Info extends Model
 {
     use HasFactory;
 
+
+
+    public const SHED_OWNER_PHOTO_PATH="Shed/ShedOwner";
+
     protected $table="shed__infos";
 
     protected $fillable=[
@@ -23,4 +27,10 @@ class Shed_Info extends Model
         "gst_no",
         "created_by",
     ];
+
+
+    public function Shed_Type()
+    {
+        return $this->hasOne(Shed_Type::class,'id','shed_type_id');
+    }
 }

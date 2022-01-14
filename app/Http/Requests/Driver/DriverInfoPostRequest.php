@@ -39,4 +39,7 @@ class DriverInfoPostRequest extends FormRequest
             "pan_card"=>['required','max:5000','mimes:png,jpg,jpeg'],
         ];
     }
+
+
+
 }

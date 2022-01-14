@@ -63,7 +63,7 @@ class VehicleMasterController extends Controller
                 "created_by"=>1,
             ]);
 
-        return  new VehicleInfoResource($new_vehicle);
+        return  new VehicleInfoResource($new_vehicle->load('Vehicle_Type')->load('Vehicle_Capacity')->load('Vehicle_Body_Type'));
     }
 
     /**
@@ -81,7 +81,7 @@ class VehicleMasterController extends Controller
 
         if($vehicle)
         {
-            return new VehicleInfoResource($vehicle);
+            return new VehicleInfoResource($vehicle->load('Vehicle_Type')->load('Vehicle_Capacity')->load('Vehicle_Body_Type'));
         }
         return response()->json(['message' => 'Vehicle Not found'], 404);
 
@@ -124,7 +124,7 @@ class VehicleMasterController extends Controller
                 $updated_vehicle=Vehicle_Info::where('vehicle_status',1)
                 ->where('id',$id)
                 ->first();
-                 return new VehicleInfoResource($updated_vehicle);
+                 return new VehicleInfoResource($updated_vehicle->load('Vehicle_Type')->load('Vehicle_Capacity')->load('Vehicle_Body_Type'));
              }
 
 

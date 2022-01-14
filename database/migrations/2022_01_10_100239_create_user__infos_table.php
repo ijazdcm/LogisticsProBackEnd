@@ -27,7 +27,7 @@ class CreateUserInfosTable extends Migration
             $table->string('mobile_no')->unique();
             $table->string('email_id')->unique();
             $table->string('photo')->unique();
-            $table->unsignedBigInteger('created_by')->default(null);
+            $table->unsignedBigInteger('created_by')->default(0);
             $table->timestamps();
         });
     }

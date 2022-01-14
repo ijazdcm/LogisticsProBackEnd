@@ -75,6 +75,20 @@ class RouteServiceProvider extends ServiceProvider
                 ->group(base_path('routes/v1/Designation/designation_routes.php'));
             // ------------------------------------(End)-------------------------------
 
+             // -----------------------Added By Saravana sai------------(Start)--------------------------------
+             Route::prefix('api/v1/')
+             ->middleware('api')
+             ->namespace($this->namespace)
+             ->group(base_path('routes/v1/Shed/shed_routes.php'));
+            // ------------------------------------(End)-------------------------------
+
+            // -----------------------Added By Saravana sai------------(Start)--------------------------------
+            Route::prefix('api/v1/')
+            ->middleware('api')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/v1/Vendor/vendor_routes.php'));
+           // ------------------------------------(End)-------------------------------
+
             Route::middleware('web')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/web.php'));

@@ -20,7 +20,7 @@ class CreateDieselVendorsTable extends Migration
             $table->string('vendor_phone_1');
             $table->string('vendor_phone_2');
             $table->string('vendor_email_id');
-            $table->unsignedBigInteger('created_by')->default(null);
+            $table->unsignedBigInteger('created_by')->default(0);
             $table->timestamps();
         });
     }

@@ -23,7 +23,7 @@ class CreateStoInformationsTable extends Migration
             $table->unsignedBigInteger('driver_id');
             $table->foreign('driver_id')->references('id')->on('driver__infos');
             $table->tinyInteger('expense_to_be_capture')->default(null)->comment(' 	0 - No, 1 - Yes ');
-            $table->unsignedBigInteger('created_by')->default(null);
+            $table->unsignedBigInteger('created_by')->default(0);
             $table->timestamps();
         });
     }

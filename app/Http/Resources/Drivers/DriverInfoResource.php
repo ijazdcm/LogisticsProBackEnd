@@ -16,7 +16,7 @@ class DriverInfoResource extends JsonResource
     {
         return [
             "driver_id"=>$this->id,
-            "driver_type_info"=>DriverTypeResource::make($this->whenLoaded('driver__types')) ,
+            "driver_type_info"=>DriverTypeResource::make($this->whenLoaded('driver__types')),
             "driver_name"=>$this->driver_name,
             "driver_code"=>$this->driver_code,
             "driver_phone_1"=>$this->driver_phone_1,
@@ -30,7 +30,7 @@ class DriverInfoResource extends JsonResource
             "driver_photo"=>$this->driver_photo,
             "aadhar_card"=>$this->aadhar_card,
             "pan_card"=>$this->pan_card,
-            "driver_status"=>$this->driver_status,
+            "driver_status"=>($this->driver_status)?$this->driver_status: 1,
         ];
     }
 }

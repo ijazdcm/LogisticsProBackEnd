@@ -32,7 +32,7 @@ class CreateParkingYardGatesTable extends Migration
             $table->string('parking_status')->default(null)->comment('Waiting Outside, Gate In, Gate Out');
             $table->timestamp('gate_in_date_time')->useCurrent();
             $table->timestamp('gate_out_date_time')->useCurrent();
-            $table->unsignedBigInteger('created_by')->default(null);
+            $table->unsignedBigInteger('created_by')->default(0);
             $table->timestamps();
         });
     }

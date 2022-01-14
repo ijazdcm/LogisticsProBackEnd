@@ -47,8 +47,8 @@ class CreateVendorInfosTable extends Migration
             $table->string('gst_tax_code');
             $table->string('payment_term_3days');
             $table->string('remarks');
-            $table->tinyInteger('vandor_status')->default(null)->comment('1 - Approved, 0 - Rejected, 2 - created ');
-            $table->unsignedBigInteger('created_by')->default(null);
+            $table->tinyInteger('vendor_status')->default(2)->comment('1 - Approved, 0 - Rejected, 2 - created ');
+            $table->unsignedBigInteger('created_by')->default(0);
             $table->timestamps();
         });
     }
