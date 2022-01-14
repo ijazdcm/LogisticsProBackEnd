@@ -37,7 +37,6 @@ class VehicleCapacityObserver
      */
     public function deleted(Vehicle_Capacity $vehicle_Capacity)
     {
-
     }
 
     /**
