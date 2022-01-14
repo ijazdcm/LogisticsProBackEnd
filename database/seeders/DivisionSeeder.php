@@ -7,7 +7,10 @@ use Illuminate\Database\Seeder;
 
 class DivisionSeeder extends Seeder
 {
-    public $Divison_list=["NLFD","NLCD","NLMD","NLLD","NLFA"];
+
+
+    public $division_list = ["NLFD", "NLCD", "NLLD", "NLMD", "NLFA"];
+
     /**
      * Run the database seeds.
      *
@@ -15,11 +18,12 @@ class DivisionSeeder extends Seeder
      */
     public function run()
     {
-        for ($i=0,$length=count($this->Divison_list); $i < $length; $i++) {
 
-            $divison_type=new Division();
-            $divison_type->division_name=$this->Divison_list[$i];
-            $divison_type->save();
+        for ($i = 0, $length = count($this->division_list); $i < $length; $i++) {
+
+            $division = new Division();
+            $division->division_name = $this->division_list[$i];
+            $division->save();
         }
     }
 }
