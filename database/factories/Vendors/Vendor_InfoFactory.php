@@ -1,8 +1,8 @@
 <?php
 
-namespace Database\Factories\Vendor;
+namespace Database\Factories\Vendors;
 
-use App\Models\Vendor\Vendor_Info;
+use App\Models\Vendors\Vendor_Info;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class Vendor_InfoFactory extends Factory
