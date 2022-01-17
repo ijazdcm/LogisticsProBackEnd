@@ -10,6 +10,17 @@ class Vendor_Info extends Model
 {
     use HasFactory;
 
+    public const PAN_CARD_ATTACHMENT="";
+    public const AADHAR_CARD_ATTACHMENT="";
+    public const LICENSE_COPY="";
+    public const RC_CPY_FRONT="";
+    public const RC_CPY_BACK="";
+    public const INSURANCE_CPY="";
+    public const TRANS_SHED_SHEET="";
+    public const TDS_DEC_FORM_FRONT="";
+    public const TDS_DEC_FORM_BACK="";
+
+
     protected $table="vendor__infos";
 
     protected $fillable=[

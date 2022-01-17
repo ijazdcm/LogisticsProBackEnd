@@ -34,7 +34,7 @@ class ShedPutRequest extends FormRequest
 
 
         return [
-        "shed_type_id"=>['required','numeric'],
+        "shed_type_id"=>['required','exists:shed__types,id'],
         "shed_name"=>['required'],
         "shed_owner_name"=>['required'],
         "shed_owner_phone_1"=>['required','numeric','digits:10'],

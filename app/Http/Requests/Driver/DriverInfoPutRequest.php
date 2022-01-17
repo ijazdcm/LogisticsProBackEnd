@@ -65,7 +65,7 @@ class DriverInfoPutRequest extends FormRequest
             $file_validation_pan_card="sometimes";
         }
         return [
-            "driver_type_id"=>['required'],
+            "driver_type_id"=>['required','exists:driver__types,id'],
             "driver_name"=>['required'],
             "driver_code"=>['required','numeric','min:6'],
             "driver_phone_1"=>['required','numeric','digits:10'],

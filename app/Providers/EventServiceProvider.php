@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\Department\Department;
 use App\Models\Designation\Designation;
+use App\Models\Diesel\Diesel_Vendor;
 use App\Models\Divison\Division;
 use App\Models\Driver\Driver_Info;
 use App\Models\Shed\Shed_Info;
@@ -17,7 +18,7 @@ use App\Observers\Division\DivisionObserver;
 
 use App\Observers\Department\DepartmentObserver;
 use App\Observers\Designation\DesignationObserver;
-
+use App\Observers\DieselVendor\DieselVendorInfoObserver;
 use App\Observers\Sheds\ShedInfoObserver;
 use App\Observers\Vendor\VendorInfoObserver;
 
@@ -56,6 +57,7 @@ class EventServiceProvider extends ServiceProvider
 
         Shed_Info::observe(ShedInfoObserver::class); // Added By Saravana Sai
         Vendor_Info::observe(VendorInfoObserver::class); // Added By Saravana Sai
+        Diesel_Vendor::observe(DieselVendorInfoObserver::class); // Added By Saravana Sai
 
     }
 }

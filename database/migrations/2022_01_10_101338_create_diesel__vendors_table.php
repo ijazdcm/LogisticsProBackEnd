@@ -16,10 +16,11 @@ class CreateDieselVendorsTable extends Migration
         Schema::create('diesel__vendors', function (Blueprint $table) {
             $table->id();
             $table->string('diesel_vendor_name');
-            $table->string('vendor_code');
+            $table->string('vendor_code')->nullable();
             $table->string('vendor_phone_1');
             $table->string('vendor_phone_2');
             $table->string('vendor_email_id');
+            $table->tinyInteger('diesel_vendors_status')->default(1)->comment(' 1 - Active, 0 - In-Active');
             $table->unsignedBigInteger('created_by')->default(0);
             $table->timestamps();
         });

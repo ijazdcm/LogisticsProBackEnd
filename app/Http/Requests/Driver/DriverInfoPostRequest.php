@@ -24,7 +24,7 @@ class DriverInfoPostRequest extends FormRequest
     public function rules()
     {
         return [
-            "driver_type_id"=>['required'],
+            "driver_type_id"=>['required','exists:driver__types,id'],
             "driver_name"=>['required'],
             "driver_code"=>['required','numeric','min:6','unique:driver__infos,driver_code'],
             "driver_phone_1"=>['required','numeric','digits:10'],

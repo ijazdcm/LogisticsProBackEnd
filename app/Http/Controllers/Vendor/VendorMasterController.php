@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Vendor;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Vendors\VendorInfoStoreRequest;
 use App\Http\Resources\Vendor\VendorInfoResource;
 use App\Models\Vendors\Vendor_Info;
 use Illuminate\Http\Request;
@@ -29,7 +30,7 @@ class VendorMasterController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(VendorInfoStoreRequest $request)
     {
         //
     }

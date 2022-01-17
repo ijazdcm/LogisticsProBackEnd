@@ -43,7 +43,7 @@ class CreateVendorInfosTable extends Migration
             $table->string('tds_decelration_form_front');
             $table->string('tds_decelration_form_back');
             $table->string('gts_registration');
-            $table->string('gts_registration_number');
+            $table->string('gts_registration_number')->nullable();
             $table->string('gst_tax_code');
             $table->string('payment_term_3days');
             $table->string('remarks');

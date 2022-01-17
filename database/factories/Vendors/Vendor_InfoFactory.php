@@ -43,7 +43,7 @@ class Vendor_InfoFactory extends Factory
             "region"=>$this->faker->randomElement($array=["LN","KN","HX","JG","VH","ZX"]),
             "tds_decelration_form_front"=>"V_TDS_DEC_FRT".rand(1,50).".jpeg",
             "tds_decelration_form_back"=>"V_TDS_DEC_BCK".rand(1,50).".jpeg",
-            "gts_registration"=>"V_TDS_DEC_BCK".rand(1,50).".jpeg",
+            "gts_registration"=>"1",
             "gts_registration_number"=>"GTS".$this->faker->unique()->numberBetween($min = 99999, $max = 999999),
             "gst_tax_code"=>"GTS".$this->faker->unique()->numberBetween($min = 99999, $max = 999999),
             "payment_term_3days"=>$this->faker->time,
