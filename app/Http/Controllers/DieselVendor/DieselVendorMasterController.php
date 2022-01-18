@@ -33,7 +33,6 @@ class DieselVendorMasterController extends Controller
     public function store(DieselVendorRequest $request)
     {
         //vendor code auto generated handled on DieselVendorInfoObserver
-
          return DieselVendorInfoResource::make( Diesel_Vendor::create($request->validated()));
     }
 

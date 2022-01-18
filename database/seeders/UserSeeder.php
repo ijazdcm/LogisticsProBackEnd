@@ -15,10 +15,28 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+        //admin login credentials
         User::create([
             "username"=>"naga",
             "email"=>"admin@nagamills.com",
             "password"=>Hash::make('naga'),
+            "mobile_no"=>"1231231231",
+            "photo"=>"adminImage.jpeg",
+            "is_admin"=>1
         ]);
+         //user login credentials
+        User::create([
+            "username"=>"user",
+            "email"=>"user@nagamills.com",
+            "password"=>Hash::make('naga'),
+            "mobile_no"=>"7708454539",
+            "photo"=>"userImage.jpeg",
+            "division_id"=>1,
+            "department_id"=>1,
+            "designation_id"=>1,
+
+        ]);
+
+        User::factory()->count(50)->create();
     }
 }

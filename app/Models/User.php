@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\Department\Department;
+use App\Models\Designation\Designation;
+use App\Models\Divison\Division;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -18,9 +21,18 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'username',
         'email',
         'password',
+        'mobile_no',
+        'photo',
+        'serial_no',
+        'user_auto_id',
+        'is_admin',
+        'division_id',
+        'department_id',
+        'designation_id',
+        'created_by',
     ];
 
     /**
@@ -41,4 +53,20 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    public function Division()
+    {
+        return $this->hasOne(Division::class,'id','division_id');
+    }
+
+    public function Designation()
+    {
+        return $this->hasOne(Designation::class,'id','designation_id');
+    }
+
+    public function Department()
+    {
+        return $this->hasOne(Department::class,'id','department_id');
+    }
 }

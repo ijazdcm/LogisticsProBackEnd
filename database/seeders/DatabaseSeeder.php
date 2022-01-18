@@ -13,8 +13,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
-        $this->call(UserSeeder::class);
 
         //SECTION TO SEED FOR VEHICLE SMALL MASTERS
 
@@ -35,6 +33,9 @@ class DatabaseSeeder extends Seeder
         $this->call(ShedInfoSeeder::class); // Added By Saravana Sai
         $this->call(VendorInfoSeeder::class); // Added By Saravana Sai
         $this->call(DieselVendorSeeder::class); // Added By Saravana Sai
+         // \App\Models\User::factory(10)->create();
+         $this->call(UserSeeder::class);
+
 
     }
 }
