@@ -7,7 +7,9 @@ use App\Models\Designation\Designation;
 use App\Models\Diesel\Diesel_Vendor;
 use App\Models\Divison\Division;
 use App\Models\Driver\Driver_Info;
+use App\Models\MaterialDescription\MaterialDescription;
 use App\Models\Shed\Shed_Info;
+use App\Models\Uom\Uom;
 use App\Models\Vehicles\Vehicle_Capacity;
 use App\Models\Vehicles\Vehicle_Info;
 use App\Models\Vendors\Vendor_Info;
@@ -19,7 +21,9 @@ use App\Observers\Division\DivisionObserver;
 use App\Observers\Department\DepartmentObserver;
 use App\Observers\Designation\DesignationObserver;
 use App\Observers\DieselVendor\DieselVendorInfoObserver;
+use App\Observers\MaterialDescription\MaterialDescriptionObserver;
 use App\Observers\Sheds\ShedInfoObserver;
+use App\Observers\Uom\UomObserver;
 use App\Observers\Vendor\VendorInfoObserver;
 
 use Illuminate\Auth\Events\Registered;
@@ -50,8 +54,10 @@ class EventServiceProvider extends ServiceProvider
         Vehicle_Capacity::observe(VehicleCapacityObserver::class);
         Vehicle_Info::observe(VehicleInfoObserver::class);
         Driver_Info::observe(DriverInfoObserver::class);
-        Division::observe(DivisionObserver::class); // Added By Alwin
 
+        Division::observe(DivisionObserver::class); // Added By Alwin
+        Uom::observe(UomObserver::class); // Added By Alwin
+        MaterialDescription::observe(MaterialDescriptionObserver::class); // Added By Alwin
         Department::observe(DepartmentObserver::class); // Added By Alwin
         Designation::observe(DesignationObserver::class); // Added By Alwin
 
