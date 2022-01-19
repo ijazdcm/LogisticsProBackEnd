@@ -83,6 +83,21 @@ class RouteServiceProvider extends ServiceProvider
                 ->middleware('api')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/v1/MaterialDescription/material_description_routes.php'));
+
+            Route::prefix('api/v1/')
+                ->middleware('api')
+                ->namespace($this->namespace)
+                ->group(base_path('routes/v1/RejectionReason/rejection_reason_routes.php'));
+
+            Route::prefix('api/v1/')
+                ->middleware('api')
+                ->namespace($this->namespace)
+                ->group(base_path('routes/v1/PreviousLoadDetails/previous_load_details_routes.php'));
+
+            Route::prefix('api/v1/')
+                ->middleware('api')
+                ->namespace($this->namespace)
+                ->group(base_path('routes/v1/Status/status_routes.php'));
             // ------------------------------------(End)-------------------------------
 
             // -----------------------Added By Saravana sai------------(Start)--------------------------------
@@ -99,11 +114,11 @@ class RouteServiceProvider extends ServiceProvider
                 ->group(base_path('routes/v1/Vendor/vendor_routes.php'));
             // ------------------------------------(End)-------------------------------
 
-             // -----------------------Added By Saravana sai------------(Start)--------------------------------
-             Route::prefix('api/v1/')
-             ->middleware('api')
-             ->namespace($this->namespace)
-             ->group(base_path('routes/v1/User/user_routes.php'));
+            // -----------------------Added By Saravana sai------------(Start)--------------------------------
+            Route::prefix('api/v1/')
+                ->middleware('api')
+                ->namespace($this->namespace)
+                ->group(base_path('routes/v1/User/user_routes.php'));
             // ------------------------------------(End)-------------------------------
 
             Route::middleware('web')
