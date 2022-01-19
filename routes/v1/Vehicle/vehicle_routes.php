@@ -14,13 +14,13 @@ use App\Http\Controllers\Vehicles\VehicleTypeController;
 
 Route::group(["middleware"=>"auth:sanctum"],function()
 {
-    Route::get('vehicleType',VehicleTypeController::class);
-    Route::get('vehicleBody',VehicleBodyController::class);
-
-    Route::apiResource('vehicleCapacity',VehicleCapacityController::class);
-
-    Route::apiResource('vehicles',VehicleMasterController::class);
+        //after the auth  have been implemented move the below routes inside the middle ware
 });
 
 
+Route::get('vehicleType',VehicleTypeController::class);
+Route::get('vehicleBody',VehicleBodyController::class);
 
+Route::apiResource('vehicleCapacity',VehicleCapacityController::class);
+
+Route::apiResource('vehicles',VehicleMasterController::class);

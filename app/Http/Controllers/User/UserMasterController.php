@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Action\User\UpdateUserImageAction;
+use App\Action\User\UserIdAction;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\User\UserPutRequest;
+use App\Http\Requests\User\UserStoreRequest;
 use App\Http\Resources\User\UserResource;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 
 class UserMasterController extends Controller
 {
@@ -29,9 +33,20 @@ class UserMasterController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserStoreRequest $request,UserIdAction $action)
     {
-        //
+
+        $altered_request=array_merge($request->validated(),
+
+            ['user_auto_id'=>$action->getUserId(
+                $request->division_id,
+            $request->department_id,
+            $request->designation_id).$request->serial_no]
+        );
+
+        $user=User::create($altered_request);
+
+        return  UserResource::make($user->load('Division')->load('Designation')->load('Department'));
     }
 
     /**
@@ -58,9 +73,38 @@ class UserMasterController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UserPutRequest $request, $id,UpdateUserImageAction $action,UserIdAction $userIdAction)
     {
-        //
+
+        $user=User::find($id);
+
+        if($user)
+        {
+
+          $user=$action->handleUpdateImages($request,$user);
+
+           $is_updated=$user->update([
+               "username"=>$request->username,
+               "email"=>$request->email,
+               "password"=>$request->password,
+               "mobile_no"=>$request->mobile_no,
+               "serial_no"=>$request->serial_no,
+               "user_auto_id"=>$userIdAction->getUserId( $request->division_id, $request->department_id,$request->designation_id).$request->serial_no,
+               "division_id"=>$request->division_id,
+               "department_id"=>$request->department_id,
+               "designation_id"=>$request->designation_id,
+           ]);
+
+           if($is_updated)
+           {
+              $updated_user=User::find($id);
+
+               return new UserResource($updated_user->load('Division')->load('Designation')->load('Department'));
+           }
+        }
+        return response()->json(['message' => 'Something went wrong'],500);
+
+
     }
 
     /**
@@ -71,6 +115,7 @@ class UserMasterController extends Controller
      */
     public function destroy($id)
     {
-        //
+        User::destroy($id);
+        return response('',204)->header('Content-Type', 'application/json');
     }
 }

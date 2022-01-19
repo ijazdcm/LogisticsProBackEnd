@@ -13,10 +13,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(["middleware"=>"auth:sanctum"],function()
 {
-    Route::get('driverType',DriverTypeController::class);
-
-    Route::apiResource('drivers',DriverMasterController::class);
+   //after the auth  have been implemented move the below routes inside the middle ware
 });
 
 
+Route::get('driverType',DriverTypeController::class);
 
+Route::apiResource('drivers',DriverMasterController::class);

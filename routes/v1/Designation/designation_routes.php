@@ -12,5 +12,9 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::group(["middleware" => "auth:sanctum"], function () {
-    Route::apiResource('designation', DesignationMasterController::class);
+
+  //after the auth  have been implemented move the below routes inside the middle ware
+
 });
+
+Route::apiResource('designation', DesignationMasterController::class);

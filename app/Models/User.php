@@ -15,6 +15,14 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    public const USER_PHOTO_PATH="User/UsersPhoto";
+
+    public const DIVISION_CODES=["1"=>"FD","2"=>"CD","3"=>"LD","4"=>"MD","5"=>"FA"];
+
+    public const DEPARTMENT_CODES=["1"=>"AD","2"=>"AC","3"=>"MT","4"=>"SO","5"=>"BI"];
+
+    public const DESIGNATION_CODES=["1"=>"AD","2"=>"MA","3"=>"DE","4"=>"SE","5"=>"AS"];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -69,4 +77,7 @@ class User extends Authenticatable
     {
         return $this->hasOne(Department::class,'id','department_id');
     }
+
+
+
 }
