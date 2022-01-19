@@ -28,16 +28,19 @@ class DatabaseSeeder extends Seeder
         $this->call(MaterialDescriptionSeeder::class); // Added By Alwin
         $this->call(DepartmentSeeder::class); // Added By Alwin
         $this->call(DesignationSeeder::class); // Added By Alwin
+        $this->call(RejectionReasonSeeder::class); // Added By Alwin
+        $this->call(PreviousLoadDetailsSeeder::class); // Added By Alwin
+        $this->call(StatusSeeder::class); // Added By Alwin
 
         $this->call(ShedTypeSeeder::class); // Added By Saravana Sai
         $this->call(ShedInfoSeeder::class); // Added By Saravana Sai
         $this->call(VendorInfoSeeder::class); // Added By Saravana Sai
         $this->call(DieselVendorSeeder::class); // Added By Saravana Sai
+
          // \App\Models\User::factory(10)->create();
          $this->call(UserSeeder::class);
 
          $this->call(ParkingYardGateSeeder::class); //added by Saravana Sai
-
 
     }
 }

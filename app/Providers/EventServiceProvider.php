@@ -8,7 +8,10 @@ use App\Models\Diesel\Diesel_Vendor;
 use App\Models\Divison\Division;
 use App\Models\Driver\Driver_Info;
 use App\Models\MaterialDescription\MaterialDescription;
+use App\Models\PreviousLoadDetails\PreviousLoadDetails;
+use App\Models\RejectionReason\RejectionReason;
 use App\Models\Shed\Shed_Info;
+use App\Models\Status\Status;
 use App\Models\Uom\Uom;
 use App\Models\Vehicles\Vehicle_Capacity;
 use App\Models\Vehicles\Vehicle_Info;
@@ -22,7 +25,10 @@ use App\Observers\Department\DepartmentObserver;
 use App\Observers\Designation\DesignationObserver;
 use App\Observers\DieselVendor\DieselVendorInfoObserver;
 use App\Observers\MaterialDescription\MaterialDescriptionObserver;
+use App\Observers\PreviousLoadDetails\PreviousLoadDetailsObserver;
+use App\Observers\RejectionReason\RejectionReasonObserver;
 use App\Observers\Sheds\ShedInfoObserver;
+use App\Observers\Status\StatusObserver;
 use App\Observers\Uom\UomObserver;
 use App\Observers\Vendor\VendorInfoObserver;
 
@@ -60,6 +66,9 @@ class EventServiceProvider extends ServiceProvider
         MaterialDescription::observe(MaterialDescriptionObserver::class); // Added By Alwin
         Department::observe(DepartmentObserver::class); // Added By Alwin
         Designation::observe(DesignationObserver::class); // Added By Alwin
+        RejectionReason::observe(RejectionReasonObserver::class); // Added By Alwin
+        PreviousLoadDetails::observe(PreviousLoadDetailsObserver::class); // Added By Alwin
+        Status::observe(StatusObserver::class); // Added By Alwin
 
         Shed_Info::observe(ShedInfoObserver::class); // Added By Saravana Sai
         Vendor_Info::observe(VendorInfoObserver::class); // Added By Saravana Sai
