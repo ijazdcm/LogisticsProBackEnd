@@ -1,23 +1,21 @@
 <?php
 
-use App\Http\Controllers\Shed\ShedInfoController;
-use App\Http\Controllers\Shed\ShedTypeController;
+use App\Http\Controllers\ParkingYardGate\ParkingYardGateController;
 use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
-| API Routes For ALL SHED Related Routes
+| API Routes For ALL Driver Related Routes
 |--------------------------------------------------------------------------
 */
 
 
 Route::group(["middleware"=>"auth:sanctum"],function()
 {
-
     //after the auth  have been implemented move the below routes inside the middle ware
-
 });
 
-Route::get('shedType',ShedTypeController::class);
 
-Route::apiResource('shed',ShedInfoController::class);
 
+
+Route::apiResource('parkingYard',ParkingYardGateController::class);
