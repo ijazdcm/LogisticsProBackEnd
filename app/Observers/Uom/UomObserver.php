@@ -37,6 +37,7 @@ class UomObserver
      */
     public function deleted(Uom $uom)
     {
+        Cache::forget('uom');
     }
 
     /**

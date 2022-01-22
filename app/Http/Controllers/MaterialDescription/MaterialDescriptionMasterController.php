@@ -21,7 +21,8 @@ class MaterialDescriptionMasterController extends Controller
 
         return Cache::remember('material_description', now()->addDecade(), function () {
 
-            return MaterialDescriptionResource::collection(MaterialDescription::where('material_description_status', 1)->get());
+            // return MaterialDescriptionResource::collection(MaterialDescription::where('material_description_status', 1)->get());
+            return MaterialDescriptionResource::collection(MaterialDescription::all());
         });
     }
 
@@ -45,7 +46,8 @@ class MaterialDescriptionMasterController extends Controller
     public function show($id)
     {
 
-        $material_description_active = MaterialDescription::where('material_description_status', 1)
+        // $material_description_active = MaterialDescription::where('material_description_status', 1)
+        $material_description_active = MaterialDescription::all()
             ->where('id', $id)
             ->first();
 
@@ -66,10 +68,11 @@ class MaterialDescriptionMasterController extends Controller
     public function update(MaterialDescriptionRequest $request, $id)
     {
 
-        $old_material_description = MaterialDescription::where('material_description_status', 1)
+        $old_material_description = MaterialDescription::all()
             ->where('id', $id)
             ->first();
         if ($old_material_description) {
+
             $old_material_description->update($request->validated());
             return new MaterialDescriptionResource($old_material_description);
         }
@@ -86,11 +89,13 @@ class MaterialDescriptionMasterController extends Controller
     public function destroy($id)
     {
 
-        $del_material_description = MaterialDescription::where('material_description_status', 1)
-            ->where('id', $id)
+        // $del_material_description = MaterialDescription::where('material_description_status', 1)
+        $del_material_description = MaterialDescription::where('id', $id)
+            // ->where('id', $id)
             ->first();
         if ($del_material_description) {
-            $del_material_description->update([$del_material_description->material_description_status = 0]);
+            // $del_material_description->update([$del_material_description->material_description_status = 0]);
+            $del_material_description->delete();
             return response('', 204)->header('Content-Type', 'application/json');
         } else {
             return response()->json(['message' => 'Material Description Not found'], 404);

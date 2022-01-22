@@ -21,7 +21,8 @@ class UomMasterController extends Controller
 
         return Cache::remember('uom', now()->addDecade(), function () {
 
-            return UomResource::collection(Uom::where('uom_status', 1)->get());
+            // return UomResource::collection(Uom::where('uom_status', 1)->get());
+            return UomResource::collection(Uom::all());
         });
     }
 
@@ -45,7 +46,7 @@ class UomMasterController extends Controller
     public function show($id)
     {
 
-        $uom_active = Uom::where('uom_status', 1)
+        $uom_active = Uom::all()
             ->where('id', $id)
             ->first();
 
@@ -66,7 +67,7 @@ class UomMasterController extends Controller
     public function update(UomRequest $request, $id)
     {
 
-        $old_uom = Uom::where('uom_status', 1)
+        $old_uom = Uom::all()
             ->where('id', $id)
             ->first();
         if ($old_uom) {
@@ -86,11 +87,12 @@ class UomMasterController extends Controller
     public function destroy($id)
     {
 
-        $del_uom = Uom::where('uom_status', 1)
+        $del_uom = Uom::all()
             ->where('id', $id)
             ->first();
         if ($del_uom) {
-            $del_uom->update([$del_uom->uom_status = 0]);
+            // $del_uom->update([$del_uom->uom_status = 0]);
+            $del_uom->delete();
             return response('', 204)->header('Content-Type', 'application/json');
         } else {
             return response()->json(['message' => 'Uom Not found'], 404);
