@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\DefectType\Defect_Type;
 use App\Models\Department\Department;
 use App\Models\Designation\Designation;
 use App\Models\Diesel\Diesel_Vendor;
@@ -16,6 +17,7 @@ use App\Models\Uom\Uom;
 use App\Models\Vehicles\Vehicle_Capacity;
 use App\Models\Vehicles\Vehicle_Info;
 use App\Models\Vendors\Vendor_Info;
+use App\Observers\DefectType\DefectTypeObserver;
 use App\Observers\Drivers\DriverInfoObserver;
 use App\Observers\Vehicle\VehicleCapacityObserver;
 use App\Observers\Vehicle\VehicleInfoObserver;
@@ -73,6 +75,7 @@ class EventServiceProvider extends ServiceProvider
         Shed_Info::observe(ShedInfoObserver::class); // Added By Saravana Sai
         Vendor_Info::observe(VendorInfoObserver::class); // Added By Saravana Sai
         Diesel_Vendor::observe(DieselVendorInfoObserver::class); // Added By Saravana Sai
+        Defect_Type::observe(DefectTypeObserver::class); // Added By Saravana Sai
 
     }
 }
