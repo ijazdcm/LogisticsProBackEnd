@@ -37,6 +37,7 @@ class MaterialDescriptionObserver
      */
     public function deleted(MaterialDescription $material_description)
     {
+        Cache::forget('material_description');
     }
 
     /**

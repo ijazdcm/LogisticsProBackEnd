@@ -16,7 +16,9 @@ class MaterialDescriptionResource extends JsonResource
     {
         return [
             'id' => (string)$this->id,
-            'material_description' => $this->material_description
+            'creation_date' => (string)$this->created_at,
+            'material_description' => $this->material_description,
+            'status' => (string)$this->material_description_status
         ];
     }
 }

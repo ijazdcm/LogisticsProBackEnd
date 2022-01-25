@@ -16,7 +16,9 @@ class UomResource extends JsonResource
     {
         return [
             'id' => (string)$this->id,
-            'uom' => $this->uom
+            'creation_date' => (string)$this->created_at,
+            'uom' => $this->uom,
+            'status' => (string)$this->uom_status
         ];
     }
 }
