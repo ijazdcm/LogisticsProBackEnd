@@ -41,6 +41,7 @@ class DatabaseSeeder extends Seeder
          $this->call(UserSeeder::class);
 
          $this->call(ParkingYardGateSeeder::class); //added by Saravana Sai
+         $this->call(DefectTypeSeeder::class); //added by Saravana Sai
 
     }
 }
