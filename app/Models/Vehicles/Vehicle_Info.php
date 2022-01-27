@@ -32,6 +32,9 @@ class Vehicle_Info extends Model
         "created_by",
     ];
 
+
+    protected $dates = ['created_at'];
+
     public function Vehicle_Type()
     {
         return $this->hasOne(Vehicle_Type::class,'id','vehicle_type_id');
