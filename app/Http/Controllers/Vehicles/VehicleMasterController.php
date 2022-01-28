@@ -26,7 +26,7 @@ class VehicleMasterController extends Controller
             return Vehicle_Info::with('Vehicle_Type')
               ->with('Vehicle_Capacity')
               ->with('Vehicle_Body_Type')
-              ->where('vehicle_status',1)->get();
+              ->get();
 
         }));
     }
@@ -142,12 +142,12 @@ class VehicleMasterController extends Controller
     public function destroy($id)
     {
 
-        $vehicle=Vehicle_Info::where('vehicle_status',1)
-        ->where('id',$id)
+        $vehicle=Vehicle_Info::where('id',$id)
         ->first();
         if($vehicle)
         {
-            $vehicle->update([$vehicle->vehicle_status=0]);
+            $status=($vehicle->vehicle_status==0)?1:0;
+            $vehicle->update([$vehicle->vehicle_status=$status]);
             return response('',204)->header('Content-Type', 'application/json');
         }
 

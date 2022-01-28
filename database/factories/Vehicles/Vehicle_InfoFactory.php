@@ -18,8 +18,8 @@ class Vehicle_InfoFactory extends Factory
     {
         return [
 
-            "vehicle_type_id"=>rand(1,4),
-            "vehicle_number"=>'TN'.rand(1,80).'NA'.$this->faker->numberBetween($min = 9999, $max = 100000),
+            "vehicle_type_id"=>rand(1,2),
+            "vehicle_number"=>'TN'.rand(1,80).'NA'.$this->faker->numberBetween($min = 9999, $max = 99999),
             "vehicle_capacity_id"=>rand(1,5),
             "vehicle_body_type_id"=>rand(1,2),
             "rc_copy_front"=>"dummyrcFront".rand(1,20).".jpeg",
