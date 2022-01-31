@@ -21,14 +21,14 @@ class CreateParkingYardGatesTable extends Migration
             $table->foreign('vehicle_id')->references('id')->on('vehicle__infos');
             $table->unsignedBigInteger('driver_id');
             $table->foreign('driver_id')->references('id')->on('driver__infos');
-            $table->string('odometer_km');
-            $table->string('odometer_photo');
+            $table->string('odometer_km')->default("null");
+            $table->string('odometer_photo')->default("null");
             $table->string('vehicle_number');
             $table->unsignedBigInteger('vehicle_capacity_id');
             $table->foreign('vehicle_capacity_id')->references('id')->on('vehicle__capacities');
             $table->string('driver_name');
             $table->string('driver_contact_number');
-            $table->unsignedBigInteger('vehicle_body_type_id');
+            $table->unsignedBigInteger('vehicle_body_type_id')->default(0);
             $table->foreign('vehicle_body_type_id')->references('id')->on('vehicle__body__types');
             $table->string('party_name')->default("null");
             $table->text('remarks');

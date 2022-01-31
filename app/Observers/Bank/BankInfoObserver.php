@@ -15,7 +15,7 @@ class BankInfoObserver
      */
     public function created(Bank_info $bank_info)
     {
-        //
+        Cache::forget('bank');
     }
 
     /**

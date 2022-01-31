@@ -20,7 +20,7 @@ class BankMasterController extends Controller
     {
         return Cache::remember('bank', now()->addDecade(), function () {
 
-            return BankInfoResource::collection(Bank_info::where('bank_status', 1)->get());
+            return BankInfoResource::collection(Bank_info::all());
         });
     }
 
@@ -86,7 +86,7 @@ class BankMasterController extends Controller
     {
         $bank = Bank_info::where('id', $id)->first();
         if ($bank) {
-             $status=($bank->bank_status ==0)?1:0;
+             $status=($bank->bank_status==0)?1:0;
             $bank->update([$bank->bank_status = $status]);
             return response('', 204)->header('Content-Type', 'application/json');
         } else {
