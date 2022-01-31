@@ -26,11 +26,12 @@ class DieselVendorRequest extends FormRequest
     {
 
         return [
-            "diesel_vendor_name"=>['required'],
-            "vendor_phone_1"=>['required','numeric','digits:10'],
-            "vendor_phone_2"=>['required','numeric','digits:10'],
-            "vendor_email_id"=>['required','email'],
+            "diesel_vendor_name" => ['required'],
+            "vendor_code" =>  ['required', 'numeric', 'digits:5'],
+            "vendor_phone_1" => ['required', 'numeric', 'digits:10'],
+            "vendor_phone_2" => ['required', 'numeric', 'digits:10'],
+            "vendor_email_id" => ['required', 'email'],
+            "diesel_vendors_status" => ['sometimes', 'required'],
         ];
     }
-
 }

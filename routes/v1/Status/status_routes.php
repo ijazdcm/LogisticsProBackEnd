@@ -11,5 +11,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::group(["middleware" => "auth:sanctum"], function () {
-    Route::apiResource('status', StatusMasterController::class);
+    // Route::apiResource('status', StatusMasterController::class);
 });
+
+Route::apiResource('status', StatusMasterController::class);
