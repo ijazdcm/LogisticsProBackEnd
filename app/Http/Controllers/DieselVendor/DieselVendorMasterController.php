@@ -18,9 +18,8 @@ class DieselVendorMasterController extends Controller
      */
     public function index()
     {
-        return DieselVendorInfoResource::collection(Cache::remember('diesel_vendor',now()->addDecade(),function()
-        {
-                return Diesel_Vendor::active()->get();
+        return DieselVendorInfoResource::collection(Cache::remember('diesel_vendor', now()->addDecade(), function () {
+            return Diesel_Vendor::all();
         }));
     }
 
@@ -33,7 +32,7 @@ class DieselVendorMasterController extends Controller
     public function store(DieselVendorRequest $request)
     {
         //vendor code auto generated handled on DieselVendorInfoObserver
-         return DieselVendorInfoResource::make( Diesel_Vendor::create($request->validated()));
+        return DieselVendorInfoResource::make(Diesel_Vendor::create($request->validated()));
     }
 
     /**
@@ -44,11 +43,10 @@ class DieselVendorMasterController extends Controller
      */
     public function show($id)
     {
-        $diesel_vendor=Diesel_Vendor::active()->where('id',$id)->first();
+        $diesel_vendor = Diesel_Vendor::where('id', $id)->first();
 
-        if($diesel_vendor)
-        {
-        return new DieselVendorInfoResource($diesel_vendor);
+        if ($diesel_vendor) {
+            return new DieselVendorInfoResource($diesel_vendor);
         }
         return response()->json(['message' => 'Vendor Not found'], 404);
     }
@@ -62,24 +60,19 @@ class DieselVendorMasterController extends Controller
      */
     public function update(DieselVendorRequest $request, $id)
     {
-        $diesel_vendor=Diesel_Vendor::active()
-        ->where('id',$id)
-        ->first();
-        if($diesel_vendor)
-        {
 
-           $is_updated=$diesel_vendor->update($request->validated());
+        $diesel_vendor = Diesel_Vendor::where('id', $id)
+            ->first();
+        if ($diesel_vendor) {
 
-           if($is_updated)
-           {
-              $updated_diesel_vendor=Diesel_Vendor::active()->where('id',$id)->first();
-               return  DieselVendorInfoResource::make($updated_diesel_vendor);
-           }
+            $is_updated = $diesel_vendor->update($request->validated());
 
-
-
+            if ($is_updated) {
+                $updated_diesel_vendor = Diesel_Vendor::active()->where('id', $id)->first();
+                return  DieselVendorInfoResource::make($updated_diesel_vendor);
+            }
         }
-        return response()->json(['message' => 'Something went wrong'],500);
+        return response()->json(['message' => 'Something went wrong'], 500);
     }
 
     /**
@@ -90,11 +83,11 @@ class DieselVendorMasterController extends Controller
      */
     public function destroy($id)
     {
-        $diesel_vendor=Diesel_Vendor::active()->where('id',$id)->first();
-        if($diesel_vendor)
-        {
-            $diesel_vendor->update([$diesel_vendor->diesel_vendors_status=0]);
-            return response('',204)->header('Content-Type', 'application/json');
+        $diesel_vendor = Diesel_Vendor::where('id', $id)->first();
+        if ($diesel_vendor) {
+            $status = ($diesel_vendor->diesel_vendors_status == 0) ? 1 : 0;
+            $diesel_vendor->update([$diesel_vendor->diesel_vendors_status = $status]);
+            return response('', 204)->header('Content-Type', 'application/json');
         }
 
         return response()->json(['message' => 'Diesel Vendor Not found'], 404);
