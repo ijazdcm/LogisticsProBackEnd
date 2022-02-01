@@ -5,6 +5,7 @@ namespace App\Action\Shed;
 use App\Helper\File\FileHelper;
 use App\Models\Shed\Shed_Info;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 class UpdateShedOwnerImageAction
@@ -24,6 +25,7 @@ class UpdateShedOwnerImageAction
      if($request->hasFile('shed_owner_photo'))
      {
          Storage::delete(Shed_Info::SHED_OWNER_PHOTO_PATH."/".$shed->shed_owner_photo);
+         Log::info("its here");
          $shed_owner_photo=$request->file('shed_owner_photo');
          $new_file_name=$this->helper->storeImage($shed_owner_photo,Shed_Info::SHED_OWNER_PHOTO_PATH);
          $shed->shed_owner_photo=$new_file_name;

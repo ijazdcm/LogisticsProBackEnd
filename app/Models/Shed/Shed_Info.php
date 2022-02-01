@@ -23,8 +23,10 @@ class Shed_Info extends Model
         "shed_owner_phone_2",
         "shed_owner_address",
         "shed_owner_photo",
+        "shed_adhar_number",
         "pan_number",
         "gst_no",
+        "shed_status",
         "created_by",
     ];
 
@@ -32,5 +34,10 @@ class Shed_Info extends Model
     public function Shed_Type()
     {
         return $this->hasOne(Shed_Type::class,'id','shed_type_id');
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('shed_status',1);
     }
 }

@@ -24,7 +24,10 @@ class ShedInfoResource extends JsonResource
             "shed_owner_address"=>$this->shed_owner_address,
             "shed_owner_photo"=>$this->shed_owner_photo,
             "pan_number"=>$this->pan_number,
+            "shed_adhar_number"=>$this->shed_adhar_number,
             "gst_no"=>$this->gst_no,
+            "shed_status"=>$this->shed_status,
+            "created_at"=>$this->created_at->format('d.m.Y'),
         ];
     }
 }

@@ -34,6 +34,7 @@ class ShedStoreRequest extends FormRequest
         "shed_owner_address"=>['required'],
         "shed_owner_photo"=>['required','mimes:jpeg,jpg','max:5000'],
         "pan_number"=>['required','alpha_num'],
+        "shed_adhar_number"=>['required','numeric','digits:14'],
         "gst_no"=>['required','alpha_num'],
         ];
     }
