@@ -2,8 +2,14 @@
 
 namespace App\Http\Controllers\ParkingYardGate;
 
+use App\Action\ParkingYardGate\ParkingYardGateAction;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ParkingYardGate\ParkingYardGateStoreRequest;
+use App\Models\ParkingYardGate\Parking_Yard_Gate;
 use Illuminate\Http\Request;
+use App\Http\Resources\ParkingYardGate\ParkingYardGateResource;
+use App\Models\Driver\Driver_Info;
+use Illuminate\Support\Facades\DB;
 
 class ParkingYardGateController extends Controller
 {
@@ -14,7 +20,12 @@ class ParkingYardGateController extends Controller
      */
     public function index()
     {
-        //
+
+        $parking_yard_gate = Parking_Yard_Gate::with('Vehicle_Type')
+            ->parkingstatus()
+            ->get();
+
+        return ParkingYardGateResource::collection($parking_yard_gate);
     }
 
     /**
@@ -23,9 +34,20 @@ class ParkingYardGateController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ParkingYardGateStoreRequest $request, ParkingYardGateAction $gateAction)
     {
-        //
+
+
+        $validated = $gateAction->handleParkingStatus($request);
+
+        DB::transaction(function () use ($gateAction, $request, $validated) {
+
+            $gateAction->handleGateEntry($request);
+
+            Parking_Yard_Gate::create($validated);
+        });
+
+        return ParkingYardGateResource::make(Parking_Yard_Gate::latest()->first());
     }
 
     /**

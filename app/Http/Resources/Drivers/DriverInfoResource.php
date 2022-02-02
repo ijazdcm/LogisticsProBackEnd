@@ -31,6 +31,7 @@ class DriverInfoResource extends JsonResource
             "aadhar_card"=>$this->aadhar_card,
             "pan_card"=>$this->pan_card,
             "driver_status"=>($this->driver_status)?$this->driver_status: 1,
+            "driver_is_assigned"=>$this->driver_is_assigned,
         ];
     }
 }

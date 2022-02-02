@@ -18,7 +18,7 @@ class VehicleByTypeController extends Controller
      */
     public function __invoke($id)
     {
-
-        return VehicleByTypeResource::collection(Vehicle_Info::where('vehicle_type_id',$id)->where('vehicle_status',1)->get());
+        return VehicleByTypeResource::collection(Vehicle_Info::where('vehicle_type_id',$id)->avaiable()
+        ->get());
     }
 }

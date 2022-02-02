@@ -29,6 +29,7 @@ class Vehicle_Info extends Model
         "insurance_validity",
         "fc_validity",
         "vehicle_status",
+        "vehicle_is_assigned",
         "created_by",
     ];
 
@@ -49,5 +50,10 @@ class Vehicle_Info extends Model
     {
         return $this->hasOne(Vehicle_Body_Type::class,'id','vehicle_body_type_id');
     }
+
+    public function scopeAvaiable($query)
+     {
+         return $query->where('vehicle_is_assigned',0)->where('vehicle_status',1);
+     }
 
 }

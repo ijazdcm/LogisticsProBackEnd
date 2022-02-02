@@ -14,6 +14,6 @@ class ParkingYardGateSeeder extends Seeder
      */
     public function run()
     {
-          Parking_Yard_Gate::factory()->count(70)->create();
+          Parking_Yard_Gate::factory()->count(10)->create();
     }
 }
