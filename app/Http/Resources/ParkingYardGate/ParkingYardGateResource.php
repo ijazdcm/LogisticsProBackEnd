@@ -32,8 +32,11 @@ class ParkingYardGateResource extends JsonResource
             "party_name"=>$this->party_name,
             "remarks"=>$this->remarks,
             "parking_status"=>$this->parking_status,
-            "gate_in_date_time"=>$this->gate_in_date_time,
-            "gate_out_date_time"=>$this->gate_out_date_time,
+            "gate_in_date_time"=>$this->gate_in_date_time->diff()->format('%h hrs and %i min'),
+            "gate_out_date_time"=>$this->gate_out_date_time->diff()->format('%h hrs and %i min'),
+            "created_at"=>$this->created_at->diff()->format('%h hrs and %i min'),
+            "updated_at"=>$this->updated_at->diff()->format('%h hrs and %i min'),
+
         ];
     }
 }

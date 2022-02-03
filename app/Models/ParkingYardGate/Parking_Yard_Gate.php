@@ -48,6 +48,7 @@ class Parking_Yard_Gate extends Model
         "created_by",
     ];
 
+    protected $dates = ['created_at', 'updated_at', 'gate_in_date_time','gate_out_date_time'];
 
     public function Vehicle_Type()
     {
@@ -67,6 +68,11 @@ class Parking_Yard_Gate extends Model
 
     public function scopeParkingstatus($query)
     {
-        return $query->where('parking_status','3')->orWhere('parking_status','1')->orderBy('id', 'DESC');
+        return $query->where('parking_status','3')->orWhere('parking_status','2')->orderBy('id', 'DESC');
+    }
+
+    public function scopeGate_in_status($query)
+    {
+        return $query->where('parking_status','1')->orderBy('id', 'DESC');
     }
 }

@@ -10,10 +10,10 @@ class Vehicle_Info extends Model
     use HasFactory;
 
     //FILE PATH CONSTANTS FOR FILE HANDLE FOR THIS MODEL
-    public const RC_FRONT_PATH="Vehicle/Rc_copy_front";
-    public const RC_BACK_PATH="Vehicle/Rc_copy_back";
-    public const INSURANCE_FRONT_PATH="Vehicle/Insurance_copy_front";
-    public const INSURANCE_BACK_PATH="Vehicle/Insurance_copy_back";
+    public const RC_FRONT_PATH="Vehicle/Rc_copy_front/";
+    public const RC_BACK_PATH="Vehicle/Rc_copy_back/";
+    public const INSURANCE_FRONT_PATH="Vehicle/Insurance_copy_front/";
+    public const INSURANCE_BACK_PATH="Vehicle/Insurance_copy_back/";
 
     protected $table="vehicle__infos";
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Shed;
 
+use App\Models\Shed\Shed_Info;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ShedInfoResource extends JsonResource
@@ -22,7 +23,7 @@ class ShedInfoResource extends JsonResource
             "shed_owner_phone_1"=>$this->shed_owner_phone_1,
             "shed_owner_phone_2"=>$this->shed_owner_phone_2,
             "shed_owner_address"=>$this->shed_owner_address,
-            "shed_owner_photo"=>$this->shed_owner_photo,
+            "shed_owner_photo"=>url('/')."/storage/".Shed_Info::SHED_OWNER_PHOTO_PATH.$this->shed_owner_photo,
             "pan_number"=>$this->pan_number,
             "shed_adhar_number"=>$this->shed_adhar_number,
             "gst_no"=>$this->gst_no,

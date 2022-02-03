@@ -11,7 +11,7 @@ class Shed_Info extends Model
 
 
 
-    public const SHED_OWNER_PHOTO_PATH="Shed/ShedOwner";
+    public const SHED_OWNER_PHOTO_PATH="Shed/ShedOwner/";
 
     protected $table="shed__infos";
 
