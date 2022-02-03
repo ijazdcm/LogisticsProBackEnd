@@ -21,8 +21,10 @@ class DriverMasterController extends Controller
      */
     public function index()
     {
-        return DriverInfoResource::collection(Cache::remember('drivers',now()->addDecade(),function(){
-            return Driver_Info::with('driver__types')->where('driver_status',1)->get();
+
+        return DriverInfoResource::collection(Cache::remember('drivers', now()->addDay(), function () {
+
+            return Driver_Info::with('driver__types')->get();
         }));
     }
 
@@ -32,29 +34,29 @@ class DriverMasterController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(DriverInfoPostRequest $request,FileHelper $helper)
+    public function store(DriverInfoPostRequest $request, FileHelper $helper)
     {
 
 
-           //adding the new Driver
-            $new_driver=Driver_Info::create([
-            "driver_type_id"=>$request->driver_type_id,
-            "driver_name"=>$request->driver_name,
-            "driver_code"=>$request->driver_code,
-            "driver_phone_1"=>$request->driver_phone_1,
-            "driver_phone_2"=>$request->driver_phone_2,
-            "license_no"=>$request->license_no,
-            "license_validity_to"=>$request->license_validity_to,
-            "license_copy_front"=>$helper->storeImage($request->license_copy_front,Driver_Info::LICENSE_COPY_FRONT_PATH),
-            "license_copy_back"=>$helper->storeImage($request->license_copy_back,Driver_Info::LICENSE_COPY_BACK_PATH),
-            "driver_address"=>$request->driver_address,
-            "driver_photo"=>$helper->storeImage($request->driver_photo,Driver_Info::DRIVER_PHOTO_PATH),
-            "aadhar_card"=>$helper->storeImage($request->aadhar_card,Driver_Info::AADHAR_PATH),
-            "pan_card"=>$helper->storeImage($request->pan_card,Driver_Info::PAN_CARD_PATH),
+        //adding the new Driver
+        $new_driver = Driver_Info::create([
+            "driver_type_id" => $request->driver_type_id,
+            "driver_name" => $request->driver_name,
+            "driver_code" => $request->driver_code,
+            "driver_phone_1" => $request->driver_phone_1,
+            "driver_phone_2" => $request->driver_phone_2,
+            "license_no" => $request->license_no,
+            "license_validity_to" => $request->license_validity_to,
+            "license_validity_status" => $request->license_validity_status,
+            "license_copy_front" => $helper->storeImage($request->license_copy_front, Driver_Info::LICENSE_COPY_FRONT_PATH),
+            "license_copy_back" => $helper->storeImage($request->license_copy_back, Driver_Info::LICENSE_COPY_BACK_PATH),
+            "driver_address" => $request->driver_address,
+            "driver_photo" => $helper->storeImage($request->driver_photo, Driver_Info::DRIVER_PHOTO_PATH),
+            "aadhar_card" => $helper->storeImage($request->aadhar_card, Driver_Info::AADHAR_PATH),
+            "pan_card" => $helper->storeImage($request->pan_card, Driver_Info::PAN_CARD_PATH),
         ]);
 
-    return  new DriverInfoResource($new_driver->load('driver__types'));
-
+        return  new DriverInfoResource($new_driver->load('driver__types'));
     }
 
     /**
@@ -65,15 +67,14 @@ class DriverMasterController extends Controller
      */
     public function show($id)
     {
-        $driver=Driver_Info::where('driver_status',1)
-        ->where('id',$id)
-        ->first();
+        $driver = Driver_Info::where('driver_status', 1)
+            ->where('id', $id)
+            ->first();
 
-        if($driver)
-        {
-        return new DriverInfoResource($driver->load('driver__types'));
+        if ($driver) {
+            return new DriverInfoResource($driver->load('driver__types'));
         }
-        return response()->json(['message' => 'Vehicle Not found'], 404);
+        return response()->json(['message' => 'Driver Not found'], 404);
     }
 
     /**
@@ -83,40 +84,35 @@ class DriverMasterController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(DriverInfoPutRequest $request, $id,UpdateDriverImageAction $action)
+    public function update(DriverInfoPutRequest $request, $id, UpdateDriverImageAction $action)
     {
-        $driver=Driver_Info::where('driver_status',1)
-        ->where('id',$id)
-        ->first();
-        if($driver)
-        {
+        $driver = Driver_Info::where('driver_status', 1)
+            ->where('id', $id)
+            ->first();
 
+        if ($driver) {
 
-          $driver=$action->handleUpdateImages($request,$driver);
+            $driver = $action->handleUpdateImages($request, $driver);
 
-           $is_updated=$driver->update([
-               "driver_type_id"=>$request->driver_type_id,
-              "driver_name"=>$request->driver_name,
-              "driver_code"=>$request->driver_code,
-              "driver_phone_1"=>$request->driver_phone_1,
-              "driver_phone_2"=>$request->driver_phone_2,
-              "license_no"=>$request->license_no,
-              "license_validity_to"=>$request->license_validity_to,
-              "driver_address"=>$request->driver_address,
-           ]);
+            $is_updated = $driver->update([
+                "driver_type_id" => $request->driver_type_id,
+                "driver_name" => $request->driver_name,
+                "driver_code" => $request->driver_code,
+                "driver_phone_1" => $request->driver_phone_1,
+                "driver_phone_2" => $request->driver_phone_2,
+                "license_no" => $request->license_no,
+                "license_validity_to" => $request->license_validity_to,
+                "driver_address" => $request->driver_address,
+                "driver_phone_1" => $request->driver_phone_1,
+                "license_validity_status" => $request->license_validity_status
+            ]);
 
-           if($is_updated)
-           {
-              $updated_driver=Driver_Info::where('driver_status',1)
-              ->where('id',$id)
-              ->first();
-               return new DriverInfoResource($updated_driver->load('driver__types'));
-           }
-
-
-
+            if ($is_updated) {
+                $updated_driver = Driver_Info::where('id', $id)->first();
+                return  DriverInfoResource::make($updated_driver->load('driver__types'));
+            }
         }
-        return response()->json(['message' => 'Something went wrong'],500);
+        return response()->json(['message' => 'Something went wrong'], 500);
     }
 
     /**
@@ -127,15 +123,14 @@ class DriverMasterController extends Controller
      */
     public function destroy($id)
     {
-        $driver=Driver_Info::where('driver_status',1)
-        ->where('id',$id)
-        ->first();
-        if($driver)
-        {
-            $driver->update([$driver->driver_status=0]);
-            return response('',204)->header('Content-Type', 'application/json');
+        $driver = Driver_Info::where('id', $id)->first();
+
+        if ($driver) {
+            $status = ($driver->driver_status === 0) ? 1 : 0;
+            $driver->update([$driver->driver_status = $status]);
+            return response('', 204)->header('Content-Type', 'application/json');
         }
 
-        return response()->json(['message' => 'Vehicle Not found'], 404);
+        return response()->json(['message' => 'Driver Not found'], 404);
     }
 }
