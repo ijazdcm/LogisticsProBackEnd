@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Drivers\DriverMasterController;
+use App\Http\Controllers\Drivers\DriversActiveController;
 use App\Http\Controllers\Drivers\DriverTypeController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,5 +19,6 @@ Route::group(["middleware"=>"auth:sanctum"],function()
 
 
 Route::get('driverType',DriverTypeController::class);
+Route::get('activeDrivers',DriversActiveController::class);
 
 Route::apiResource('drivers',DriverMasterController::class);

@@ -35,6 +35,7 @@ class Driver_Info extends Model
         "aadhar_card",
         "pan_card",
         "driver_status",
+        "driver_is_assigned",
         "created_by",
     ];
 
@@ -42,5 +43,11 @@ class Driver_Info extends Model
      public function driver__types()
      {
           return $this->hasOne(Driver_Type::class,'id','driver_type_id');
+     }
+
+
+     public function scopeAvaiable($query)
+     {
+         return $query->where('driver_is_assigned',0)->where('driver_status',1);
      }
 }

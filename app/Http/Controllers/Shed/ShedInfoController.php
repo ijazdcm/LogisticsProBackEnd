@@ -36,7 +36,9 @@ class ShedInfoController extends Controller
 
         $new_shed=Shed_Info::create($request->validated());
 
-        return ShedInfoResource::make($new_shed->load('Shed_Type'));
+        $shed=Shed_Info::active()->with('Shed_Type')->find($new_shed->id);
+
+        return ShedInfoResource::make($shed);
     }
 
     /**
@@ -47,7 +49,7 @@ class ShedInfoController extends Controller
      */
     public function show($id)
     {
-        $shed=Shed_Info::findOrFail($id);
+        $shed=Shed_Info::active()->find($id);
 
         if($shed)
         {
@@ -65,8 +67,7 @@ class ShedInfoController extends Controller
      */
     public function update(ShedPutRequest $request, $id ,UpdateShedOwnerImageAction $action)
     {
-        $shed=Shed_Info::where('id',$id)
-        ->first();
+        $shed=Shed_Info::active()->where('id',$id)->first();
         if($shed)
         {
 
@@ -79,6 +80,7 @@ class ShedInfoController extends Controller
                "shed_owner_phone_2"=>$request->shed_owner_phone_2,
                "shed_owner_address"=>$request->shed_owner_address,
                "pan_number"=>$request->pan_number,
+               "shed_adhar_number"=>$request->shed_adhar_number,
                "gst_no"=>$request->gst_no,
            ]);
 
@@ -86,7 +88,7 @@ class ShedInfoController extends Controller
            {
               $updated_shed=Shed_Info::where('id',$id)->first();
 
-               return new ShedInfoResource($updated_shed->load('Shed_Type'));
+               return  ShedInfoResource::make($updated_shed->load('Shed_Type'));
            }
         }
         return response()->json(['message' => 'Something went wrong'],500);
@@ -100,6 +102,16 @@ class ShedInfoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $shed=Shed_Info::active()
+                ->where('id',$id)
+                ->first();
+        if($shed)
+        {
+            $status=($shed->shed_status==0)?1:0;
+            $shed->update([$shed->shed_status=$status]);
+            return response('',204)->header('Content-Type', 'application/json');
+        }
+
+        return response()->json(['message' => 'Shed Not found'], 404);
     }
 }

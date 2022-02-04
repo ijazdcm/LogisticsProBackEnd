@@ -29,6 +29,7 @@ class CreateVehicleInfosTable extends Migration
             $table->date('insurance_validity');
             $table->date('fc_validity');
             $table->tinyInteger('vehicle_status')->default(1)->comment('1 - Active, 0 - In-Active');
+            $table->tinyInteger('vehicle_is_assigned')->default(0)->comment('1 - Assigned, 0 -Not Assigned');
             $table->unsignedBigInteger('created_by')->default(null);
             $table->timestamps();
         });

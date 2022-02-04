@@ -24,7 +24,9 @@ class CreateShedInfosTable extends Migration
             $table->string('shed_owner_address');
             $table->string('shed_owner_photo');
             $table->string('pan_number');
+            $table->string('shed_adhar_number');
             $table->string('gst_no');
+            $table->tinyInteger('shed_status')->default(1)->comment('1 - Active, 0 - In-Active');
             $table->unsignedBigInteger('created_by')->default(0);
             $table->timestamps();
         });

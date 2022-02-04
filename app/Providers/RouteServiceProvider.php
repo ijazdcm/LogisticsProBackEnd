@@ -135,6 +135,21 @@ class RouteServiceProvider extends ServiceProvider
             ->group(base_path('routes/v1/DefectType/defect_type_routes.php'));
            // ------------------------------------(End)-------------------------------
 
+
+         // -----------------------Added By Saravana sai------------(Start)--------------------------------
+         Route::prefix('api/v1/')
+         ->middleware('api')
+         ->namespace($this->namespace)
+         ->group(base_path('routes/v1/Bank/bank_routes.php'));
+        // ------------------------------------(End)-------------------------------
+
+        // -----------------------Added By Saravana sai------------(Start)--------------------------------
+        Route::prefix('api/v1/')
+        ->middleware('api')
+        ->namespace($this->namespace)
+        ->group(base_path('routes/v1/VehicleInspection/vehicle_inspection_routes.php'));
+       // ------------------------------------(End)-------------------------------
+
             Route::middleware('web')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/web.php'));

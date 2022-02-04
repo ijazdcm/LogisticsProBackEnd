@@ -33,6 +33,7 @@ class DriverInfoResource extends JsonResource
             "pan_card" => url('/') . "/storage/Driver/PanCard/" . $this->pan_card,
             "driver_status" => $this->driver_status,
             "created_at" => $this->timeFormat($this->created_at->format('d.m.Y'))
+
         ];
     }
 

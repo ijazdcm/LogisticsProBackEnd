@@ -31,6 +31,7 @@ class CreateDriverInfosTable extends Migration
             $table->string('aadhar_card');
             $table->string('pan_card');
             $table->tinyInteger('driver_status')->default(1)->comment('1 - Active, 0 - De-active, 2 - Soft delete ');
+            $table->tinyInteger('driver_is_assigned')->default(0)->comment('1 - Assigned, 0 - Not Assigned');
             $table->unsignedBigInteger('created_by')->default(0);
             $table->timestamps();
         });

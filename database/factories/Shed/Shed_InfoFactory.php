@@ -29,6 +29,7 @@ class Shed_InfoFactory extends Factory
         "shed_owner_address"=>$this->faker->address,
         "shed_owner_photo"=>"ShedOwner".rand(1,20).".jpeg",
         "pan_number"=>"ABCTY".rand(1000,9999)."D",
+        "shed_adhar_number"=>rand(999999999999,9999999999999),
         "gst_no"=>$this->state_code."ABCTY".rand(1000,9999)."D".$this->ze_code."Z".($this->state_code+$this->ze_code),
         ];
     }

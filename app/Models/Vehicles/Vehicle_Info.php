@@ -10,10 +10,10 @@ class Vehicle_Info extends Model
     use HasFactory;
 
     //FILE PATH CONSTANTS FOR FILE HANDLE FOR THIS MODEL
-    public const RC_FRONT_PATH="Vehicle/Rc_copy_front";
-    public const RC_BACK_PATH="Vehicle/Rc_copy_back";
-    public const INSURANCE_FRONT_PATH="Vehicle/Insurance_copy_front";
-    public const INSURANCE_BACK_PATH="Vehicle/Insurance_copy_back";
+    public const RC_FRONT_PATH="Vehicle/Rc_copy_front/";
+    public const RC_BACK_PATH="Vehicle/Rc_copy_back/";
+    public const INSURANCE_FRONT_PATH="Vehicle/Insurance_copy_front/";
+    public const INSURANCE_BACK_PATH="Vehicle/Insurance_copy_back/";
 
     protected $table="vehicle__infos";
 
@@ -29,6 +29,7 @@ class Vehicle_Info extends Model
         "insurance_validity",
         "fc_validity",
         "vehicle_status",
+        "vehicle_is_assigned",
         "created_by",
     ];
 
@@ -49,5 +50,10 @@ class Vehicle_Info extends Model
     {
         return $this->hasOne(Vehicle_Body_Type::class,'id','vehicle_body_type_id');
     }
+
+    public function scopeAvaiable($query)
+     {
+         return $query->where('vehicle_is_assigned',0)->where('vehicle_status',1);
+     }
 
 }

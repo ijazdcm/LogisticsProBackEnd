@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Bank\Bank_info;
 use App\Models\DefectType\Defect_Type;
 use App\Models\Department\Department;
 use App\Models\Designation\Designation;
@@ -17,6 +18,7 @@ use App\Models\Uom\Uom;
 use App\Models\Vehicles\Vehicle_Capacity;
 use App\Models\Vehicles\Vehicle_Info;
 use App\Models\Vendors\Vendor_Info;
+use App\Observers\Bank\BankInfoObserver;
 use App\Observers\DefectType\DefectTypeObserver;
 use App\Observers\Drivers\DriverInfoObserver;
 use App\Observers\Vehicle\VehicleCapacityObserver;
@@ -76,6 +78,8 @@ class EventServiceProvider extends ServiceProvider
         Vendor_Info::observe(VendorInfoObserver::class); // Added By Saravana Sai
         Diesel_Vendor::observe(DieselVendorInfoObserver::class); // Added By Saravana Sai
         Defect_Type::observe(DefectTypeObserver::class); // Added By Saravana Sai
+        Bank_info::observe(BankInfoObserver::class); // Added By Saravana Sai
+
 
     }
 }
