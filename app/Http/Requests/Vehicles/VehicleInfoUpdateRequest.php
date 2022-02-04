@@ -60,8 +60,6 @@ class VehicleInfoUpdateRequest extends FormRequest
 
         }
 
-
-
         return [
             "vehicle_type_id"=>"required|numeric",
             "vehicle_number"=>"required|alpha_num",
