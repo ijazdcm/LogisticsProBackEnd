@@ -21,7 +21,7 @@ class DepartmentMasterController extends Controller
 
         return Cache::remember('department', now()->addDecade(), function () {
 
-            return DepartmentResource::collection(Department::where('department_status', 1)->get());
+            return DepartmentResource::collection(Department::all());
         });
     }
 
@@ -86,11 +86,13 @@ class DepartmentMasterController extends Controller
     public function destroy($id)
     {
 
-        $del_department = Department::where('department_status', 1)
-            ->where('id', $id)
+        $del_department = Department::where('id', $id)
             ->first();
         if ($del_department) {
-            $del_department->update([$del_department->department_status = 0]);
+
+            $status=($del_department->department_status==0)?1:0;
+
+            $del_department->update([$del_department->department_status = $status]);
             return response('', 204)->header('Content-Type', 'application/json');
         } else {
             return response()->json(['message' => 'Department Not found'], 404);

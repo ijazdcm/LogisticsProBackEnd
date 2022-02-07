@@ -33,6 +33,7 @@ class BankMasterController extends Controller
     public function store(BankStoreRequest $request)
     {
         $new_bank = Bank_info::create($request->validated());
+
         return BankInfoResource::make(Bank_info::find($new_bank->id));
     }
 

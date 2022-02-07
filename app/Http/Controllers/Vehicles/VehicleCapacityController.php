@@ -21,7 +21,7 @@ class VehicleCapacityController extends Controller
 
          return Cache::remember('vehicle_capacity',now()->addDecade(),function(){
 
-            return VehicleCapacityResource::collection(Vehicle_Capacity::where('vehicle_status',1)->get());
+            return VehicleCapacityResource::collection(Vehicle_Capacity::all());
 
          });
     }
@@ -34,7 +34,7 @@ class VehicleCapacityController extends Controller
      */
     public function store(VehicleCapacityRequest $request)
     {
-         return new VehicleCapacityResource(Vehicle_Capacity::create($request->validated()));
+         return  VehicleCapacityResource::make(Vehicle_Capacity::create($request->validated()));
     }
 
     /**
@@ -51,7 +51,7 @@ class VehicleCapacityController extends Controller
         ->first();
 
             if($capacity){
-                return new VehicleCapacityResource($capacity);
+                return  VehicleCapacityResource::make($capacity);
             }
 
         return response()->json(['message' => 'Capacity Not found'], 404);
@@ -74,7 +74,7 @@ class VehicleCapacityController extends Controller
            if($new_capacity)
            {
                 $new_capacity->update($request->validated());
-                return new VehicleCapacityResource($new_capacity);
+                return  VehicleCapacityResource::make($new_capacity);
            }
 
         return response()->json(['message' => 'Capacity Not found'], 404);
@@ -91,12 +91,12 @@ class VehicleCapacityController extends Controller
     public function destroy($id)
     {
 
-            $new_capacity=Vehicle_Capacity::where('vehicle_status',1)
-            ->where('id',$id)
+            $new_capacity=Vehicle_Capacity::where('id',$id)
             ->first();
             if($new_capacity)
             {
-                $new_capacity->update([$new_capacity->vehicle_status=0]);
+                $status=($new_capacity->vehicle_status==0)?1:0;
+                $new_capacity->update([$new_capacity->vehicle_status=$status]);
                 return response('',204)->header('Content-Type', 'application/json');
             }
 

@@ -15,8 +15,10 @@ class PreviousLoadDetailsResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => (string)$this->id,
-            'previous_load_details' => $this->previous_load_details
+            'id' =>$this->id,
+            'previous_load_details' => $this->previous_load_details,
+            'previous_load_status' => $this->previous_load_status,
+            'created_at' => $this->created_at->format('d-m-y'),
         ];
     }
 }

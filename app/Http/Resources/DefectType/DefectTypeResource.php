@@ -16,7 +16,9 @@ class DefectTypeResource extends JsonResource
     {
         return [
             "defect_type_id"=>$this->id,
-            "defect_type"=>$this->defect_type
+            "defect_type"=>$this->defect_type,
+            "defect_type_status"=>$this->defect_type_status,
+            "created_at" => $this->created_at->format('d-m-y'),
         ];
     }
 }

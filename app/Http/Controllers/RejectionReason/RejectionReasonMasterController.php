@@ -20,8 +20,7 @@ class RejectionReasonMasterController extends Controller
     {
 
         return Cache::remember('rejection_reason', now()->addDecade(), function () {
-
-            return RejectionReasonResource::collection(RejectionReason::where('rejection_reason_status', 1)->get());
+            return RejectionReasonResource::collection(RejectionReason::all());
         });
     }
 
@@ -33,7 +32,7 @@ class RejectionReasonMasterController extends Controller
      */
     public function store(RejectionReasonRequest $request)
     {
-        return new RejectionReasonResource(RejectionReason::create($request->validated()));
+        return  RejectionReasonResource::make(RejectionReason::create($request->validated()));
     }
 
     /**
@@ -50,7 +49,7 @@ class RejectionReasonMasterController extends Controller
             ->first();
 
         if ($rejection_reason_active) {
-            return new RejectionReasonResource($rejection_reason_active);
+            return  RejectionReasonResource::make($rejection_reason_active);
         }
 
         return response()->json(['message' => 'Rejection Reason Not found'], 404);
@@ -71,7 +70,7 @@ class RejectionReasonMasterController extends Controller
             ->first();
         if ($old_rejection_reason) {
             $old_rejection_reason->update($request->validated());
-            return new RejectionReasonResource($old_rejection_reason);
+            return  RejectionReasonResource::make($old_rejection_reason);
         }
 
         return response()->json(['message' => 'Rejection Reason Not found'], 404);
@@ -86,11 +85,14 @@ class RejectionReasonMasterController extends Controller
     public function destroy($id)
     {
 
-        $del_rejection_reason = RejectionReason::where('rejection_reason_status', 1)
-            ->where('id', $id)
+        $del_rejection_reason = RejectionReason::where('id', $id)
             ->first();
+
+         $status=($del_rejection_reason->rejection_reason_status==0)?1:0;
+
+
         if ($del_rejection_reason) {
-            $del_rejection_reason->update([$del_rejection_reason->rejection_reason_status = 0]);
+            $del_rejection_reason->update([$del_rejection_reason->rejection_reason_status = $status]);
             return response('', 204)->header('Content-Type', 'application/json');
         } else {
             return response()->json(['message' => 'Rejection Reason Not found'], 404);

@@ -16,7 +16,9 @@ class DivisionResource extends JsonResource
     {
         return [
             'id' => (string)$this->id,
-            'division' => $this->division_name
+            'division' => $this->division_name,
+            'division_status' => $this->division_status,
+            'created_at' => $this->created_at->format('d-m-y'),
         ];
     }
 }

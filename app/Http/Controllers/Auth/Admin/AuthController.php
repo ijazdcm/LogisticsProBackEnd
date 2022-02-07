@@ -32,7 +32,7 @@ class AuthController extends Controller
         }
         else
         {
-            $response=["message"=>"Failed To Authenticate"];
+            $response=["message"=>"Invalid Username & Password"];
             return response(json_encode($response),401)->header('Content-Type', 'application/json');
         }
     }

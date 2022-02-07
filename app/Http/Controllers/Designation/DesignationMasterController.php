@@ -21,7 +21,7 @@ class DesignationMasterController extends Controller
 
         return Cache::remember('designation', now()->addDecade(), function () {
 
-            return DesignationResource::collection(Designation::where('designation_status', 1)->get());
+            return DesignationResource::collection(Designation::all());
         });
     }
 
@@ -33,7 +33,7 @@ class DesignationMasterController extends Controller
      */
     public function store(DesignationRequest $request)
     {
-        return new DesignationResource(Designation::create($request->validated()));
+        return DesignationResource::make(Designation::create($request->validated()));
     }
 
     /**
@@ -71,7 +71,7 @@ class DesignationMasterController extends Controller
             ->first();
         if ($old_designation) {
             $old_designation->update($request->validated());
-            return new DesignationResource($old_designation);
+            return  DesignationResource::make($old_designation);
         }
 
         return response()->json(['message' => 'Designation Not found'], 404);
@@ -86,11 +86,12 @@ class DesignationMasterController extends Controller
     public function destroy($id)
     {
 
-        $del_designation = Designation::where('designation_status', 1)
-            ->where('id', $id)
+        $del_designation = Designation::where('id', $id)
             ->first();
         if ($del_designation) {
-            $del_designation->update([$del_designation->designation_status = 0]);
+
+            $status=($del_designation->designation_status==0)?1:0;
+            $del_designation->update([$del_designation->designation_status = $status]);
             return response('', 204)->header('Content-Type', 'application/json');
         } else {
             return response()->json(['message' => 'Designation Not found'], 404);

@@ -16,7 +16,9 @@ class RejectionReasonResource extends JsonResource
     {
         return [
             'id' => (string)$this->id,
-            'rejection_reason' => $this->rejection_reason
+            'rejection_reason' => $this->rejection_reason,
+            'rejection_reason_status' => $this->rejection_reason_status,
+            'created_at' => $this->created_at->format('d-m-y'),
         ];
     }
 }

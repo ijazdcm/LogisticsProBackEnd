@@ -20,7 +20,7 @@ class DefectTypeController extends Controller
     {
         return DefectTypeResource::collection(Cache::remember('defect_type',now()->addDecade(),function()
         {
-                  return Defect_Type::active()->get();
+                  return Defect_Type::all();
         }));
     }
 
@@ -70,7 +70,7 @@ class DefectTypeController extends Controller
 
         if ($defect_type) {
             $defect_type->update($request->validated());
-            return new DefectTypeResource($defect_type);
+            return  DefectTypeResource::make($defect_type);
         }
 
         return response()->json(['message' => 'Defect Type  Not found'], 404);
@@ -85,12 +85,14 @@ class DefectTypeController extends Controller
      */
     public function destroy($id)
     {
-        $defect_type = Defect_Type::active()
-        ->where('id', $id)
+        $defect_type = Defect_Type::where('id', $id)
         ->first();
 
         if ($defect_type) {
-            $defect_type->update([$defect_type->defect_type_status = 0]);
+
+            $status=($defect_type->defect_type_status==0)?1:0;
+
+            $defect_type->update([$defect_type->defect_type_status = $status]);
 
             return response('', 204)->header('Content-Type', 'application/json');
 

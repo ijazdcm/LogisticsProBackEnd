@@ -15,8 +15,10 @@ class StatusResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => (string)$this->id,
-            'status' => $this->status
+            'id' =>$this->id,
+            'status' => $this->status,
+            'status_status'=>$this->remarks,
+            'created_at' => $this->created_at->format('d-m-y'),
         ];
     }
 }

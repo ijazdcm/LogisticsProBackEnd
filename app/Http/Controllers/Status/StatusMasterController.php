@@ -24,7 +24,7 @@ class StatusMasterController extends Controller
 
         return Cache::remember('status', now()->addDecade(), function () {
 
-            return StatusResource::collection(Status::where('remarks', 1)->get());
+            return StatusResource::collection(Status::all());
         });
     }
 
@@ -36,7 +36,7 @@ class StatusMasterController extends Controller
      */
     public function store(StatusRequest $request)
     {
-        return new StatusResource(Status::create($request->validated()));
+        return  StatusResource::make(Status::create($request->validated()));
     }
 
     /**
@@ -53,7 +53,7 @@ class StatusMasterController extends Controller
             ->first();
 
         if ($status_active) {
-            return new StatusResource($status_active);
+            return  StatusResource::make($status_active);
         }
 
         return response()->json(['message' => 'Status Not found'], 404);
@@ -89,11 +89,14 @@ class StatusMasterController extends Controller
     public function destroy($id)
     {
 
-        $del_status = Status::where('remarks', 1)
-            ->where('id', $id)
+        $del_status = Status::where('id', $id)
             ->first();
         if ($del_status) {
-            $del_status->update([$del_status->remarks = 0]);
+
+
+            $status=($del_status->remarks==0)?1:0;
+
+            $del_status->update([$del_status->remarks = $status]);
             return response('', 204)->header('Content-Type', 'application/json');
         } else {
             return response()->json(['message' => 'Status Not found'], 404);

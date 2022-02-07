@@ -21,7 +21,7 @@ class DivisionMasterController extends Controller
 
         return Cache::remember('division', now()->addDecade(), function () {
 
-            return DivisionResource::collection(Division::where('division_status', 1)->get());
+            return DivisionResource::collection(Division::all());
         });
     }
 
@@ -86,13 +86,17 @@ class DivisionMasterController extends Controller
     public function destroy($id)
     {
 
-        $del_division = Division::where('division_status', 1)
-            ->where('id', $id)
+        $del_division = Division::where('id', $id)
             ->first();
         if ($del_division) {
-            $del_division->update([$del_division->division_status = 0]);
+
+            $status = ($del_division->division_status == 0) ? 1 : 0;
+
+            $del_division->update([$del_division->division_status = $status]);
+
             return response('', 204)->header('Content-Type', 'application/json');
-        } else {
+        }
+        else {
             return response()->json(['message' => 'Division Not found'], 404);
         }
     }

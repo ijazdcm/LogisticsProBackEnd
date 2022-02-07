@@ -46,8 +46,7 @@ class MaterialDescriptionMasterController extends Controller
     public function show($id)
     {
 
-        // $material_description_active = MaterialDescription::where('material_description_status', 1)
-        $material_description_active = MaterialDescription::all()
+        $material_description_active = MaterialDescription::where('material_description_status', 1)
             ->where('id', $id)
             ->first();
 
@@ -89,13 +88,14 @@ class MaterialDescriptionMasterController extends Controller
     public function destroy($id)
     {
 
-        // $del_material_description = MaterialDescription::where('material_description_status', 1)
         $del_material_description = MaterialDescription::where('id', $id)
-            // ->where('id', $id)
+
             ->first();
         if ($del_material_description) {
-            // $del_material_description->update([$del_material_description->material_description_status = 0]);
-            $del_material_description->delete();
+
+            $status=($del_material_description->material_description_status == 0)?1:0;
+            $del_material_description->update([$del_material_description->material_description_status = $status]);
+
             return response('', 204)->header('Content-Type', 'application/json');
         } else {
             return response()->json(['message' => 'Material Description Not found'], 404);

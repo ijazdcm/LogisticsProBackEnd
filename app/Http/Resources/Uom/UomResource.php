@@ -15,10 +15,10 @@ class UomResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => (string)$this->id,
-            'creation_date' => (string)$this->created_at,
+            'id' =>$this->id,
+            'creation_date' =>$this->created_at->format('d-m-y'),
             'uom' => $this->uom,
-            'status' => (string)$this->uom_status
+            'status' =>$this->uom_status
         ];
     }
 }

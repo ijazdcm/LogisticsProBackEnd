@@ -17,7 +17,8 @@ class BankInfoResource extends JsonResource
         return [
             "bank_id"=>$this->id,
             "bank_name"=>$this->bank_name,
-            "bank_status"=>$this->bank_status
+            "bank_status"=>$this->bank_status,
+            "created_at"=>$this->created_at->format('d-m-y')
         ];
     }
 }

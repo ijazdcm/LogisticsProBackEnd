@@ -20,18 +20,8 @@ class PreviousLoadDetailsMasterController extends Controller
     {
         return Cache::remember('previous_load_details', now()->addDecade(), function () {
 
-            return PreviousLoadDetailsResource::collection(PreviousLoadDetails::where('previous_load_status', 1)->get());
+            return PreviousLoadDetailsResource::collection(PreviousLoadDetails::all());
         });
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -42,7 +32,7 @@ class PreviousLoadDetailsMasterController extends Controller
      */
     public function store(PreviousLoadDetailsRequest $request)
     {
-        return new PreviousLoadDetailsResource(PreviousLoadDetails::create($request->validated()));
+        return PreviousLoadDetailsResource::make(PreviousLoadDetails::create($request->validated()));
     }
 
     /**
@@ -58,22 +48,13 @@ class PreviousLoadDetailsMasterController extends Controller
             ->first();
 
         if ($previous_load_details_active) {
-            return new PreviousLoadDetailsResource($previous_load_details_active);
+            return PreviousLoadDetailsResource::make($previous_load_details_active);
         }
 
         return response()->json(['message' => 'Previous Load Detail Not found'], 404);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\PreviousLoadDetails\PreviousLoadDetails  $previousLoadDetails
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(PreviousLoadDetails $previousLoadDetails)
-    {
-        //
-    }
+
 
     /**
      * Update the specified resource in storage.
@@ -89,7 +70,7 @@ class PreviousLoadDetailsMasterController extends Controller
             ->first();
         if ($old_previous_load_detail) {
             $old_previous_load_detail->update($request->validated());
-            return new PreviousLoadDetailsResource($old_previous_load_detail);
+            return  PreviousLoadDetailsResource::make($old_previous_load_detail);
         }
 
         return response()->json(['message' => 'Previous Load Detail Not found'], 404);
@@ -103,13 +84,16 @@ class PreviousLoadDetailsMasterController extends Controller
      */
     public function destroy($id)
     {
-        $del_previous_load_detail = PreviousLoadDetails::where('previous_load_status', 1)
-            ->where('id', $id)
+        $del_previous_load_detail = PreviousLoadDetails::where('id', $id)
             ->first();
         if ($del_previous_load_detail) {
-            $del_previous_load_detail->update([$del_previous_load_detail->previous_load_status = 0]);
+
+            $status = ($del_previous_load_detail->previous_load_status == 0) ? 1 : 0;
+
+            $del_previous_load_detail->update([$del_previous_load_detail->previous_load_status = $status]);
             return response('', 204)->header('Content-Type', 'application/json');
-        } else {
+        }
+        else {
             return response()->json(['message' => 'Previous Load Detail Not found'], 404);
         }
     }

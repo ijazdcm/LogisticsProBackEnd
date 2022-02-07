@@ -16,7 +16,9 @@ class DesignationResource extends JsonResource
     {
         return [
             'id' => (string)$this->id,
-            'designation' => $this->designation_name
+            'designation' => $this->designation_name,
+            'designation_status' => $this->designation_status,
+            'created_at' => $this->created_at->format('d-m-y'),
         ];
     }
 }

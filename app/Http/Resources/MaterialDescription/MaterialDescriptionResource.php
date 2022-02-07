@@ -15,10 +15,10 @@ class MaterialDescriptionResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => (string)$this->id,
-            'creation_date' => (string)$this->created_at,
+            'id' =>$this->id,
+            'creation_date' => $this->created_at->format('d-m-y'),
             'material_description' => $this->material_description,
-            'status' => (string)$this->material_description_status
+            'status' => $this->material_description_status
         ];
     }
 }
