@@ -28,7 +28,7 @@ class CreateVehicleInspectionsTable extends Migration
             $table->tinyInteger('vehicle_fit_for_loading');
             $table->string('remarks');
             $table->tinyInteger('vehicle_inspection_status');
-            $table->unsignedBigInteger('created_by')->default(null);
+            $table->unsignedBigInteger('created_by')->nullable()->default(null);
             $table->timestamps();
         });
     }

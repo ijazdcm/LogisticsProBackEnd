@@ -56,4 +56,9 @@ class Vehicle_Info extends Model
          return $query->where('vehicle_is_assigned',0)->where('vehicle_status',1);
      }
 
+
+     public function scopeVehicle($query)
+     {
+         return $query->where('vehicle_type_id',1)->orWhere('vehicle_type_id',2);
+     }
 }

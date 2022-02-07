@@ -9,6 +9,8 @@ class Vehicle_Inspection extends Model
 {
     use HasFactory;
 
+    public const VEHICLE_INSPECTION_PASSED='1';
+
     protected $table="vehicle__inspections";
 
     protected $fillable=[

@@ -3,9 +3,16 @@
 namespace App\Http\Controllers\VehicleInspection;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\VehicleInspection\VehicleInspectionRequest;
 use App\Http\Resources\ParkingYardGate\ParkingYardGateResource;
 use App\Models\ParkingYardGate\Parking_Yard_Gate;
+use App\Models\Vehicles\Vehicle_Inspection;
+use App\Service\ParkingYardGate\ParkingYardGateService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Resources\VehicleInspection\VehicleInspectionResource;
+use App\Service\Driver\DriverService;
+use Illuminate\Support\Facades\Log;
 
 class VehicleInspectionMasterController extends Controller
 {
@@ -18,10 +25,10 @@ class VehicleInspectionMasterController extends Controller
     {
 
         $parking_yard_gate = Parking_Yard_Gate::with('Vehicle_Type')
-        ->gate_in_status()
-        ->get();
+            ->gate_in_status()
+            ->get();
 
-    return ParkingYardGateResource::collection($parking_yard_gate);
+        return ParkingYardGateResource::collection($parking_yard_gate);
     }
 
     /**
@@ -30,9 +37,44 @@ class VehicleInspectionMasterController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(VehicleInspectionRequest $request)
     {
-        //
+        DB::transaction(function () use ($request) {
+
+            if ($request->vehicle_inspection_status == Vehicle_Inspection::VEHICLE_INSPECTION_PASSED) {
+
+
+                if ($request->driver_id && $request->old_driver_id) {
+                    /*
+                     this block only executed when above params passed on request
+                     */
+
+                    //un-assign the locked driver
+                    (new DriverService())->unAssignDriver($request->old_driver_id);
+
+                    //assign the new driver
+                    (new DriverService())->assignDriver($request->driver_id);
+
+                    //assign the new driver to vehicle
+                    (new ParkingYardGateService())->assignNewDriverToVehicle($request->vehicle_id, $request->driver_id);
+                }
+
+                Vehicle_Inspection::create($request->validated());
+
+            }
+            else {
+
+                Vehicle_Inspection::create($request->validated());
+
+                //this service make vehicle on parking Yard table to gateOut status
+
+                (new ParkingYardGateService())->gateOutVehicle($request->vehicle_id);
+
+            }
+
+        });
+
+        return VehicleInspectionResource::make($request);
     }
 
     /**
@@ -43,7 +85,7 @@ class VehicleInspectionMasterController extends Controller
      */
     public function show($id)
     {
-        //
+    //
     }
 
     /**
@@ -55,7 +97,7 @@ class VehicleInspectionMasterController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+    //
     }
 
     /**
@@ -66,6 +108,6 @@ class VehicleInspectionMasterController extends Controller
      */
     public function destroy($id)
     {
-        //
+    //
     }
 }

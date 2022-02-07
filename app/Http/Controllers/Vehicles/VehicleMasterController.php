@@ -26,6 +26,7 @@ class VehicleMasterController extends Controller
             return Vehicle_Info::with('Vehicle_Type')
               ->with('Vehicle_Capacity')
               ->with('Vehicle_Body_Type')
+              ->vehicle()
               ->get();
 
         }));

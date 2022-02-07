@@ -5,6 +5,7 @@ namespace App\Http\Resources\ParkingYardGate;
 use App\Http\Resources\Vehicles\VehicleBodyResource;
 use App\Http\Resources\Vehicles\VehicleCapacityResource;
 use App\Http\Resources\Vehicles\VehicleTypeResource;
+use App\Models\ParkingYardGate\Parking_Yard_Gate;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ParkingYardGateResource extends JsonResource
@@ -23,7 +24,7 @@ class ParkingYardGateResource extends JsonResource
             "vehicle_id"=>$this->vehicle_id,
             "driver_id"=>$this->driver_id,
             "odometer_km"=>$this->odometer_km,
-            "odometer_photo"=>$this->odometer_photo,
+            "odometer_photo"=>url('/')."/storage/".Parking_Yard_Gate::ODOMETER_PHOTO_PATH.$this->odometer_photo,
             "vehicle_number"=>$this->vehicle_number,
             "vehicle_capacity_id"=>VehicleCapacityResource::make($this->whenLoaded('Vehicle_Capacity')),
             "driver_name"=>$this->driver_name,
@@ -36,6 +37,7 @@ class ParkingYardGateResource extends JsonResource
             "gate_out_date_time"=>$this->gate_out_date_time->diff()->format('%h hrs and %i min'),
             "created_at"=>$this->created_at->diff()->format('%h hrs and %i min'),
             "updated_at"=>$this->updated_at->diff()->format('%h hrs and %i min'),
+            "gate_in_date_time_string"=>$this->created_at->format('jS F Y h:i:s A'),
 
         ];
     }

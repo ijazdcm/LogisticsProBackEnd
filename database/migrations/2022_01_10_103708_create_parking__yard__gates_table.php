@@ -32,7 +32,7 @@ class CreateParkingYardGatesTable extends Migration
             $table->foreign('vehicle_body_type_id')->references('id')->on('vehicle__body__types');
             $table->string('party_name')->nullable();
             $table->text('remarks')->nullable()->default(null);
-            $table->string('parking_status')->default(null)->comment('Waiting Outside, Gate In, Gate Out');
+            $table->string('parking_status')->nullable()->default(null)->comment('Waiting Outside, Gate In, Gate Out');
             $table->timestamp('gate_in_date_time')->useCurrent();
             $table->timestamp('gate_out_date_time')->useCurrent();
             $table->unsignedBigInteger('created_by')->default(0);

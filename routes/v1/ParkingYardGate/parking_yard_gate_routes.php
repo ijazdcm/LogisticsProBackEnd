@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ParkingYardGate\ParkingYardGateController;
 use App\Http\Controllers\ParkingYardGate\ParkingYardGateInActionController;
+use App\Http\Controllers\ParkingYardGate\ParkingYardGateOutActionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,3 +20,4 @@ Route::group(["middleware"=>"auth:sanctum"],function()
 Route::apiResource('parkingYard',ParkingYardGateController::class);
 
 Route::put('parkingYard/action/gateIn/{id}',ParkingYardGateInActionController::class);
+Route::put('parkingYard/action/gateOut/{id}',ParkingYardGateOutActionController::class);

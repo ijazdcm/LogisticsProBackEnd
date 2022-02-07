@@ -61,7 +61,7 @@ class ParkingYardGateController extends Controller
      */
     public function show($id)
     {
-        $parkingYardVehicle = Parking_Yard_Gate::with('Vehicle_Type')
+        $parkingYardVehicle = Parking_Yard_Gate::with('Vehicle_Type')->with('Vehicle_Capacity')
             ->gate_in_status()
             ->where('id', $id)
             ->first();

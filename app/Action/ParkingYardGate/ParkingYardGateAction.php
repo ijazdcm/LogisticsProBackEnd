@@ -39,7 +39,7 @@ class ParkingYardGateAction
             (new VehicleService())->assignVehicle($request->vehicle_id);
         }
         else {
-            //checking on database if already a Hire or Party Vehicle Exist
+            //checking on database if already a Hire or Party Not Vehicle Exist
             if(!(new VehicleService())->vehicleExits($request->vehicle_number))
             {
                 //if not exits creating the new record in Vehicle_info table
@@ -51,6 +51,7 @@ class ParkingYardGateAction
                 ]);
 
             }
+
         }
 
     }
