@@ -32,8 +32,8 @@ class BankMasterController extends Controller
      */
     public function store(BankStoreRequest $request)
     {
-         $new_bank =Bank_info::create($request->validated());
-        return  BankInfoResource::make(Bank_info::find($new_bank->id));
+        $new_bank = Bank_info::create($request->validated());
+        return BankInfoResource::make(Bank_info::find($new_bank->id));
     }
 
     /**
@@ -45,14 +45,14 @@ class BankMasterController extends Controller
     public function show($id)
     {
         $bank_active = Bank_info::where('bank_status', 1)
-        ->where('id', $id)
-        ->first();
+            ->where('id', $id)
+            ->first();
 
-    if ($bank_active) {
-        return  BankInfoResource::make($bank_active);
-    }
+        if ($bank_active) {
+            return BankInfoResource::make($bank_active);
+        }
 
-    return response()->json(['message' => 'Bank  Not found'], 404);
+        return response()->json(['message' => 'Bank  Not found'], 404);
     }
 
     /**
@@ -70,7 +70,7 @@ class BankMasterController extends Controller
 
         if ($old_bank) {
             $old_bank->update($request->validated());
-            return  BankInfoResource::make($old_bank);
+            return BankInfoResource::make($old_bank);
         }
 
         return response()->json(['message' => 'Bank Not found'], 404);
@@ -86,10 +86,13 @@ class BankMasterController extends Controller
     {
         $bank = Bank_info::where('id', $id)->first();
         if ($bank) {
-             $status=($bank->bank_status==0)?1:0;
+
+            $status = ($bank->bank_status == 0) ? 1 : 0;
+
             $bank->update([$bank->bank_status = $status]);
             return response('', 204)->header('Content-Type', 'application/json');
-        } else {
+        }
+        else {
             return response()->json(['message' => 'Bank Not found'], 404);
         }
     }
