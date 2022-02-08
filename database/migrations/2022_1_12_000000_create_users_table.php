@@ -17,6 +17,7 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('username');
             $table->string('email')->unique();
+            $table->bigInteger('otp')->nullable()->default(0);
             $table->string('password');
             $table->string('mobile_no')->unique();
             $table->string('photo')->unique();
