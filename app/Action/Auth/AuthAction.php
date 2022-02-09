@@ -2,11 +2,10 @@
 
 namespace App\Action\Auth;
 
-use App\Mail\Auth\ForgetPasswordMail;
+use App\Events\Auth\SendOtpEvent;
 use App\Models\User;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
-use phpDocumentor\Reflection\Types\Boolean;
+use Illuminate\Support\Facades\Event;
+
 
 class AuthAction
 {
@@ -14,16 +13,9 @@ class AuthAction
     public function sendOtp(User $user,int $otp):bool
     {
 
-        sleep(3); //remove this line on production
+        sleep(1); //remove this line on production
 
-        Log::channel('otp')->info("Reset Mail For : \t{$user->email} -and Otp is {$otp}" );
-        /*
-        | in this method mail to a request user need to
-        | me implemented after connected to live server un comment the below code
-        | View for mail is created but not implemented for use but user info and opt have been passed
-        */
-
-        // Mail::to($user->email)->send(new ForgetPasswordMail($user,$otp));
+        Event::dispatch(new SendOtpEvent($user));
 
         $user->otp=$otp;
         return ($user->save())?true:false;

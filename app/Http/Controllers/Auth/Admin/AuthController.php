@@ -11,7 +11,9 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Helper\Otp\OtpHelper;
+use App\Http\Requests\Auth\ForgetPassword\ChangePasswordRequest;
 use App\Http\Requests\Auth\ForgetPassword\VerifyOtpRequest;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
@@ -33,8 +35,7 @@ class AuthController extends Controller
                 ->first();
 
             return UserResource::make($user)->additional(['token' => $token]);
-        }
-        else {
+        } else {
             $response = ["message" => "Invalid Username & Password"];
             return response(json_encode($response), 401)->header('Content-Type', 'application/json');
         }
@@ -54,10 +55,8 @@ class AuthController extends Controller
                 return response()->json($response, 200);
             }
         }
-        else {
-            $response = ["message" => "Check Your Email Address"];
-            return response()->json($response, 404);
-        }
+        $response = ["message" => "Check Your Email Address"];
+        return response()->json($response, 404);
     }
 
     public function verifyOtp(VerifyOtpRequest $request)
@@ -75,15 +74,32 @@ class AuthController extends Controller
                     $response = ["message" => "Otp Matched & Verified"];
                     return response()->json($response, 200);
                 }
-
             }
-            else {
-                $response = ["message" => "Enter a valid OTP"];
-                return response()->json($response, 403);
-            }
+            $response = ["message" => "Enter a valid OTP"];
+            return response()->json($response, 403);
         }
+    }
 
 
+
+    public function updateNewPassword(ChangePasswordRequest $request)
+    {
+        $user = User::where('email', $request->email)->first();
+
+        if ($user) {
+
+            //Updating the user password by hashing it
+            $user->password = Hash::make($request->confirm_password);
+
+            if ($user->save()) {
+                $response = ["message" => "Password Changed"];
+                return response()->json($response, 200);
+            }
+            $response = ["message" => "Something went Wrong"];
+            return response()->json($response, 500);
+        }
+        $response = ["message" => "Check Your Email Address"];
+        return response()->json($response, 404);
     }
 
     public function logout(Request $request)
@@ -92,5 +108,4 @@ class AuthController extends Controller
         $request->user()->tokens()->delete();
         return response('', 204)->header('Content-Type', 'application/json');
     }
-
 }

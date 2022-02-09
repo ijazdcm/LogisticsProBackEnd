@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Events\Auth\SendOtpEvent;
+use App\Listeners\Auth\SendOtpEventListener;
 use App\Models\Bank\Bank_info;
 use App\Models\DefectType\Defect_Type;
 use App\Models\Department\Department;
@@ -52,6 +54,7 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+        SendOtpEvent::class=>[SendOtpEventListener::class]
     ];
 
     /**

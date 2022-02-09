@@ -77,14 +77,14 @@ class RouteServiceProvider extends ServiceProvider
                 ->namespace($this->namespace)
                 ->group(base_path('routes/api.php'));
 
-                //this code have been refactored by Saravana Sai
+            //this code have been refactored by Saravana Sai
 
-                foreach ($this->routes_path as $route) {
-                    Route::prefix('api/v1/')
-                    ->middleware('api')
-                    ->namespace($this->namespace)
-                    ->group(base_path("routes/v1/{$route['folder']}/{$route['file']}.php"));
-                 }
+            foreach ($this->routes_path as $route) {
+                Route::prefix('api/v1/')
+                ->middleware('api')
+                ->namespace($this->namespace)
+                ->group(base_path("routes/v1/{$route['folder']}/{$route['file']}.php"));
+                }
 
             Route::middleware('web')
                 ->namespace($this->namespace)

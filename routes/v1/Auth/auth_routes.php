@@ -20,6 +20,8 @@ Route::post('admin/login',[AuthController::class,'login']);
 
 Route::post('user/forget-password',[AuthController::class,'forgetPassword']);
 Route::post('user/verify-otp',[AuthController::class,'verifyOtp']);
+Route::post('user/change-new-password',[AuthController::class,'updateNewPassword']);
+
 
 /*
 |--------------------------------------------------------------------------
