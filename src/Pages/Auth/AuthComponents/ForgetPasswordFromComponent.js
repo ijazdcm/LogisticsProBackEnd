@@ -20,16 +20,18 @@ const ForgetPasswordFromComponent = ({
   setState,
   verifyOtp,
   ChangePassword,
-  forgetPassword
+  forgetPassword,
+  setForgetPassword
 }) => {
   return (
     <>
-         {(forgetPassword && !state.otpPage) && <EmailComponent
+         {(forgetPassword && !state.otpPage && !state.confirmOtp) && <EmailComponent
             handleForgetPassword={handleForgetPassword}
             state={state}
             setState={setState}
+            setForgetPassword={setForgetPassword}
           />}
-        {(state.otpPage && forgetPassword) && (<OtpComponent verifyOtp={verifyOtp} state={state} setState={setState} />)}
+        {(state.otpPage && forgetPassword && !state.confirmOtp) && (<OtpComponent verifyOtp={verifyOtp} state={state} setState={setState} />)}
         {(state.confirmOtp && state.otpPage) && <NewPasswordComponent  ChangePassword={ChangePassword} state={state} setState={setState} />}
 
     </>

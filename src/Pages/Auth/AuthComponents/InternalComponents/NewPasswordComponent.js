@@ -13,12 +13,21 @@ import {
 import { useEffect } from 'react'
 import { useState } from 'react'
 const NewPasswordComponent = ({ ChangePassword, state, setState }) => {
+
   const [enable, SetEnable] = useState(true)
+  const [message, SetMessage] = useState('')
 
   useEffect(() => {
-    if (state.newPassword == state.newPasswordConfirm) {
+    if (state.newPassword == state.newPasswordConfirm && state.newPassword) {
+      SetMessage('Password  Matched')
       SetEnable(false)
-    } else {
+    }
+    else if(state.newPassword.length<4 && state.newPassword){
+      SetMessage('Password must be 4 characters long')
+      SetEnable(true)
+    }
+    else if(state.newPassword != state.newPasswordConfirm && state.newPassword){
+      SetMessage('Both Password Not Matched')
       SetEnable(true)
     }
   }, [state.newPassword, state.newPasswordConfirm])
@@ -39,6 +48,7 @@ const NewPasswordComponent = ({ ChangePassword, state, setState }) => {
         <p className="text-medium-emphasis mt-4">ENTER NEW PASSWORD</p>
         <div className="container">
           {state.error && <div className="text-danger">{state.error}</div>}
+          {message && <div className={`text-${!enable?'success':'danger'}`}>{message}</div>}
           {state.loading && <CSpinner color="black" className="mb-2" />}
           <div className="row">
             <div className="col-md-8 offset-md-2">
@@ -50,7 +60,7 @@ const NewPasswordComponent = ({ ChangePassword, state, setState }) => {
                   placeholder="Enter New Password"
                   value={state.newPassword}
                   required
-                  type="text"
+                  type="password"
                   onChange={(e) => setState({ ...state, newPassword: e.target.value })}
                 />
               </CInputGroup>
@@ -62,7 +72,7 @@ const NewPasswordComponent = ({ ChangePassword, state, setState }) => {
                   placeholder="Confirm Password"
                   value={state.newPasswordConfirm}
                   required
-                  type="text"
+                  type="password"
                   onChange={(e) => setState({ ...state, newPasswordConfirm: e.target.value })}
                 />
               </CInputGroup>

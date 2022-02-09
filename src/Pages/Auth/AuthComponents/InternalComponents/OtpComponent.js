@@ -31,6 +31,7 @@ const OtpComponent = ({ state, setState,verifyOtp }) => {
                   placeholder="Enter OTP"
                   value={state.otp}
                   required
+                  maxLength={4}
                   type="number"
                   onChange={(e) => setState({ ...state, otp: e.target.value })}
                 />
