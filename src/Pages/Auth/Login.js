@@ -30,6 +30,13 @@ const Login = () => {
   const [state, setState] = useState({
     username: '',
     password: '',
+    email: '',
+    otp: '',
+    loading: false,
+    otpPage: false,
+    confirmOtp: false,
+    newPassword:'',
+    newPasswordConfirm:'',
     error: '',
   })
 
@@ -52,6 +59,64 @@ const Login = () => {
       })
   }
 
+  const handleForgetPassword = (e) => {
+    e.preventDefault()
+    setState({ ...state, loading: true })
+
+    let data = new FormData()
+    data.append('email', state.email)
+    AuthService.forgetPassword(data)
+      .then((res) => {
+        if (res.status == 200) {
+          setState({ ...state, loading: false, otpPage: true })
+        }
+      })
+      .catch((error) => {
+        if (error.response.status === 404) {
+          setState({ ...state, error: error.response.data.message })
+        }
+      })
+  }
+
+  const verifyOtp = (e) => {
+    e.preventDefault()
+    setState({ ...state, loading: true })
+
+    let data = new FormData()
+    data.append('email', state.email)
+    data.append('otp', state.otp)
+    AuthService.verifyOtp(data)
+      .then((res) => {
+        if (res.status === 200) {
+          setState({ ...state, loading: false, confirmOtp: true,otpPage:false })
+        }
+      })
+      .catch((error) => {
+        if (error.response.status === 403) {
+          setState({ ...state, error: error.response.data.message })
+        }
+      })
+  }
+
+  const ChangePassword = (e) => {
+    e.preventDefault()
+    setState({ ...state, loading: true })
+
+    let data = new FormData()
+    data.append('email', state.email)
+
+    AuthService.verifyOtp(data)
+      .then((res) => {
+        if (res.status === 200) {
+          setState({ ...state, loading: false, confirmOtp: true })
+        }
+      })
+      .catch((error) => {
+        if (error.response.status === 403) {
+          setState({ ...state, error: error.response.data.message })
+        }
+      })
+  }
   return (
     <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
       <CContainer>
@@ -74,7 +139,11 @@ const Login = () => {
                       handleLogin={handleLogin}
                       setState={setState}
                       state={state}
+                      handleForgetPassword={handleForgetPassword}
                       setForgetPassword={setForgetPassword}
+                      forgetPassword={forgetPassword}
+                      verifyOtp={verifyOtp}
+                      ChangePassword={ChangePassword}
                     />
                   ) : (
                     <LoginFormComponent
