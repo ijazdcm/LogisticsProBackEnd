@@ -374,6 +374,12 @@ const _nav = [
             to: '/bankmaster',
             title: 'Bank Master',
           },
+          {
+            component: CNavItem,
+            name: 'Location Master',
+            to: '/locationmaster',
+            title: 'Location Master',
+          },
         ],
       },
     ],
