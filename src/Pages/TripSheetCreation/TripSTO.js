@@ -1,9 +1,8 @@
-import { CButton, CCard, CContainer } from "@coreui/react";
-import { Link } from "react-router-dom";
-import CustomTable from "src/components/customComponent/CustomTable";
-import React from "react";
+import { CButton, CCard, CContainer } from '@coreui/react'
+import { Link } from 'react-router-dom'
+import CustomTable from 'src/components/customComponent/CustomTable'
+import React from 'react'
 const TripSheetCreationHome = () => {
-
   const columns = [
     {
       name: 'S.No',
@@ -77,14 +76,14 @@ const TripSheetCreationHome = () => {
       Screen_Duration: '0 Hrs 07 Mins',
       Overall_Duration: '0 Hrs 55 Mins',
       Action: (
-        <CButton className="badge text-white" color="warning" >
-          <Link className="text-white" to="/TripSheetCreationHome/TripSheetCreationOwnFG">
+        <CButton className="badge text-white" color="warning">
+          {/* <Link className="text-white" to="/TripSheetCreationHome/TripSheetCreationOwnFG"> */}
+          <Link className="text-white" to="">
             Trip STO
           </Link>
         </CButton>
       ),
     },
-
   ]
   return (
     <CCard className="mt-4">
@@ -92,7 +91,7 @@ const TripSheetCreationHome = () => {
         <CustomTable columns={columns} data={data} />
       </CContainer>
     </CCard>
-  );
+  )
 }
 
-export default TripSheetCreationHome;
+export default TripSheetCreationHome
