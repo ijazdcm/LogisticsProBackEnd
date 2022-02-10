@@ -29,6 +29,9 @@ class CreateTripSheetsTable extends Migration
             $table->string('freight_rate_per_tone');
             $table->string('advance_payment_bank');
             $table->string('advance_payment_diesel');
+            $table->string('vehicle_source_by')->default(null);
+            $table->string('rj_pod_copy')->default(null);
+            $table->string('unregistered_vendor')->default(null);
             $table->string('remarks');
             $table->string('status')->default(null)->comment('0 -Open , 1 - Assigned, 2 - Closed');
             $table->unsignedBigInteger('created_by')->default(0);
