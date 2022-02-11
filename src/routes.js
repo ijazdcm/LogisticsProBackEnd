@@ -3,22 +3,15 @@
 // Master Pages
 import VehicleMaster from './Pages/Master/VehicleMaster/VehicleMaster'
 import DieselVendorMaster from './Pages/Master/DieselVendorMaster/DieselVendorMaster'
-
-// import DriverMaster from './Pages/Master/DriverMaster'
-// import ShedMaster from './Pages/Master/ShedMaster/ShedMaster'
 import ShedMasterEdit from './Pages/Master/ShedMaster/ShedMasterEdit'
-// import DieselVendorMaster from './Pages/Master/DieselVendorMaster'
-
 import DriverMaster from './Pages/Master/DriverMaster/DriverMaster'
 import ShedMaster from './Pages/Master/ShedMaster'
-
 import UserLoginMaster from './Pages/UserLoginMaster/UserLoginMaster'
 import UserLoginMasterTable from './Pages/Master/UserLoginMasterTable'
 
 // Sub-Master Pages
 
 import DesignationTable from './Pages/Master/Submaster/DesignationTable'
-
 import DefectTypeTable from './Pages/Master/Submaster/DefectTypeTable'
 import DepartmentTable from './Pages/Master/Submaster/DepartmentTable'
 import StatusTable from './Pages/Master/Submaster/StatusTable'
@@ -31,7 +24,6 @@ import UOMTable from './Pages/Master/Submaster/UOMTable'
 import ShedMasterTable from './Pages/Master/ShedMaster/ShedMasterTable'
 import VehicleMasterTable from './Pages/Master/VehicleMaster/VehicleMasterTable'
 import DieselVendorMasterTable from './Pages/Master/DieselVendorMaster/DieselVendorMasterTable'
-// import DriverMasterTable from './Pages/Master/DriverMaster/DriverMasterTable'
 
 // Small Master Pages
 
@@ -48,9 +40,7 @@ import DieselIntentOwn from './Pages/DiCreation/DieselIntentOwn'
 import DieselIntentHire from './Pages/DiCreation/DieselIntentHire'
 import DieselIntentHome from './Pages/DiCreation/DieselIntentHome'
 import DiConfirmation from './Pages/DiConfirmation/DiConfirmation'
-// import ParkingYardGate from './Pages/ParkingYardGate/ParkingYardGateIn'
 import GateIn from './Pages/ParkingYardGate/GateIn'
-// import hire from './Pages/ParkingYardGate/hire'
 import vInspection from './Pages/VehicleInspection/VInspection'
 import vehicleInspection from './Pages/VehicleInspection/vehicleInspection'
 import VehicleInspectionHire from './Pages/VehicleInspection/VehicleInspectionHire'
@@ -63,7 +53,7 @@ import TripSheetCreationFG from './Pages/TripSheetCreation/TripSheetCreationFG'
 import TripSheetCreationOwnFG from './Pages/TripSheetCreation/TripSheetCreationOwnFG'
 import TripSheetCreationHome from './Pages/TripSheetCreation/TripSheetCreationHome'
 import TripSheetCreationSTO from './Pages/TripSheetCreation/TripSheetCreationSTO'
-import TripSTO from './Pages/TripSheetCreation/TripSTO'
+import TripSTO from './Pages/TripSTO/TripSto'
 import TripSheetSettleMentFG from './Pages/TripSheetSettleMent/TripSheetSettleMentFG'
 import TripSheetSettleMentNew from './Pages/TripSheetSettleMent/TripSheetSettleMentNew'
 import TripSheetSettleMentHome from './Pages/TripSheetSettleMent/TripSheetSettleMentHome'
@@ -103,7 +93,9 @@ import DriverMasterEdit from './Pages/Master/DriverMaster/DriverMasterEdit'
 
 import BankMasterTable from './Pages/Master/Submaster/Bank/BankMasterTable'
 import DriverMasterTable from './Pages/Master/DriverMaster/DriverMasterTable'
+
 import LocationTable from './Pages/Master/Submaster/LocationTable';
+
 
 const routes = [
   // Master
@@ -151,13 +143,13 @@ const routes = [
   {
     path: '/DriverMasterTable',
     exact: true,
-    name: 'DriverMasterTable',
+    name: 'Driver Master Table',
     component: DriverMasterTable,
   },
   {
     path: '/DieselVendorMasterTable',
     exact: true,
-    name: 'DieselVendorMasterTable',
+    name: 'Diesel Vendor Master Table',
     component: DieselVendorMasterTable,
   },
   {
@@ -276,7 +268,6 @@ const routes = [
     component: DiApproval,
   },
   { path: '/DiConfirmation', exact: true, name: 'Test', component: DiConfirmation },
-  // { path: '/hire', exact: true, name: 'Test', component: hire },
 
   {
     path: '/VendorCreationHome',
@@ -332,6 +323,7 @@ const routes = [
     name: '/TripSheetCreationOwnFG',
     component: TripSheetCreationOwnFG,
   },
+
   {
     path: '/TripSheetCreation/tripSto',
     exact: true,
@@ -341,7 +333,7 @@ const routes = [
   {
     path: '/TripSTO',
     exact: true,
-    name: 'TripSTO',
+    name: 'Trip - STO',
     component: TripSTO,
   },
   {
