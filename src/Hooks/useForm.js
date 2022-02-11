@@ -45,7 +45,7 @@ const useForm = (callback, validate, formValues) => {
         [event.target.name]: event.target.files[0],
       }))
     } else {
-      console.log(event.target.name+":\t"+value);
+      // console.log(event.target.name + ':\t' + value)
       setValues((values) => ({
         ...values,
         [event.target.name]: value,
@@ -76,7 +76,7 @@ const useForm = (callback, validate, formValues) => {
     enableSubmit,
     onBlur,
     setIsTouched,
-    setErrors
+    setErrors,
   }
 }
 

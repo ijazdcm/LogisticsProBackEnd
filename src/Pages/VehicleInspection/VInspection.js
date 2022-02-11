@@ -5,8 +5,6 @@ import CustomTable from 'src/components/customComponent/CustomTable'
 import VehicleInspectionService from 'src/Service/VehicleInspection/VehicleInspectionService'
 
 const VInspection = () => {
-
-
   const [rowData, setRowData] = useState([])
   let tableData = []
 
@@ -15,14 +13,14 @@ const VInspection = () => {
     GATE_OUT: 2,
     WAIT_OUTSIDE: 3,
   }
-  const loadVehicleInspectionTable=()=>{
+  const loadVehicleInspectionTable = () => {
     VehicleInspectionService.getVehicleReadyToInspect().then((res) => {
       tableData = res.data.data
       let rowDataList = []
       tableData.map((data, index) => {
         rowDataList.push({
           sno: index + 1,
-          Tripsheet_No: '',
+          // Tripsheet_No: '',
           Vehicle_Type: data.vehicle_type_id.type,
           Vehicle_No: data.vehicle_number,
           Driver_Name: data.driver_name,
@@ -35,26 +33,22 @@ const VInspection = () => {
                 : 'Gate Out'}
             </span>
           ),
-          Screen_Duration:data.updated_at ,
+          Screen_Duration: data.updated_at,
           Overall_Duration: data.created_at,
-          Action:
-              <CButton className="badge text-white" color="warning">
-                <Link to={`vehicleInspection/${data.parking_yard_gate_id}`}>
-                Vehicle Inspection
-                </Link>
-              </CButton>
+          Action: (
+            <CButton className="badge text-white" color="warning">
+              <Link to={`vehicleInspection/${data.parking_yard_gate_id}`}>Vehicle Inspection</Link>
+            </CButton>
+          ),
         })
       })
       setRowData(rowDataList)
     })
   }
 
-
-  useEffect(()=>{
+  useEffect(() => {
     loadVehicleInspectionTable()
-  },[])
-
-
+  }, [])
 
   const columns = [
     {
@@ -63,12 +57,12 @@ const VInspection = () => {
       sortable: true,
       center: true,
     },
-    {
-      name: 'TripSheet No',
-      selector: (row) => row.VA_No,
-      sortable: true,
-      center: true,
-    },
+    // {
+    //   name: 'TripSheet No',
+    //   selector: (row) => row.VA_No,
+    //   sortable: true,
+    //   center: true,
+    // },
     {
       name: 'Vehicle Type',
       selector: (row) => row.Vehicle_Type,
@@ -109,7 +103,6 @@ const VInspection = () => {
       center: true,
     },
   ]
-
 
   return (
     <CCard className="mt-4">

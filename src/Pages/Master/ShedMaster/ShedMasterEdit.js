@@ -34,7 +34,7 @@ import {
 import { React, useEffect, useState } from 'react'
 import useForm from 'src/Hooks/useForm.js'
 import validate from 'src/Utils/Validation'
-import ShedTypeService from "src/Service/SmallMaster/Shed/ShedTypeService"
+import ShedTypeService from "src/Service/SmallMaster/Shed/ShedService"
 import { Link, useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
 import { useParams } from 'react-router-dom'

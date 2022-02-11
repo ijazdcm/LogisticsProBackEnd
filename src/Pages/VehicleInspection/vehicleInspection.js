@@ -61,48 +61,43 @@ const VehicleInspection = () => {
   const { values, errors, handleChange, onFocus, handleSubmit, enableSubmit, onBlur, isTouched } =
     useForm(inspectVehicle, VehicleInspectionValidation, formValues)
 
-    const navigation = useNavigate()
+  const navigation = useNavigate()
 
-  const addVehicleInspection=(status)=>{
-
-    let data = new FormData();
-    data.append('vehicle_id', values.vehicle_id);
-    data.append('truck_clean', values.truck_clean);
-    data.append('bad_smell', values.bad_smell);
-    data.append('insect_vevils_presence', values.insect_vevils_presence);
-    data.append('tarpaulin_srf', values.tarpaulin_srf);
-    data.append('tarpaulin_non_srf', values.tarpaulin_non_srf);
-    data.append('insect_vevils_presence_in_tar', values.insect_vevils_presence_in_tar);
-    data.append('truck_platform', values.truck_platform);
-    data.append('previous_load_details', values.previous_load_details);
-    data.append('vehicle_fit_for_loading', status);
-    data.append('remarks', (values.remarks)?values.remarks:"NO REMARKS");
-    data.append('vehicle_inspection_status',status);
-    if(values.driverId && oldDriver)
-    {
-      data.append('driver_id',values.driverId);
-      data.append('old_driver_id',oldDriver);
+  const addVehicleInspection = (status) => {
+    let data = new FormData()
+    data.append('vehicle_id', values.vehicle_id)
+    data.append('truck_clean', values.truck_clean)
+    data.append('bad_smell', values.bad_smell)
+    data.append('insect_vevils_presence', values.insect_vevils_presence)
+    data.append('tarpaulin_srf', values.tarpaulin_srf)
+    data.append('tarpaulin_non_srf', values.tarpaulin_non_srf)
+    data.append('insect_vevils_presence_in_tar', values.insect_vevils_presence_in_tar)
+    data.append('truck_platform', values.truck_platform)
+    data.append('previous_load_details', values.previous_load_details)
+    data.append('vehicle_fit_for_loading', status)
+    data.append('remarks', values.remarks ? values.remarks : 'NO REMARKS')
+    data.append('vehicle_inspection_status', status)
+    if (values.driverId && oldDriver) {
+      data.append('driver_id', values.driverId)
+      data.append('old_driver_id', oldDriver)
     }
 
+    console.log(data)
 
-    //  debugger;
+    for (var value of data.values()) {
+      console.log(value)
+    }
+    debugger
 
-    VehicleInspectionService.addVehicleInspectionDetails(data).then(res=>{
-
-      if(res.status==200)
-      {
-        toast.success('Vehicle Inspection process completed')
-        navigation("/vInspection")
-      }
-    })
+    // VehicleInspectionService.addVehicleInspectionDetails(data).then((res) => {
+    //   if (res.status == 200) {
+    //     toast.success('Vehicle Inspection process completed')
+    //     navigation('/vInspection')
+    //   }
+    // })
   }
 
-
-  function inspectVehicle () {
-
-
-
-  }
+  function inspectVehicle() {}
 
   const [visible, setVisible] = useState(false)
   const [currentVehicleInfo, setCurrentVehicleInfo] = useState({})
@@ -121,8 +116,7 @@ const VehicleInspection = () => {
 
   const { id } = useParams()
 
-
-  console.log(values);
+  console.log(values)
 
   useEffect(() => {
     VehicleInspectionService.getSingleVehicleInfoOnParkingYardGate(id).then((res) => {
@@ -204,16 +198,16 @@ const VehicleInspection = () => {
                     currentVehicleInfo.vehicle_type_id.id == VEHICLE_TYPE.CONTRACT ? (
                       changeDriver ? (
                         <CFormSelect
-                        size="sm"
-                        name="driverId"
-                        id="driverId"
-                        onFocus={onFocus}
-                        onBlur={onBlur}
-                        onChange={handleChange}
-                        value={values.driverId}
-                        label={'Small select example'}
-                      >
-                        <DriverListSelectComponent />
+                          size="sm"
+                          name="driverId"
+                          id="driverId"
+                          onFocus={onFocus}
+                          onBlur={onBlur}
+                          onChange={handleChange}
+                          value={values.driverId}
+                          label={'Small select example'}
+                        >
+                          <DriverListSelectComponent />
                         </CFormSelect>
                       ) : (
                         <>
@@ -557,9 +551,17 @@ const VehicleInspection = () => {
                   </CCol>
                   <CCol xs={12} md={3}>
                     <CFormLabel htmlFor="remarks">Remarks</CFormLabel>
-                    <CFormTextarea id="remarks" onFocus={onFocus}
+                    <CFormTextarea
+                      id="remarks"
+                      onFocus={onFocus}
                       onBlur={onBlur}
-                      onChange={handleChange} value={values.remarks} name="remarks" rows="1">{values.remarks}</CFormTextarea>
+                      onChange={handleChange}
+                      value={values.remarks}
+                      name="remarks"
+                      rows="1"
+                    >
+                      {values.remarks}
+                    </CFormTextarea>
                   </CCol>
                 </CRow>
                 <CRow className="mt-2">
@@ -612,7 +614,7 @@ const VehicleInspection = () => {
                       <></>
                     )}
 
-                    {!changeDriver && currentVehicleInfo.vehicle_type_id.id == VEHICLE_TYPE.OWN ||
+                    {(!changeDriver && currentVehicleInfo.vehicle_type_id.id == VEHICLE_TYPE.OWN) ||
                     currentVehicleInfo.vehicle_type_id.id == VEHICLE_TYPE.CONTRACT ? (
                       <CButton
                         size="sm"

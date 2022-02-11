@@ -1,4 +1,4 @@
-import React from 'react'
+// import React from 'react'
 
 // Master Pages
 import VehicleMaster from './Pages/Master/VehicleMaster/VehicleMaster'
@@ -78,7 +78,7 @@ import TSClossure from './Pages/TripsheetClossure/TSClossure'
 import TSClossureSto from './Pages/TripsheetClossure/TSClossureSto'
 import ShipmentCreation from './Pages/ShipmentCreation/ShipmentCreation'
 import ShipmentCreationConsumer from './Pages/ShipmentCreation/ShipmentCreationConsumer'
-import VendorCreationConfrimationOwn from './Pages/VendorCreationConfrimation/VendorCreationConfrimationOwn'
+// import VendorCreationConfrimationOwn from './Pages/VendorCreationConfrimation/VendorCreationConfrimationOwn'
 import DiApprovalHome from './Pages/DiApproval/DiApprovalHome'
 import DiApproval from './Pages/DiApproval/DiApproval'
 import RJcustomerCreationHome from './Pages/RJcustomerCreation/RJcustomerCreationHome'
@@ -103,7 +103,6 @@ import DriverMasterEdit from './Pages/Master/DriverMaster/DriverMasterEdit'
 
 import BankMasterTable from './Pages/Master/Submaster/Bank/BankMasterTable'
 import DriverMasterTable from './Pages/Master/DriverMaster/DriverMasterTable'
-
 
 const routes = [
   // Master
@@ -136,17 +135,16 @@ const routes = [
     component: DieselVendorMasterEdit,
   },
   {
-
     path: '/ShedMasterTable/ShedMaster/:id',
     exact: true,
     name: 'ShedMasterEdit',
     component: ShedMasterEdit,
-
+  },
+  {
     path: '/DriverMasterTable/DriverMaster/:id',
     exact: true,
     name: 'DriverMasterTableEdit',
     component: DriverMasterEdit,
-
   },
   { path: '/ShedMasterTable', exact: true, name: 'ShedMasterTable', component: ShedMasterTable },
   {
@@ -217,7 +215,7 @@ const routes = [
     component: DocVerify,
   },
   {
-    path: '/DocsVerify/DocVerifyVendorAvail',
+    path: '/DocsVerify/DocVerifyVendorAvail/:id',
     exact: true,
     name: 'DocVerifyVendorAvail',
     component: DocVerifyVendorAvail,

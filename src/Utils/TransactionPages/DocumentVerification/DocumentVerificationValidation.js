@@ -1,5 +1,46 @@
-export default function ShedMasterValidation(values, isTouched) {
+export default function DocumentVerificationValidation(values, isTouched) {
   const errors = {}
+
+  if (isTouched.panNumber && !values.panNumber) {
+    errors.panNumber = 'Required'
+  } else if (isTouched.panNumber && !/^[A-Z]{5}[\d]{4}[A-Z]{1}$/.test(values.panNumber)) {
+    errors.panNumber = 'Must Like "AMIPR8417L"'
+  }
+
+  if (isTouched.license && !values.license) {
+    errors.license = 'Required'
+  }
+
+  if (isTouched.rcFront && !values.rcFront) {
+    errors.rcFront = 'Required'
+  }
+  if (isTouched.rcBack && !values.rcBack) {
+    errors.rcBack = 'Required'
+  }
+  if (isTouched.insurance && !values.insurance) {
+    errors.insurance = 'Required'
+  }
+  if (isTouched.insuranceValid && !values.insuranceValid) {
+    errors.insuranceValid = 'Required'
+  }
+  if (isTouched.TDSfront && !values.TDSfront) {
+    errors.TDSfront = 'Required'
+  }
+  if (isTouched.TDSback && !values.TDSback) {
+    errors.TDSback = 'Required'
+  }
+  if (isTouched.transportShed && !values.transportShed) {
+    errors.transportShed = 'Required'
+  }
+  if (isTouched.shedName && !values.shedName) {
+    errors.shedName = 'Required'
+  }
+  if (isTouched.ownershipTrans && !values.ownershipTrans) {
+    errors.ownershipTrans = 'Required'
+  }
+  if (isTouched.freightRate && !values.freightRate) {
+    errors.freightRate = 'Required'
+  }
 
   //vehicle type validation rule
   if (isTouched.ShedType && values.ShedType === '0') {
@@ -37,23 +78,6 @@ export default function ShedMasterValidation(values, isTouched) {
   if (isTouched.ShedOwnerPhoto && !values.ShedOwnerPhoto) {
     errors.ShedOwnerPhoto = 'Required'
   }
-  if (isTouched.PANNumber && !values.PANNumber) {
-    errors.PANNumber = 'Required'
-  } else if (isTouched.PANNumber && !/^[A-Z]{5}[\d]{4}[A-Z]{1}$/.test(values.PANNumber)) {
-    errors.PANNumber = 'Must Have 10 Digit Alphanumeric'
-  }
-  if (isTouched.AadharNumber && !values.AadharNumber) {
-    errors.AadharNumber = 'Required'
-  } else if (isTouched.AadharNumber && !/^[\d]{12}$/.test(values.AadharNumber)) {
-    errors.AadharNumber = 'Must Have 12 Digit Numeric'
-  }
-  if (isTouched.GSTNumber && !values.GSTNumber) {
-    errors.GSTNumber = 'Required'
-  } else if (
-    isTouched.GSTNumber &&
-    !/^[\d]{2}[A-Z]{5}[\d]{4}[A-Z]{1}[\d]{1}[A-Z]{1}[A-Z\d]{1}$/.test(values.GSTNumber)
-  ) {
-    errors.GSTNumber = 'Must Have 15 Digit Numeric'
-  }
+
   return errors
 }

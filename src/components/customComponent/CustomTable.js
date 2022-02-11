@@ -61,8 +61,8 @@ const CustomTable = ({ columns, data, feildName, showSearchFilter = false }) => 
       style: {
         padding: '0px',
         margin: '0px',
-        paddingLeft: '5px', // override the cell padding for head cells
-        paddingRight: '5px',
+        paddingLeft: '1px', // override the cell padding for head cells
+        paddingRight: '1px',
         backgroundColor: '#4d3227',
         color: '#fff',
         fontSize: '0.8rem',
@@ -74,7 +74,7 @@ const CustomTable = ({ columns, data, feildName, showSearchFilter = false }) => 
       style: {
         paddingLeft: '8px', // override the cell padding for data cells
         paddingRight: '8px',
-        fontSize: '0.75zzzzzzzzzrem',
+        fontSize: '0.75rem',
         textAlign: 'center',
       },
     },
