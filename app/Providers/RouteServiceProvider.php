@@ -28,7 +28,8 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var array
      */
-    protected array $routes_path=[
+    protected array $routes_path = [
+
 
         ['folder'=>'Auth','file'=>'auth_routes'],
         ['folder'=>'Vehicle','file'=>'vehicle_routes'],
@@ -50,6 +51,11 @@ class RouteServiceProvider extends ServiceProvider
         ['folder'=>'VehicleInspection','file'=>'vehicle_inspection_routes'],
         ['folder'=>'VehicleInspection','file'=>'vehicle_inspection_routes'],
         ['folder'=>'VehicleMaintenance','file'=>'vehicle_maintenance_routes'],
+        ['folder'=>'Location','file'=>'location_routes'],
+        ['folder' => 'TripSto', 'file' => 'trip_sto_routes'],
+
+
+
 
     ];
 
@@ -77,14 +83,14 @@ class RouteServiceProvider extends ServiceProvider
                 ->namespace($this->namespace)
                 ->group(base_path('routes/api.php'));
 
-                //this code have been refactored by Saravana Sai
+            //this code have been refactored by Saravana Sai
 
-                foreach ($this->routes_path as $route) {
-                    Route::prefix('api/v1/')
+            foreach ($this->routes_path as $route) {
+                Route::prefix('api/v1/')
                     ->middleware('api')
                     ->namespace($this->namespace)
                     ->group(base_path("routes/v1/{$route['folder']}/{$route['file']}.php"));
-                 }
+            }
 
             Route::middleware('web')
                 ->namespace($this->namespace)
