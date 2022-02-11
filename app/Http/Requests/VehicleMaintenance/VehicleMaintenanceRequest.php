@@ -31,6 +31,7 @@ class VehicleMaintenanceRequest extends FormRequest
             "work_order"=>['required'],
             "vendor_id"=>['required'],
             "maintenance_start_datetime"=>['required'],
+            "closing_odometer_km"=>[''],
             "maintenance_end_datetime"=>[''],
             "remarks"=>[''],
         ];

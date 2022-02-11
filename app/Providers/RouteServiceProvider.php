@@ -50,6 +50,7 @@ class RouteServiceProvider extends ServiceProvider
         ['folder'=>'VehicleInspection','file'=>'vehicle_inspection_routes'],
         ['folder'=>'VehicleInspection','file'=>'vehicle_inspection_routes'],
         ['folder'=>'VehicleMaintenance','file'=>'vehicle_maintenance_routes'],
+        ['folder'=>'VehicleMaintenance','file'=>'work_order_routes'],
 
     ];
 
