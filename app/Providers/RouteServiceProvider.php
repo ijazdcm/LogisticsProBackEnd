@@ -50,8 +50,10 @@ class RouteServiceProvider extends ServiceProvider
         ['folder'=>'Bank','file'=>'bank_routes'],
         ['folder'=>'VehicleInspection','file'=>'vehicle_inspection_routes'],
         ['folder'=>'VehicleInspection','file'=>'vehicle_inspection_routes'],
+        ['folder'=>'VehicleMaintenance','file'=>'vehicle_maintenance_routes'],
         ['folder'=>'Location','file'=>'location_routes'],
         ['folder' => 'TripSto', 'file' => 'trip_sto_routes'],
+
 
 
 
