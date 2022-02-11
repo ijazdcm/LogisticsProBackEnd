@@ -80,6 +80,5 @@ class EventServiceProvider extends ServiceProvider
         Defect_Type::observe(DefectTypeObserver::class); // Added By Saravana Sai
         Bank_info::observe(BankInfoObserver::class); // Added By Saravana Sai
 
-
     }
 }
