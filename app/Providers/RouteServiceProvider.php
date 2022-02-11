@@ -30,26 +30,29 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected array $routes_path = [
 
-        ['folder' => 'Auth', 'file' => 'auth_routes'],
-        ['folder' => 'Vehicle', 'file' => 'vehicle_routes'],
-        ['folder' => 'Driver', 'file' => 'driver_routes'],
-        ['folder' => 'Division', 'file' => 'division_routes'],
-        ['folder' => 'Department', 'file' => 'department_routes'],
-        ['folder' => 'Designation', 'file' => 'designation_routes'],
-        ['folder' => 'Uom', 'file' => 'uom_routes'],
-        ['folder' => 'MaterialDescription', 'file' => 'material_description_routes'],
-        ['folder' => 'RejectionReason', 'file' => 'rejection_reason_routes'],
-        ['folder' => 'PreviousLoadDetails', 'file' => 'previous_load_details_routes'],
-        ['folder' => 'Status', 'file' => 'status_routes'],
-        ['folder' => 'Shed', 'file' => 'shed_routes'],
-        ['folder' => 'Vendor', 'file' => 'vendor_routes'],
-        ['folder' => 'User', 'file' => 'user_routes'],
-        ['folder' => 'ParkingYardGate', 'file' => 'parking_yard_gate_routes'],
-        ['folder' => 'DefectType', 'file' => 'defect_type_routes'],
-        ['folder' => 'Bank', 'file' => 'bank_routes'],
-        ['folder' => 'VehicleInspection', 'file' => 'vehicle_inspection_routes'],
-        // ['folder' => 'VehicleInspection', 'file' => 'vehicle_inspection_routes'],
+
+        ['folder'=>'Auth','file'=>'auth_routes'],
+        ['folder'=>'Vehicle','file'=>'vehicle_routes'],
+        ['folder'=>'Driver','file'=>'driver_routes'],
+        ['folder'=>'Division','file'=>'division_routes'],
+        ['folder'=>'Department','file'=>'department_routes'],
+        ['folder'=>'Designation','file'=>'designation_routes'],
+        ['folder'=>'Uom','file'=>'uom_routes'],
+        ['folder'=>'MaterialDescription','file'=>'material_description_routes'],
+        ['folder'=>'RejectionReason','file'=>'rejection_reason_routes'],
+        ['folder'=>'PreviousLoadDetails','file'=>'previous_load_details_routes'],
+        ['folder'=>'Status','file'=>'status_routes'],
+        ['folder'=>'Shed','file'=>'shed_routes'],
+        ['folder'=>'Vendor','file'=>'vendor_routes'],
+        ['folder'=>'User','file'=>'user_routes'],
+        ['folder'=>'ParkingYardGate','file'=>'parking_yard_gate_routes'],
+        ['folder'=>'DefectType','file'=>'defect_type_routes'],
+        ['folder'=>'Bank','file'=>'bank_routes'],
+        ['folder'=>'VehicleInspection','file'=>'vehicle_inspection_routes'],
+        ['folder'=>'VehicleInspection','file'=>'vehicle_inspection_routes'],
+        ['folder'=>'Location','file'=>'location_routes'],
         ['folder' => 'TripSto', 'file' => 'trip_sto_routes'],
+
 
 
     ];
