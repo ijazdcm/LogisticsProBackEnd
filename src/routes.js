@@ -94,6 +94,9 @@ import DriverMasterEdit from './Pages/Master/DriverMaster/DriverMasterEdit'
 import BankMasterTable from './Pages/Master/Submaster/Bank/BankMasterTable'
 import DriverMasterTable from './Pages/Master/DriverMaster/DriverMasterTable'
 
+import LocationTable from './Pages/Master/Submaster/LocationTable';
+
+
 const routes = [
   // Master
   { path: '/VehicleMaster', exact: true, name: 'VehicleMaster', component: VehicleMaster },
@@ -379,6 +382,7 @@ const routes = [
   { path: '/DefectTypeTable', exact: true, name: 'DefectTypeTable', component: DefectTypeTable },
   { path: '/DepartmentTable', exact: true, name: 'DepartmentTable', component: DepartmentTable },
   { path: '/DesignationTable', exact: true, name: 'DesignationTable', component: DesignationTable },
+  { path: '/locationmaster', exact: true, name: 'Location Table', component: LocationTable },
   {
     path: '/MaterialDescriptionTable',
     exact: true,
