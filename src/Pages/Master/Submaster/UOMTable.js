@@ -26,6 +26,7 @@ import CustomTable from 'src/components/customComponent/CustomTable'
 import UomApi from 'src/Service/SubMaster/UomApi'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import UomSubMasterValidation from 'src/Utils/SubMaster/UomSubMasterValidation'
 
 const UomTable = () => {
   const [modal, setModal] = useState(false)
@@ -64,7 +65,7 @@ const UomTable = () => {
     onBlur,
     onClick,
     onKeyUp,
-  } = useForm(login, validate, formValues)
+  } = useForm(login, UomSubMasterValidation, formValues)
 
   function login() {
     // alert('No Errors CallBack Called')
@@ -222,7 +223,15 @@ const UomTable = () => {
               size="md"
               color="warning"
               className="px-3 text-white"
-              onClick={() => checkRadio('enab')}
+              onClick={() => {
+                checkRadio('enab')
+                values.uom = ''
+                setSuccess('')
+                setUpdate('')
+                setError('')
+                setDeleted('')
+                setModal(!modal)
+              }}
               // onClick={() => setModal(!modal)}
             >
               <span className="float-start">
@@ -232,8 +241,13 @@ const UomTable = () => {
           </CCol>
         </CRow>
 
-        <CCard className="mt-3">
-          <CustomTable columns={columns} data={rowData || ''} />
+        <CCard className="mt-1">
+          <CustomTable
+            columns={columns}
+            data={rowData}
+            feildName={'Uom'}
+            showSearchFilter={true}
+          />
         </CCard>
       </CContainer>
 
@@ -251,10 +265,10 @@ const UomTable = () => {
               <CFormInput
                 size="sm"
                 id="uom"
-                maxLength={20}
+                maxLength={10}
                 className={`${errors.uom && 'is-invalid'}`}
                 name="uom"
-                value={values.uom }
+                value={values.uom}
                 onFocus={onFocus}
                 onBlur={onBlur}
                 onChange={handleChange}

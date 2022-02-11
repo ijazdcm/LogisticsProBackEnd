@@ -22,6 +22,7 @@ import CustomTable from 'src/components/customComponent/CustomTable'
 import DesignationApi from '../../../Service/SubMaster/DesignationApi'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import DesignationSubMasterValidation from 'src/Utils/SubMaster/DesignationSubMasterValidation'
 
 const DesignationTable = () => {
   const [modal, setModal] = useState(false)
@@ -49,7 +50,7 @@ const DesignationTable = () => {
     onBlur,
     onClick,
     onKeyUp,
-  } = useForm(login, validate, formValues)
+  } = useForm(login, DesignationSubMasterValidation, formValues)
 
   function login() {
     // alert('No Errors CallBack Called')
@@ -173,14 +174,16 @@ const DesignationTable = () => {
       center: true,
     },
     {
-      name: 'Created_at',
+      name: 'Creation date',
       selector: (row) => row.Created_at,
       left: true,
+      sortable: true,
     },
     {
       name: 'Designation',
       selector: (row) => row.Designation,
       left: true,
+      sortable: true,
     },
     {
       name: 'Status',
@@ -226,7 +229,12 @@ const DesignationTable = () => {
           </CCol>
         </CRow>
         <CCard className="mt-1">
-          <CustomTable columns={columns} data={rowData || ''} />
+          <CustomTable
+            columns={columns}
+            data={rowData}
+            feildName={'Designation'}
+            showSearchFilter={true}
+          />
         </CCard>
       </CContainer>
 
@@ -263,7 +271,7 @@ const DesignationTable = () => {
               <CFormInput
                 size="sm"
                 id="designation"
-                maxLength={4}
+                maxLength={30}
                 className={`${errors.designation && 'is-invalid'}`}
                 name="designation"
                 value={values.designation || ''}

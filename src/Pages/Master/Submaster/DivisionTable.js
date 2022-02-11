@@ -24,6 +24,7 @@ import CustomTable from 'src/components/customComponent/CustomTable'
 import DivisionApi from '../../../Service/SubMaster/DivisionApi'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import DivisionSubMasterValidation from 'src/Utils/SubMaster/DivisionSubMasterValidation'
 
 const DivisionTable = () => {
   const [modal, setModal] = useState(false)
@@ -49,7 +50,7 @@ const DivisionTable = () => {
     onBlur,
     onClick,
     onKeyUp,
-  } = useForm(login, validate, formValues)
+  } = useForm(login, DivisionSubMasterValidation, formValues)
 
   function login() {
     // alert('No Errors CallBack Called')
@@ -64,6 +65,7 @@ const DivisionTable = () => {
     let createValues = { division_name: values.division }
     DivisionApi.createDivision(createValues)
       .then((response) => {
+        //console.log(response)
         setSuccess('New Division Added Successfully')
       })
       .catch((error) => {
@@ -92,7 +94,7 @@ const DivisionTable = () => {
       .then((res) => {
         if (res.status == 200) {
           setModal(false)
-          toast.success("Division Info Updated Successfully!")
+          toast.success('Division Info Updated Successfully!')
           setMount((prevState) => (prevState = prevState + 1))
         }
       })
@@ -272,7 +274,7 @@ const DivisionTable = () => {
               <CFormInput
                 size="sm"
                 id="division"
-                maxLength={4}
+                maxLength={30}
                 className={`${errors.division && 'is-invalid'}`}
                 name="division"
                 value={values.division || ''}

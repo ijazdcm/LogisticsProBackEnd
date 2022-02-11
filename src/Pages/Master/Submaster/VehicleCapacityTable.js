@@ -1,4 +1,4 @@
-import {
+  import {
   CButton,
   CCard,
   CContainer,
@@ -181,15 +181,17 @@ const VehicleCapacityTable = () => {
       center: true,
     },
     {
-      name: 'Created_at',
+      name: 'Creation date',
       selector: (row) => row.Created_at,
       left: true,
+      sortable: true,
     },
 
     {
       name: 'Vehicle Capacity',
       selector: (row) => row.Vehicle_Capacity,
       center: true,
+      sortable: true,
     },
     {
       name: 'Status',
@@ -234,8 +236,13 @@ const VehicleCapacityTable = () => {
             </CButton>
           </CCol>
         </CRow>
+
         <CCard className="mt-1">
-          <CustomTable columns={columns} data={rowData || ''} />
+          <CustomTable
+            columns={columns}
+            data={rowData}
+            
+          />
         </CCard>
       </CContainer>
 
@@ -270,7 +277,7 @@ const VehicleCapacityTable = () => {
               <CFormInput
                 size="sm"
                 id="capacity"
-                maxLength={4}
+                maxLength={2}
                 className={`${errors.capacity && 'is-invalid'}`}
                 name="capacity"
                 value={values.capacity || ''}
