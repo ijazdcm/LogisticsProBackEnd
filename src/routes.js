@@ -44,8 +44,8 @@ import GateIn from './Pages/ParkingYardGate/GateIn'
 import vInspection from './Pages/VehicleInspection/VInspection'
 import vehicleInspection from './Pages/VehicleInspection/vehicleInspection'
 import VehicleInspectionHire from './Pages/VehicleInspection/VehicleInspectionHire'
-import vehicleMaintainence from './Pages/VehicleMaintainence/vehicleMaintainence'
-import VMain from './Pages/VehicleMaintainence/VMain'
+import vehicleMaintainence from './Pages/VehicleMaintenance/vehicleMaintainence'
+import VMain from './Pages/VehicleMaintenance/VMain'
 import DocVerify from './Pages/DocumentVerification/DocsVerify'
 import DocVerifyVendorAvail from './Pages/DocumentVerification/DocVerifyVendorAvail'
 import DocVerifyVendorNotAvail from './Pages/DocumentVerification/DocVerifyVendorNotAvail'
@@ -191,13 +191,13 @@ const routes = [
   {
     path: '/VMain',
     exact: true,
-    name: 'VMain',
+    name: 'Vehicle Maintenance',
     component: VMain,
   },
   {
-    path: '/VMain/vehicleMaintainence',
+    path: '/VMain/vehicleMaintainence/:id',
     exact: true,
-    name: 'vehicleMaintainence',
+    name: 'Vehicle Maintainence',
     component: vehicleMaintainence,
   },
   {

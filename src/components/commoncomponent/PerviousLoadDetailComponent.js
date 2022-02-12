@@ -9,6 +9,7 @@ const PerviousLoadDetailComponent = () => {
   useEffect(() => {
     //fetch to get Drivers list form master
     PerviousLoadDetailsService.getPerviousLoadDetails().then((res) => {
+      console.log(res.data)
       setLoadDetails(res.data.data)
     })
   }, [])
