@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\ParkingYardGate;
 
+use App\Http\Resources\VehicleInspection\VehicleInspectionResource;
 use App\Http\Resources\Vehicles\VehicleBodyResource;
 use App\Http\Resources\Vehicles\VehicleCapacityResource;
 use App\Http\Resources\Vehicles\VehicleTypeResource;
@@ -38,7 +39,7 @@ class ParkingYardGateResource extends JsonResource
             "created_at" => $this->created_at->diff()->format('%h hrs and %i min'),
             "updated_at" => $this->updated_at->diff()->format('%h hrs and %i min'),
             "gate_in_date_time_string" => $this->created_at->format('jS F Y h:i:s A'),
-
+            "vehicle_inspection" => VehicleInspectionResource::make($this->whenLoaded('Vehicle_Inspection')),
         ];
     }
 }

@@ -4,13 +4,17 @@ namespace App\Http\Controllers\DocumentVerification;
 
 use App\Helper\File\FileHelper;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\DocumentVerification\DocumentVerificationResource;
+use App\Http\Resources\ParkingYardGate\ParkingYardGateResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\ParkingYardGate\Parking_Yard_Gate;
 use App\Http\Resources\VehicleInspection\VehicleInspectionResource;
+use App\Models\Driver\Driver_Info;
 use App\Models\Vehicles\Vehicle_Document;
 use App\Models\Vehicles\Vehicle_Inspection;
 use App\Models\Vehicles\Vehicle_Type;
+use App\Models\Vendors\Vendor_Info;
 use App\Service\ParkingYardGate\ParkingYardGateService;
 
 
@@ -23,9 +27,15 @@ class DocumentVerificationMasterController extends Controller
      */
     public function index()
     {
-        $vehicleInspectionDetails = Vehicle_Inspection::with('Vehicle_Info')->with('ParkingYard_Info')->get();
+        // $vehicleInspectionDetails = Vehicle_Inspection::with('Vehicle_Info')->with('ParkingYard_Info')->get();
 
-        return VehicleInspectionResource::collection($vehicleInspectionDetails);
+        // return VehicleInspectionResource::collection($vehicleInspectionDetails);
+
+
+        $parking_yard_gate = Parking_Yard_Gate::with('Vehicle_Info')->with('Vehicle_Type')
+            ->get();
+
+        return ParkingYardGateResource::collection($parking_yard_gate);
     }
 
     /**
@@ -46,71 +56,80 @@ class DocumentVerificationMasterController extends Controller
      */
     public function store(Request $request, FileHelper $helper)
     {
-
-
         if ($request->document_status == Vehicle_Document::VEHICLE_DOCUMENTATION_PASSED) {
 
-            // "vehicle_inspection_id",
-            // "vendor_id",
-            // "license_copy",
-            // "rc_copy_front",
-            // "rc_copy_back",
-            // "insurance_copy_front",
-            // "insurance_copy_back",
-            // "transport_shed_sheet",
-            // "tds_dec_form_front",
-            // "tds_dec_form_back",
-            // "shed_id",
-            // "insurance_validity",
-            // "ownership_transfer_form",
-            // "freight_rate_per_ton",
-            // "remarks",
-            // "document_status",
+            // return $request;
 
+            $vendor_info = Vendor_Info::create([
+                "vehicle_id" => $request->vehicle_id,
+                "shed_id" => $request->shed_id,
+                "vendor_code" => $request->vendor_code,
+                "owner_name" => $request->owner_name,
+                "owner_number" => $request->owner_number,
+                "pan_card_number" => $request->pan_number,
+                "aadhar_card_number" => $request->aadhar_number,
+                "bank_acc_number" => $request->bank_acc_number,
+                "vendor_status" => 2,
+            ]);
 
-            //adding the new Driver
-            // $new_driver = Vehicle_Document::create([
-            //     "vehicle_inspection_id" => $request->driver_type_id,
-            //     "vendor_id" => $request->driver_name,
-            //     "license_copy" => $request->driver_code,
-            //     "rc_copy_front" => $request->driver_phone_1,
-            //     "rc_copy_back" => $request->driver_phone_2,
-            //     "insurance_copy_front" => $request->license_no,
-            //     "insurance_copy_back" => $request->license_validity_to,
-            //     "transport_shed_sheet" => $request->license_validity_status,
-            //     "tds_dec_form_front" => $helper->storeImage($request->license_copy_front, Driver_Info::LICENSE_COPY_FRONT_PATH),
-            //     "tds_dec_form_back" => $helper->storeImage($request->license_copy_back, Driver_Info::LICENSE_COPY_BACK_PATH),
-            //     "shed_id" => $request->driver_address,
-            //     "insurance_validity" => $helper->storeImage($request->driver_photo, Driver_Info::DRIVER_PHOTO_PATH),
-            //     "ownership_transfer_form" => $helper->storeImage($request->aadhar_card, Driver_Info::AADHAR_PATH),
-            //     "pan_card" => $helper->storeImage($request->pan_card, Driver_Info::PAN_CARD_PATH),
-            // ]);
+            $vehicle_document = Vehicle_Document::create([
+                "vehicle_inspection_id" => $request->vehicle_inspection_id,
+                "vendor_id" => Vendor_Info::select('id')->latest('id')->first(),
+                "license_copy" => $helper->storeImage($request->license_copy, Vehicle_Document::LICENSE_COPY_PATH),
+                "rc_copy_front" => $helper->storeImage($request->rc_copy_front, Vehicle_Document::RC_COPY_FRONT_PATH),
+                "rc_copy_back" => $helper->storeImage($request->rc_copy_back, Vehicle_Document::RC_COPY_BACK_PATH),
+                "insurance_copy_front" => $helper->storeImage($request->insurance_copy_front, Vehicle_Document::INSURANCE_COPY_FRONT_PATH),
+                "insurance_copy_back" => $helper->storeImage($request->insurance_copy_front, Vehicle_Document::INSURANCE_COPY_BACK_PATH),
+                "transport_shed_sheet" => $helper->storeImage($request->transport_shed_sheet, Vehicle_Document::TRANSPORT_SHED_SHEET_COPY_BACK_PATH),
+                "tds_dec_form_front" => $helper->storeImage($request->tds_dec_form_front, Vehicle_Document::TDS_DEC_FORM_COPY_FRONT_PATH),
+                "tds_dec_form_back" => $helper->storeImage($request->tds_dec_form_back, Vehicle_Document::TDS_DEC_FORM_COPY_BACK_PATH),
+                "shed_id" => $request->shed_id,
+                "insurance_validity" => $request->insurance_validity,
+                "ownership_transfer_form" => $helper->storeImage($request->ownership_transfer_form, Vehicle_Document::OWNERSHIP_TRANSFER_FORM_PATH),
+                "freight_rate_per_ton" => $request->freight_rate,
+                "remarks" => $request->remarks,
+                "document_status" => $request->document_status,
+            ]);
 
-
-            // if ($request->driver_id && $request->old_driver_id) {
-            /*
-                     this block only executed when above params passed on request
-                     */
-
-            //un-assign the locked driver
-            // (new DriverService())->unAssignDriver($request->old_driver_id);
-
-            //assign the new driver
-            // (new DriverService())->assignDriver($request->driver_id);
-
-            //assign the new driver to vehicle
-            // (new ParkingYardGateService())->assignNewDriverToVehicle($request->vehicle_id, $request->driver_id);
-            // }
-
-            Vehicle_Document::create($request->validated());
+            // return Vendor_Info::select('id')->latest('id')->first();
+            // Vehicle_Document::create($request->validated());
         } else {
 
-            Vehicle_Document::create($request->validated());
+            $vehicle_document = Vehicle_Document::create([
+                "vehicle_inspection_id" => $request->vehicle_inspection_id,
+                "vendor_id" => $request->vendor_code,
+                "license_copy" => $helper->storeImage($request->license_copy, Vehicle_Document::LICENSE_COPY_PATH),
+                "rc_copy_front" => $helper->storeImage($request->rc_copy_front, Vehicle_Document::RC_COPY_FRONT_PATH),
+                "rc_copy_back" => $helper->storeImage($request->rc_copy_back, Vehicle_Document::RC_COPY_BACK_PATH),
+                "insurance_copy_front" => $helper->storeImage($request->insurance_copy_front, Vehicle_Document::INSURANCE_COPY_FRONT_PATH),
+                "insurance_copy_back" => $helper->storeImage($request->insurance_copy_front, Vehicle_Document::INSURANCE_COPY_BACK_PATH),
+                "transport_shed_sheet" => $helper->storeImage($request->transport_shed_sheet, Vehicle_Document::TRANSPORT_SHED_SHEET_COPY_BACK_PATH),
+                "tds_dec_form_front" => $helper->storeImage($request->tds_dec_form_front, Vehicle_Document::TDS_DEC_FORM_COPY_FRONT_PATH),
+                "tds_dec_form_back" => $helper->storeImage($request->tds_dec_form_back, Vehicle_Document::TDS_DEC_FORM_COPY_BACK_PATH),
+                "shed_id" => $request->shed_id,
+                "insurance_validity" => $request->insurance_validity,
+                "ownership_transfer_form" => $helper->storeImage($request->ownership_transfer_form, Vehicle_Document::OWNERSHIP_TRANSFER_FORM_PATH),
+                "freight_rate_per_ton" => $request->freight_rate,
+                "remarks" => $request->remarks,
+                "document_status" => $request->document_status,
+            ]);
 
+            $vendor_info = Vendor_Info::create([
+                "vehicle_id" => $request->vehicle_id,
+                "shed_id " => $request->shed_id,
+                "owner_name" => $request->owner_name,
+                "owner_number" => $request->owner_number,
+                "pan_card_number" => $request->pan_number,
+                "aadhar_card_number" => $request->aadhar_number,
+                "bank_acc_number" => $request->bank_acc_number,
+                "vendor_status" => 0,
+
+            ]);
             //this service make vehicle on parking Yard table to gateOut status
 
             (new ParkingYardGateService())->gateOutVehicle($request->vehicle_id);
         }
+        return DocumentVerificationResource::make($request);
     }
 
     /**
@@ -121,9 +140,6 @@ class DocumentVerificationMasterController extends Controller
      */
     public function show($id)
     {
-        $vehicleInspectionDetails = Vehicle_Inspection::where('id', '=', $id)->with('Vehicle_Info')->with('ParkingYard_Info')->get();
-
-        return VehicleInspectionResource::collection($vehicleInspectionDetails);
     }
 
     /**

@@ -36,6 +36,10 @@ class Vehicle_Inspection extends Model
     {
         return $this->hasOne(Vehicle_Info::class, 'id', 'vehicle_id')->with('Vehicle_Type');
     }
+    public function Vehicle_Type()
+    {
+        return $this->hasOne(Vehicle_Type::class, 'id', 'vehicle_type_id');
+    }
     public function ParkingYard_Info()
     {
         return $this->hasOne(Parking_Yard_Gate::class, 'vehicle_id', 'vehicle_id')->with('Vehicle_Capacity');
