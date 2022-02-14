@@ -22,6 +22,7 @@ import CustomTable from 'src/components/customComponent/CustomTable'
 import DepartmentApi from '../../../Service/SubMaster/DepartmentApi'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import DepartmentSubMasterValidation from 'src/Utils/SubMaster/DepartmentSubMasterValidation'
 
 const DepartmentTable = () => {
 
@@ -52,7 +53,7 @@ const DepartmentTable = () => {
     onBlur,
     onClick,
     onKeyUp,
-  } = useForm(login, validate, formValues)
+  } = useForm(login, DepartmentSubMasterValidation, formValues)
 
   function login() {
     // alert('No Errors CallBack Called')
@@ -71,6 +72,9 @@ const DepartmentTable = () => {
       })
       .catch((error) => {
         setError(error.response.data.errors.department_name[0])
+        setTimeout(() => {
+          setError('')
+        }, 1000)
       })
   }
 
@@ -181,14 +185,16 @@ const DepartmentTable = () => {
       center: true,
     },
     {
-      name: 'Created_at',
+      name: 'Creation date',
       selector: (row) => row.Created_at,
       left: true,
+      sortable: true,
     },
     {
       name: 'Department',
       selector: (row) => row.Department,
       left: true,
+      sortable: true,
     },
     {
       name: 'Status',
@@ -235,7 +241,12 @@ const DepartmentTable = () => {
           </CCol>
         </CRow>
         <CCard className="mt-1">
-          <CustomTable columns={columns} data={rowData || ''} />
+          <CustomTable
+            columns={columns}
+            data={rowData}
+            feildName={'Department'}
+            showSearchFilter={true}
+          />
         </CCard>
       </CContainer>
 
@@ -272,7 +283,7 @@ const DepartmentTable = () => {
               <CFormInput
                 size="sm"
                 id="department"
-                maxLength={4}
+                maxLength={30}
                 className={`${errors.department && 'is-invalid'}`}
                 name="department"
                 value={values.department || ''}

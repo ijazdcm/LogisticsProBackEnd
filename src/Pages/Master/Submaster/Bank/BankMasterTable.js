@@ -202,7 +202,6 @@ const BankMasterTable = () => {
             data={rowData}
             feildName={'Bank'}
             showSearchFilter={true}
-            
           />
         </CCard>
         {/*add New Bank model*/}

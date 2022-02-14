@@ -24,6 +24,7 @@ import CustomTable from 'src/components/customComponent/CustomTable'
 import DefectTypeApi from '../../../Service/SubMaster/DefectTypeApi.js'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import DefectTypeSubMasterValidation from 'src/Utils/SubMaster/DefectTypeSubMasterValidation'
 
 const DefectTypeTable = () => {
   const [modal, setModal] = useState(false)
@@ -52,7 +53,7 @@ const DefectTypeTable = () => {
     onBlur,
     onClick,
     onKeyUp,
-  } = useForm(login, validate, formValues)
+  } = useForm(login, DefectTypeSubMasterValidation, formValues)
 
   function login() {}
 
@@ -187,15 +188,17 @@ const DefectTypeTable = () => {
       center: true,
     },
     {
-      name: 'Created_at',
+      name: 'Creation date',
       selector: (row) => row.Created_at,
       left: true,
+      sortable: true,
     },
 
     {
       name: 'Defect Type',
       selector: (row) => row.DefectType,
       left: true,
+      sortable: true,
     },
     {
       name: 'Status',
@@ -240,7 +243,12 @@ const DefectTypeTable = () => {
           </CCol>
         </CRow>
         <CCard className="mt-1">
-          <CustomTable columns={columns} data={rowData || ''} />
+          <CustomTable
+            columns={columns}
+            data={rowData}
+            feildName={'DefectType'}
+            showSearchFilter={true}
+          />
         </CCard>
       </CContainer>
 
@@ -277,7 +285,7 @@ const DefectTypeTable = () => {
               <CFormInput
                 size="sm"
                 id="defect_type"
-                maxLength={20}
+                maxLength={40}
                 className={`${errors.defect_type && 'is-invalid'}`}
                 name="defect_type"
                 value={values.defect_type || ''}

@@ -24,6 +24,7 @@ import CustomTable from 'src/components/customComponent/CustomTable'
 import StatusApi from '../../../Service/SubMaster/StatusApi'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import StatusSubMasterValidation from 'src/Utils/SubMaster/StatusSubMasterValidation'
 
 const StatusTable = () => {
   const [modal, setModal] = useState(false)
@@ -51,7 +52,7 @@ const StatusTable = () => {
     onBlur,
     onClick,
     onKeyUp,
-  } = useForm(login, validate, formValues)
+  } = useForm(login, StatusSubMasterValidation, formValues)
 
   function login() {
     // alert('No Errors CallBack Called')
@@ -181,12 +182,13 @@ const StatusTable = () => {
       center: true,
     },
     {
-      name: 'Created_at',
+      name: 'Creation date',
       selector: (row) => row.Created_at,
       left: true,
+      sortable: true,
     },
     {
-      name: 'Status',
+      name: 'Status type',
       selector: (row) => row.StatusName,
       sortable: true,
       left: true,
@@ -195,6 +197,7 @@ const StatusTable = () => {
       name: 'Status',
       selector: (row) => row.Status,
       left: true,
+      sortable: true,
     },
     {
       name: 'Action',
@@ -235,7 +238,12 @@ const StatusTable = () => {
           </CCol>
         </CRow>
         <CCard className="mt-1">
-          <CustomTable columns={columns} data={rowData || ''} />
+          <CustomTable
+            columns={columns}
+            data={rowData}
+            feildName={'StatusName'}
+            showSearchFilter={true}
+          />
         </CCard>
       </CContainer>
 

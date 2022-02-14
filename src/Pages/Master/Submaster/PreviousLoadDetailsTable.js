@@ -24,6 +24,7 @@ import CustomTable from 'src/components/customComponent/CustomTable'
 import PreviousLoadDetailsApi from '../../../Service/SubMaster/PreviousLoadDetailsApi'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import PreviousLoadDetailsSubMasterValidation from 'src/Utils/SubMaster/PreviousLoadDetailsSubMasterValidation'
 
 const PreviousLoadDetails = () => {
   const [modal, setModal] = useState(false)
@@ -52,7 +53,7 @@ const PreviousLoadDetails = () => {
     onBlur,
     onClick,
     onKeyUp,
-  } = useForm(login, validate, formValues)
+  } = useForm(login, PreviousLoadDetailsSubMasterValidation, formValues)
 
   function login() {
     // alert('No Errors CallBack Called')
@@ -182,15 +183,17 @@ const PreviousLoadDetails = () => {
       center: true,
     },
     {
-      name: 'Created_at',
+      name: 'Creation date',
       selector: (row) => row.Created_at,
       left: true,
+      sortable: true,
     },
 
     {
       name: 'PreviousLoadDetails',
       selector: (row) => row.PreviousLoadDetails,
       left: true,
+      sortable: true,
     },
     {
       name: 'Status',
@@ -237,7 +240,12 @@ const PreviousLoadDetails = () => {
           </CCol>
         </CRow>
         <CCard className="mt-1">
-          <CustomTable columns={columns} data={rowData || ''} />
+          <CustomTable
+            columns={columns}
+            data={rowData}
+            feildName={'PreviousLoadDetails'}
+            showSearchFilter={true}
+          />
         </CCard>
       </CContainer>
 

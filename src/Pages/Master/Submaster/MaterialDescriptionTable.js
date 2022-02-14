@@ -26,6 +26,7 @@ import CustomTable from 'src/components/customComponent/CustomTable'
 import MaterialDescriptionApi from 'src/Service/SubMaster/MaterialDescriptionApi'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import MaterialDescriptionSubMasterValidation from 'src/Utils/SubMaster/MaterialDescriptionSubMasterValidation'
 
 const MaterialDescriptionTable = () => {
   const [modal, setModal] = useState(false)
@@ -63,7 +64,7 @@ const MaterialDescriptionTable = () => {
     onBlur,
     onClick,
     onKeyUp,
-  } = useForm(login, validate, formValues)
+  } = useForm(login, MaterialDescriptionSubMasterValidation, formValues)
 
   function login() {
     // alert('No Errors CallBack Called')
@@ -74,10 +75,14 @@ const MaterialDescriptionTable = () => {
     let createValues = { material_description: values.material_description }
     MaterialDescriptionApi.createMaterialDescription(createValues)
       .then((response) => {
+        //console.log(response)
         setSuccess('New Material Description Added Successfully')
       })
       .catch((error) => {
         setError(error.response.data.errors.material_description[0])
+        setTimeout(() => {
+          setError('')
+        }, 1000)
       })
   }
 
@@ -138,7 +143,6 @@ const MaterialDescriptionTable = () => {
           Action: (
             <div className="d-flex justify-content-space-between">
               <CButton
-
                 size="sm"
                 color="danger"
                 shape="rounded"
@@ -150,7 +154,7 @@ const MaterialDescriptionTable = () => {
                 <i className="fa fa-trash" aria-hidden="true"></i>
               </CButton>
               <CButton
-               disabled={data.status === 1 ? false : true}
+                disabled={data.status === 1 ? false : true}
                 size="sm"
                 color="secondary"
                 shape="rounded"
@@ -223,7 +227,15 @@ const MaterialDescriptionTable = () => {
               size="md"
               color="warning"
               className="px-3 text-white"
-              onClick={() => checkRadio('enab')}
+              onClick={() => {
+                checkRadio('enab')
+                values.material_description = ''
+                setSuccess('')
+                setUpdate('')
+                setError('')
+                setDeleted('')
+                setModal(!modal)
+              }}
               // onClick={() => setModal(!modal)}
             >
               <span className="float-start">
@@ -233,8 +245,13 @@ const MaterialDescriptionTable = () => {
           </CCol>
         </CRow>
 
-        <CCard className="mt-3">
-          <CustomTable columns={columns} data={rowData || ''} />
+        <CCard className="mt-1">
+          <CustomTable
+            columns={columns}
+            data={rowData}
+            feildName={'MaterialDescription'}
+            showSearchFilter={true}
+          />
         </CCard>
       </CContainer>
 
