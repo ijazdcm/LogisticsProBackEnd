@@ -41,6 +41,7 @@ import 'react-toastify/dist/ReactToastify.css'
 // SERVICES FILE
 import DocumentVerificationService from 'src/Service/DocsVerify/DocsVerifyService'
 import ShedService from 'src/Service/SmallMaster/Shed/ShedService'
+import PanDataService from 'src/Service/SAP/PanDataService'
 
 // VALIDATIONS FILE
 import useForm from 'src/Hooks/useForm.js'
@@ -59,7 +60,10 @@ const DocVerifyVendorAvail = () => {
   const [shedData, setShedData] = useState({})
   const [panNumber, setPanNumber] = useState('')
   const [panData, setPanData] = useState({})
+  const [readOnly, setReadOnly] = useState(true)
+  const [write, setWrite] = useState(false)
 
+  // SET FORM VALUES
   const formValues = {
     panNumber: '',
     license: '',
@@ -73,6 +77,10 @@ const DocVerifyVendorAvail = () => {
     ownershipTrans: '',
     freightRate: '',
     remarks: '',
+    ownerName: '',
+    ownerMob: '',
+    aadhar: '',
+    bankAcc: '',
   }
 
   // VALIDATIONS
@@ -80,32 +88,23 @@ const DocVerifyVendorAvail = () => {
   const { values, errors, handleChange, onFocus, handleSubmit, enableSubmit, onBlur, isTouched } =
     useForm(callBack, DocumentVerificationValidation, formValues)
 
-  // const { values, errors, handleChange, onFocus, handleSubmit, enableSubmit, onBlur, isTouched } =
-  //   useForm(DocumentVerificationValidation, formValues)
-
   // GET PAN DETAILS FROM SAP
-  const getPanData = () => {
-    // PanService.getSingleVehicleInfo(id).then((res) => {
-    //   const resData = res.data.data[0]
-    //   setCurrentVehicleInfo(resData)
-    //   setFetch(true)
+  const getPanData = (e) => {
+    e.preventDefault()
+    // PanDataService.getPanData(values.panNumber).then((res) => {
+    //   console.log(res.data)
     // })
+    let panDetail = PanDataService.getPanData(values.panNumber)
+    if (panDetail != '') {
+      setPanData(panDetail)
+      toast.success('Pan Details Detected!')
+    } else {
+      toast.warning('No Pan Details Detected! Fill Up The Fields')
+    }
 
-    console.log(values.panNumber)
+    setReadOnly(true)
+    setWrite(true)
   }
-
-  // GET SINGLE VEHICLE DATA
-  useEffect(() => {
-    DocumentVerificationService.getSingleVehicleInfo(id).then((res) => {
-      const resData = res.data.data[0]
-      setCurrentVehicleInfo(resData)
-      setFetch(true)
-    })
-    // GET ALL SHED DETAILS
-    ShedService.getAllShedData().then((res) => {
-      setShedNames(res.data.data)
-    })
-  }, [])
 
   // GET SINGLE SHED DETAILS
   const ShedData = (id) => {
@@ -114,53 +113,57 @@ const DocVerifyVendorAvail = () => {
     })
   }
 
-  useEffect(() => {
-    const dt = new FormData()
-    dt.append('vehicle_inspection_id', id)
-
-    console.log(dt)
-  }, [])
-
   // ADD DOCUMENT VERIFICATION DETAILS
   const addDocumentVerification = (status) => {
     const formData = new FormData()
-
-    // formData.append('vehicle_id', currentVehicleInfo.vehicle_id)
-    // formData.append('vehicle_inspection_id', id)
-    // formData.append('freight_rate_per_ton', status)
-    // formData.append('pan_number', values.panNumber)
-    // formData.append('vendor_code', 'panData')
-    // formData.append('owner_name', 'panData')
-    // formData.append('owner_number', 'panData')
-    // formData.append('aadhar_number', 'panData')
-    // formData.append('bank_acc_number', 'panData')
-    // formData.append('license_copy', values.license)
-    // formData.append('rc_copy_front', values.rcFront)
-    // formData.append('rc_copy_back', values.rcBack)
-    // formData.append('insurance_copy_front', values.insurance)
-    // // data.append('insurance_copy_back', values.insect_vevils_presence_in_tar)
-    // formData.append('insurance_validity', values.insuranceValid)
-    // formData.append('tds_dec_form_front', values.TDSfront)
-    // formData.append('tds_dec_form_back', values.TDSback)
-    // formData.append('transport_shed_sheet', values.transportShedSheet)
-    // formData.append('shed_name', values.shedName)
-    // formData.append('ownership_transfer_form', values.ownershipTrans)
-    // formData.append('shed_owner_number', shedData.shed_owner_phone_1)
-    // formData.append('shed_owner_whatsapp', shedData.shed_owner_phone_2)
-    // formData.append('freight_rate', values.freightRate)
-    // formData.append('remarks', values.remarks ? values.remarks : 'NO REMARKS')
+    formData.append('vehicle_id', currentVehicleInfo.vehicle_id)
+    formData.append('vehicle_inspection_id', currentVehicleInfo.vehicle_inspection.inspection_id)
+    formData.append('pan_number', values.panNumber || panNumber)
+    formData.append('vendor_code', panData.LIFNR || '000')
+    formData.append('owner_name', panData.NAME1 || values.ownerName)
+    formData.append('owner_number', panData.TELF1 || values.ownerMob)
+    formData.append('aadhar_number', panData.IDNUMBER || values.aadhar)
+    formData.append('bank_acc_number', panData.BANKN || values.bankAcc)
+    formData.append('license_copy', values.license)
+    formData.append('rc_copy_front', values.rcFront)
+    formData.append('rc_copy_back', values.rcBack)
+    formData.append('insurance_copy_front', values.insurance)
+    // data.append('insurance_copy_back', values.insect_vevils_presence_in_tar)
+    formData.append('insurance_validity', values.insuranceValid)
+    formData.append('tds_dec_form_front', values.TDSfront)
+    formData.append('tds_dec_form_back', values.TDSback)
+    formData.append('transport_shed_sheet', values.transportShedSheet)
+    formData.append('shed_id', shedData && shedData.shed_id)
+    formData.append('shed_name', shedData && shedData.shed_name)
+    formData.append('ownership_transfer_form', values.ownershipTrans)
+    formData.append('shed_owner_number', shedData.shed_owner_phone_1)
+    formData.append('shed_owner_whatsapp', shedData.shed_owner_phone_2)
+    formData.append('freight_rate', values.freightRate)
+    formData.append('remarks', values.remarks ? values.remarks : 'NO REMARKS')
     formData.append('document_status', status)
 
-    //  debugger;
-    console.log('data')
-    console.log(formData)
     DocumentVerificationService.addDocumentVerificationData(formData).then((res) => {
-      // if (res.status == 200) {
-      //   toast.success('Vehicle Inspection process completed')
-      //   navigation('/vInspection')
-      // }
+      console.log(res)
+      if (res.status == 200) {
+        toast.success('Document Verification Done!')
+        // navigation('/vInspection')
+      }
     })
   }
+
+  // GET SINGLE VEHICLE DATA
+  useEffect(() => {
+    DocumentVerificationService.getSingleVehicleInfoOnParkingYardGate(id).then((res) => {
+      const resData = res.data.data
+
+      setCurrentVehicleInfo(resData)
+      setFetch(true)
+    })
+    // GET ALL SHED DETAILS
+    ShedService.getAllShedData().then((res) => {
+      setShedNames(res.data.data)
+    })
+  }, [])
 
   useEffect(() => {
     if (Object.keys(isTouched).length == Object.keys(formValues).length) {
@@ -176,6 +179,7 @@ const DocVerifyVendorAvail = () => {
 
   return (
     <>
+      {console.log(errors)}
       <CCard>
         <CTabContent className="m-0 p-0">
           <CNav variant="pills" layout="justified">
@@ -197,7 +201,7 @@ const DocVerifyVendorAvail = () => {
                     name="vType"
                     size="sm"
                     id="vType"
-                    value={fetch ? currentVehicleInfo.vehicle__info.vehicle__type.vehicle_type : ''}
+                    value={fetch ? currentVehicleInfo.vehicle_type_id.type : ''}
                     readOnly
                   />
                 </CCol>
@@ -208,7 +212,7 @@ const DocVerifyVendorAvail = () => {
                     name="vNum"
                     size="sm"
                     id="vNum"
-                    value={fetch ? currentVehicleInfo.vehicle__info.vehicle_number : ''}
+                    value={fetch ? currentVehicleInfo.vehicle_number : ''}
                     readOnly
                   />
                 </CCol>
@@ -219,11 +223,7 @@ const DocVerifyVendorAvail = () => {
                     name="vCap"
                     size="sm"
                     id="vCap"
-                    value={
-                      fetch
-                        ? currentVehicleInfo.parking_yard__info.vehicle__capacity.vehicle_capacity
-                        : ''
-                    }
+                    value={fetch ? currentVehicleInfo.vehicle_capacity_id.capacity : ''}
                     readOnly
                   />
                 </CCol>
@@ -233,7 +233,7 @@ const DocVerifyVendorAvail = () => {
                     name="dName"
                     size="sm"
                     id="dName"
-                    value={fetch ? currentVehicleInfo.parking_yard__info.driver_name : ''}
+                    value={fetch ? currentVehicleInfo.driver_name : ''}
                     readOnly
                   />
                 </CCol>
@@ -243,7 +243,7 @@ const DocVerifyVendorAvail = () => {
                     name="dMob"
                     size="sm"
                     id="dMob"
-                    value={fetch ? currentVehicleInfo.parking_yard__info.driver_contact_number : ''}
+                    value={fetch ? currentVehicleInfo.driver_contact_number : ''}
                     readOnly
                   />
                 </CCol>
@@ -253,7 +253,7 @@ const DocVerifyVendorAvail = () => {
                     name="gateInDateTime"
                     size="sm"
                     id="gateInDateTime"
-                    value={fetch ? currentVehicleInfo.parking_yard__info.gate_in_date_time : ''}
+                    value={fetch ? currentVehicleInfo.gate_in_date_time : ''}
                     readOnly
                   />
                 </CCol>
@@ -263,7 +263,8 @@ const DocVerifyVendorAvail = () => {
                     name="inspectionDateTime"
                     size="sm"
                     id="inspectionDateTime"
-                    value={fetch ? currentVehicleInfo.parking_yard__info.gate_out_date_time : ''}
+                    value={fetch ? currentVehicleInfo.vehicle_inspection.inspection_time : ''}
+                    // value={''}
                     readOnly
                   />
                 </CCol>
@@ -289,12 +290,12 @@ const DocVerifyVendorAvail = () => {
                       <CButton
                         size="sm"
                         color="primary"
-                        onClick={() => getPanData()}
-                        disabled={
-                          errors.panNumber ? true : false || values.panNumber ? false : true
-                        }
+                        onClick={(e) => getPanData(e)}
+                        // disabled={
+                        //   errors.panNumber ? true : false || values.panNumber ? false : true
+                        // }
                       >
-                        <i className="fa fa-check px-2"></i>
+                        <i className="fa fa-check px-1"></i>
                       </CButton>
                       <CButton
                         size="sm"
@@ -302,35 +303,113 @@ const DocVerifyVendorAvail = () => {
                         className="text-white"
                         onClick={() => {
                           values.panNumber = ''
+                          setPanData('')
                           setPanNumber('')
+                          setWrite(false)
                         }}
-                        disabled={values.panNumber ? false : true}
+                        // disabled={values.panNumber ? false : true}
                       >
-                        <i className="fa fa-ban px-2" aria-hidden="true"></i>
+                        <i className="fa fa-ban px-1" aria-hidden="true"></i>
+                      </CButton>
+                      <CButton
+                        size="sm"
+                        color="success"
+                        className="text-white"
+                        onClick={() => {
+                          setReadOnly(false)
+                        }}
+                        disabled={write}
+                      >
+                        <i className="fa fa-edit px-1" aria-hidden="true"></i>
                       </CButton>
                     </CInputGroupText>
                   </CInputGroup>
                 </CCol>
-                <CCol xs={12} md={3}>
+                <CCol xs={12} md={3} hidden={!readOnly}>
                   <CFormLabel htmlFor="VendorCode">Vendor Code</CFormLabel>
-                  <CFormInput name="VendorCode" size="sm" id="VendorCode" value="" readOnly />
+                  <CFormInput
+                    name="VendorCode"
+                    size="sm"
+                    id="VendorCode"
+                    value={panData ? panData.LIFNR : values.VendorCode}
+                    readOnly
+                  />
                 </CCol>
                 <CCol xs={12} md={3}>
-                  <CFormLabel htmlFor="ownerName">Owner Name</CFormLabel>
-                  <CFormInput name="ownerName" size="sm" id="ownerName" value="" readOnly />
+                  <CFormLabel htmlFor="ownerName">
+                    Owner Name{!readOnly && '*'}
+                    {!readOnly && errors.ownerName && (
+                      <span className="small text-danger">{errors.ownerName}</span>
+                    )}
+                  </CFormLabel>
+                  <CFormInput
+                    name="ownerName"
+                    size="sm"
+                    id="ownerName"
+                    value={panData ? panData.NAME1 : values.ownerName}
+                    onFocus={onFocus}
+                    onBlur={onBlur}
+                    onChange={handleChange}
+                    readOnly={readOnly}
+                  />
                 </CCol>
 
                 <CCol xs={12} md={3}>
-                  <CFormLabel htmlFor="ownerMob">Owner Mobile Number</CFormLabel>
-                  <CFormInput name="ownerMob" size="sm" id="ownerMob" value="" readOnly />
+                  <CFormLabel htmlFor="ownerMob">
+                    Owner Mobile Number{!readOnly && '*'}
+                    {!readOnly && errors.ownerMob && (
+                      <span className="small text-danger">{errors.ownerMob}</span>
+                    )}
+                  </CFormLabel>
+                  <CFormInput
+                    name="ownerMob"
+                    size="sm"
+                    id="ownerMob"
+                    maxLength={10}
+                    value={panData ? panData.TELF1 : values.ownerMob}
+                    onFocus={onFocus}
+                    onBlur={onBlur}
+                    onChange={handleChange}
+                    readOnly={readOnly}
+                  />
                 </CCol>
                 <CCol xs={12} md={3}>
-                  <CFormLabel htmlFor="aadhar">Aadhar Number</CFormLabel>
-                  <CFormInput name="aadhar" size="sm" id="aadhar" value="" readOnly />
+                  <CFormLabel htmlFor="aadhar">
+                    Aadhar Number{!readOnly && '*'}
+                    {!readOnly && errors.aadhar && (
+                      <span className="small text-danger">{errors.aadhar}</span>
+                    )}
+                  </CFormLabel>
+                  <CFormInput
+                    name="aadhar"
+                    size="sm"
+                    id="aadhar"
+                    maxLength={12}
+                    value={panData ? panData.IDNUMBER : values.aadhar}
+                    onFocus={onFocus}
+                    onBlur={onBlur}
+                    onChange={handleChange}
+                    readOnly={readOnly}
+                  />
                 </CCol>
                 <CCol xs={12} md={3}>
-                  <CFormLabel htmlFor="bankAcc">Bank Account Number</CFormLabel>
-                  <CFormInput name="bankAcc" size="sm" id="bankAcc" value="" readOnly />
+                  <CFormLabel htmlFor="bankAcc">
+                    Bank Account Number{!readOnly && '*'}
+                    {!readOnly && errors.bankAcc && (
+                      <span className="small text-danger">{errors.bankAcc}</span>
+                    )}
+                  </CFormLabel>
+                  <CFormInput
+                    name="bankAcc"
+                    size="sm"
+                    id="bankAcc"
+                    maxLength={18}
+                    value={panData ? panData.BANKN : values.bankAcc}
+                    onFocus={onFocus}
+                    onBlur={onBlur}
+                    onChange={handleChange}
+                    readOnly={readOnly}
+                  />
                 </CCol>
                 <CCol xs={12} md={3}>
                   <CFormLabel htmlFor="license">
@@ -598,7 +677,7 @@ const DocVerifyVendorAvail = () => {
                     color="warning"
                     className="mx-1 px-2 text-white"
                     type="button"
-                    disabled={acceptBtn}
+                    // disabled={acceptBtn}
                     onClick={() => addDocumentVerification(1)}
                   >
                     Accept
@@ -619,7 +698,6 @@ const DocVerifyVendorAvail = () => {
           </CTabPane>
         </CTabContent>
       </CCard>
-
       {/* Modal Area */}
       <CModal visible={visible} onClose={() => setVisible(false)}>
         <CModalHeader>

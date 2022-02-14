@@ -42,41 +42,24 @@ export default function DocumentVerificationValidation(values, isTouched) {
     errors.freightRate = 'Required'
   }
 
-  //vehicle type validation rule
-  if (isTouched.ShedType && values.ShedType === '0') {
-    errors.ShedType = 'Choose Type'
+  if (isTouched.ownerName && !values.ownerName) {
+    errors.ownerName = 'Required'
   }
-  if (isTouched.ShedName && !values.ShedName) {
-    errors.ShedName = 'Required'
-  } else if (isTouched.ShedName && !/^[a-zA-Z ]+$/.test(values.ShedName)) {
-    errors.ShedName = 'Must Have Letters & Space'
+
+  if (isTouched.ownerMob && !values.ownerMob) {
+    errors.ownerMob = 'Required'
+  } else if (isTouched.ownerMob && !/^[\d]{10}$/.test(values.ownerMob)) {
+    errors.ownerMob = 'Must Have 10 Digit Numeric'
   }
-  if (isTouched.ShedOwnerName && !values.ShedOwnerName) {
-    errors.ShedOwnerName = 'Required'
-  } else if (isTouched.ShedOwnerName && !/^[a-zA-Z ]+$/.test(values.ShedOwnerName)) {
-    errors.ShedOwnerName = 'Must Have Letters & Space'
+
+  if (isTouched.aadhar && !values.aadhar) {
+    errors.aadhar = 'Required'
+  } else if (isTouched.aadhar && !/^[\d]{12}$/.test(values.aadhar)) {
+    errors.aadhar = 'Must Have 12 Digit Numeric'
   }
-  if (isTouched.ShedOwnerMobileNumber2 && !values.ShedOwnerMobileNumber2) {
-    errors.ShedOwnerMobileNumber2 = 'Mobile Number 2 is required'
-  } else if (
-    isTouched.ShedOwnerMobileNumber2 &&
-    !/^[\d]{10}$/.test(values.ShedOwnerMobileNumber2)
-  ) {
-    errors.ShedOwnerMobileNumber2 = 'Must Have 10 Digit Numeric'
-  }
-  if (isTouched.ShedOwnerMobileNumber1 && !values.ShedOwnerMobileNumber1) {
-    errors.ShedOwnerMobileNumber1 = 'Required'
-  } else if (
-    isTouched.ShedOwnerMobileNumber2 &&
-    !/^[\d]{10}$/.test(values.ShedOwnerMobileNumber1)
-  ) {
-    errors.ShedOwnerMobileNumber1 = 'Must Have 10 Digit Numeric'
-  }
-  if (isTouched.ShedOwnerAddress && !values.ShedOwnerAddress) {
-    errors.ShedOwnerAddress = 'Required'
-  }
-  if (isTouched.ShedOwnerPhoto && !values.ShedOwnerPhoto) {
-    errors.ShedOwnerPhoto = 'Required'
+
+  if (isTouched.bankAcc && !values.bankAcc) {
+    errors.bankAcc = 'Required'
   }
 
   return errors

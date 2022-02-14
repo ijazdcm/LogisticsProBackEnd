@@ -98,6 +98,8 @@ const DriverMaster = () => {
 
     DriverMasterService.createDrivers(formData)
       .then((res) => {
+        console.log(res)
+        return
         if (res.status === 201) {
           toast.success('Driver Created Successfully!')
 

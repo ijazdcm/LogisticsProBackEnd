@@ -21,18 +21,19 @@ const DocsVerify = () => {
     DocsVerifyService.getDocsVerifyTableData().then((res) => {
       tableData = res.data.data
       let rowDataList = []
-      const filterData = tableData.filter((data) => data.vehicle__info.vehicle__type.id == 3)
+      const filterData = tableData.filter((data) => data.vehicle_type_id.id == 3)
+      console.log(filterData)
       filterData.map((data, index) => {
         rowDataList.push({
           sno: index + 1,
           // Tripsheet_No: '',
-          Vehicle_Type: data.vehicle__info.vehicle__type.vehicle_type,
-          Vehicle_No: data.vehicle__info.vehicle_number,
-          Driver_Name: data.parking_yard__info.driver_name,
+          Vehicle_Type: data.vehicle_type_id.type,
+          Vehicle_No: data.vehicle_number,
+          Driver_Name: data.driver_name,
           Waiting_At: (
             <span className="badge rounded-pill bg-info">
               {data.parking_status == ACTION.GATE_IN
-                ? 'Vehicle Inspection'
+                ? 'Docs. Verify'
                 : data.parking_status == ACTION.WAIT_OUTSIDE
                 ? 'Waiting Outside'
                 : 'Docs. Verify'}
@@ -42,7 +43,7 @@ const DocsVerify = () => {
           Overall_Duration: data.created_at,
           Action: (
             <CButton className="badge" color="warning">
-              <Link className="text-dark" to={`DocVerifyVendorAvail/${data.id}`}>
+              <Link className="text-dark" to={`DocVerifyVendorAvail/${data.parking_yard_gate_id}`}>
                 VERIFY
               </Link>
             </CButton>

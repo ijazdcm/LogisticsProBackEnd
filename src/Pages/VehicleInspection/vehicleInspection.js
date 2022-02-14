@@ -82,19 +82,12 @@ const VehicleInspection = () => {
       data.append('old_driver_id', oldDriver)
     }
 
-    console.log(data)
-
-    for (var value of data.values()) {
-      console.log(value)
-    }
-    debugger
-
-    // VehicleInspectionService.addVehicleInspectionDetails(data).then((res) => {
-    //   if (res.status == 200) {
-    //     toast.success('Vehicle Inspection process completed')
-    //     navigation('/vInspection')
-    //   }
-    // })
+    VehicleInspectionService.addVehicleInspectionDetails(data).then((res) => {
+      if (res.status == 200) {
+        toast.success('Vehicle Inspection process completed')
+        navigation('/vInspection')
+      }
+    })
   }
 
   function inspectVehicle() {}

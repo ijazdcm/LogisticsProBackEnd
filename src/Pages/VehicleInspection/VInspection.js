@@ -16,6 +16,7 @@ const VInspection = () => {
   const loadVehicleInspectionTable = () => {
     VehicleInspectionService.getVehicleReadyToInspect().then((res) => {
       tableData = res.data.data
+      console.log(tableData)
       let rowDataList = []
       tableData.map((data, index) => {
         rowDataList.push({
