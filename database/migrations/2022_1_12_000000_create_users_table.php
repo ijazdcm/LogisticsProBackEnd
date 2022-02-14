@@ -30,6 +30,10 @@ class CreateUsersTable extends Migration
             $table->foreign('department_id')->references('id')->on('departments');
             $table->unsignedBigInteger('designation_id')->nullable()->default(null);
             $table->foreign('designation_id')->references('id')->on('designations');
+            $table->unsignedBigInteger('location_id')->nullable()->default(null);
+            $table->foreign('location_id')->references('id')->on('locations');
+            $table->json('page_permissions')->nullable()->default(null);
+            $table->tinyInteger('user_status')->default(1)->comment('1 - Active, 0 - In-Active');
             $table->unsignedBigInteger('created_by')->default(0);
             $table->rememberToken();
             $table->timestamps();

@@ -102,8 +102,7 @@ class ShedInfoController extends Controller
      */
     public function destroy($id)
     {
-        $shed=Shed_Info::active()
-                ->where('id',$id)
+        $shed=Shed_Info::where('id',$id)
                 ->first();
         if($shed)
         {
