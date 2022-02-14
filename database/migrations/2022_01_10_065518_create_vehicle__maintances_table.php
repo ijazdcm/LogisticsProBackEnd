@@ -23,10 +23,11 @@ class CreateVehicleMaintancesTable extends Migration
             $table->string('maintenance_by');
             $table->string('work_order');
             $table->tinyInteger('vendor_id');
-            $table->timestamp('maintenance_start_datetime')->useCurrent();
-            $table->timestamp('maintenance_end_datetime')->useCurrent();
-            $table->string('remarks');
-            $table->unsignedBigInteger('created_by')->default(null);
+            $table->string('closing_odometer_km')->nullable();
+            $table->date('maintenance_start_datetime')->nullable()->default(null);
+            $table->date('maintenance_end_datetime')->nullable()->default(null);
+            $table->string('remarks')->nullable()->default(null);
+            $table->unsignedBigInteger('created_by')->default(0);
             $table->timestamps();
         });
     }

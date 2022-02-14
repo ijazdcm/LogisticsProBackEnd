@@ -39,9 +39,11 @@ class VehicleMaintenanceMasterController extends Controller
      */
     public function store(VehicleMaintenanceRequest $request)
     {
+
+
         DB::transaction(function () use ($request) {
 
-            if ($request->vehicle_maintenance_status == Vehicle_Inspection::VEHICLE_MAINTENANCE_PASSED) {
+            if ($request->vehicle_maintenance_status == Vehicle_Maintance::VEHICLE_MAINTENANCE_PASSED) {
 
 
                 if ($request->driver_id && $request->old_driver_id) {
@@ -59,12 +61,12 @@ class VehicleMaintenanceMasterController extends Controller
                     (new ParkingYardGateService())->assignNewDriverToVehicle($request->vehicle_id, $request->driver_id);
                 }
 
-                Vehicle_Maintenance::create($request->validated());
+                Vehicle_Maintance::create($request->validated());
 
             }
             else {
 
-                Vehicle_Maintenance::create($request->validated());
+                Vehicle_Maintance::create($request->validated());
 
                 //this service make vehicle on parking Yard table to gateOut status
 
@@ -85,7 +87,7 @@ class VehicleMaintenanceMasterController extends Controller
      */
     public function show($id)
     {
-    //
+
     }
 
     /**
@@ -110,4 +112,6 @@ class VehicleMaintenanceMasterController extends Controller
     {
     //
     }
+
+
 }
