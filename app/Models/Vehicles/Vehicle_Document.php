@@ -9,9 +9,20 @@ class Vehicle_Document extends Model
 {
     use HasFactory;
 
-    protected $table="vehicle__documents";
+    public const VEHICLE_DOCUMENTATION_PASSED = '1';
+    public const LICENSE_COPY_PATH = "VehicleDocument/License";
+    public const RC_COPY_FRONT_PATH = "VehicleDocument/rcCopyFront";
+    public const RC_COPY_BACK_PATH = "VehicleDocument/rcCopyBack";
+    public const INSURANCE_COPY_FRONT_PATH = "VehicleDocument/insuranceCopyFront";
+    public const INSURANCE_COPY_BACK_PATH = "VehicleDocument/insuranceCopyBack";
+    public const TRANSPORT_SHED_SHEET_COPY_BACK_PATH = "VehicleDocument/transportShedSheet";
+    public const TDS_DEC_FORM_COPY_FRONT_PATH = "VehicleDocument/tdsDecFormFront";
+    public const TDS_DEC_FORM_COPY_BACK_PATH = "VehicleDocument/tdsDecFormBack";
+    public const OWNERSHIP_TRANSFER_FORM_PATH = "VehicleDocument/ownershipTransferForm";
 
-    protected $fillable=[
+    protected $table = "vehicle__documents";
+
+    protected $fillable = [
         "vehicle_inspection_id",
         "vendor_id",
         "license_copy",
