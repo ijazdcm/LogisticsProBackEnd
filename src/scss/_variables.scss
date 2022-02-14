@@ -51,7 +51,7 @@
 // $red:     #dc3545 !default;
 // $orange:  #fd7e14 !default;
 // $yellow:  #ffc107 !default;
-// $green:   #198754 !default;
+$green: #198754 !default;
 // $teal:    #20c997 !default;
 // $cyan:    #0dcaf0 !default;
 // scss-docs-end color-variables
@@ -781,7 +781,7 @@ $form-label-color: #4d3227 !default;
 // $input-padding-x-lg:                    $input-btn-padding-x-lg !default;
 // $input-font-size-lg:                    $input-btn-font-size-lg !default;
 
-$input-bg:                              #FFF !default;
+$input-bg: #fff !default;
 $input-disabled-bg: #ebc999 !default;
 // $input-disabled-border-color:           $gray-400 !default;
 
@@ -1643,7 +1643,7 @@ $sidebar-backdrop-bg: #fff !default;
 
 // $sidebar-nav-title-padding-y:              .75rem !default;
 // $sidebar-nav-title-padding-x:              1rem !default;
-$sidebar-nav-title-margin-top:             1rem !default;
+$sidebar-nav-title-margin-top: 1rem !default;
 // $sidebar-nav-title-color:                  $medium-emphasis-inverse !default;
 // $sidebar-nav-title-transition:             height .15s, margin .15s !default;
 
@@ -1703,7 +1703,7 @@ $sidebar-toggler-bg: #fff !default;
 
 // Footer
 // scss-docs-start footer-variables
-$footer-min-height:    2rem !default;
+$footer-min-height: 2rem !default;
 // $footer-padding-y:     $spacer / 2 !default;
 // $footer-padding-x:     $spacer !default;
 $footer-bg: #4d3227 !default;

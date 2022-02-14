@@ -70,9 +70,7 @@ const ChangeVehicle = () => {
                 <CCol xs={12} md={3}>
                   <CFormLabel htmlFor="status">
                     Status*{' '}
-                    {errors.status && (
-                      <span className="small text-danger">{errors.status}</span>
-                    )}
+                    {errors.status && <span className="small text-danger">{errors.status}</span>}
                   </CFormLabel>
                   <CFormSelect
                     size="sm"

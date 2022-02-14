@@ -181,39 +181,39 @@ const Gateout = () => {
                 </CCol>
               </CRow>
               <CRow>
-                                <CCol>
-                                    <Link to="/GateIn">
-                                        <CButton
-                                            md={9}
-                                            size="sm"
-                                            color="primary"
-                                            disabled=""
-                                            className="text-white"
-                                            type="submit"
-                                        >
-                                            Previous
-                                        </CButton>
-                                    </Link>
-                                </CCol>
+                <CCol>
+                  <Link to="/GateIn">
+                    <CButton
+                      md={9}
+                      size="sm"
+                      color="primary"
+                      disabled=""
+                      className="text-white"
+                      type="submit"
+                    >
+                      Previous
+                    </CButton>
+                  </Link>
+                </CCol>
 
-                                <CCol
-                                    className=""
-                                    xs={12}
-                                    sm={12}
-                                    md={3}
-                                    style={{ display: 'flex', justifyContent: 'flex-end' }}
-                                >
-                                    <CButton
-                                        size="sm"
-                                        // disabled={enableSubmit}
-                                        color="warning"
-                                        className="px-3 text-white"
-                                        type="submit"
-                                    >
-                                        Gate Out
-                                    </CButton>
-                                </CCol>
-                            </CRow>
+                <CCol
+                  className=""
+                  xs={12}
+                  sm={12}
+                  md={3}
+                  style={{ display: 'flex', justifyContent: 'flex-end' }}
+                >
+                  <CButton
+                    size="sm"
+                    // disabled={enableSubmit}
+                    color="warning"
+                    className="px-3 text-white"
+                    type="submit"
+                  >
+                    Gate Out
+                  </CButton>
+                </CCol>
+              </CRow>
             </CForm>
           </CTabPane>
         </CTabContent>

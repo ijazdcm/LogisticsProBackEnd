@@ -98,7 +98,7 @@ const DefectTypeTable = () => {
     console.log(updateValues, id)
     DefectTypeApi.updateDefectType(updateValues, id)
       .then((res) => {
-        if (res.status ===200) {
+        if (res.status === 200) {
           setModal(false)
           toast.success('Defect Type Info Updated Successfully!')
           setMount((prevState) => (prevState = prevState + 1))
@@ -133,7 +133,9 @@ const DefectTypeTable = () => {
           Created_at: data.created_at,
           Status: (
             <span
-              className={`badge rounded-pill bg-${data.defect_type_status === 1 ? 'info' : 'danger'}`}
+              className={`badge rounded-pill bg-${
+                data.defect_type_status === 1 ? 'info' : 'danger'
+              }`}
             >
               {data.defect_type_status === 1 ? 'Active' : 'InActive'}
             </span>
@@ -152,7 +154,7 @@ const DefectTypeTable = () => {
                 <i className="fa fa-trash" aria-hidden="true"></i>
               </CButton>
               <CButton
-              disabled={data.defect_type_status === 1 ? false : true}
+                disabled={data.defect_type_status === 1 ? false : true}
                 size="sm"
                 color="secondary"
                 shape="rounded"
@@ -230,7 +232,7 @@ const DefectTypeTable = () => {
                 setDeleted('')
                 setModal(!modal)
               }}
-            >
+            >z
               <span className="float-start">
                 <i className="" aria-hidden="true"></i> &nbsp;New Defect Type
               </span>

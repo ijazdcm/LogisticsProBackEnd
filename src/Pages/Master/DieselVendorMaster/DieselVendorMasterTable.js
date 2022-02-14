@@ -44,7 +44,11 @@ const DieselVendorMasterTable = () => {
           diesel_Vendor_Mobile2: data.vendor_phone_2,
           diesel_Vendor_Mail: data.vendor_email,
           Status: (
-            <span className={`badge rounded-pill bg-${ (data.diesel_vendor_status === 1) ? 'info' : 'danger'}`}>
+            <span
+              className={`badge rounded-pill bg-${
+                data.diesel_vendor_status === 1 ? 'info' : 'danger'
+              }`}
+            >
               {data.diesel_vendor_status === 1 ? 'Active' : 'InActive'}
             </span>
           ),
@@ -159,14 +163,20 @@ const DieselVendorMasterTable = () => {
             <Link className="text-white" to="/DieselVendorMaster">
               <CButton size="md" color="warning" className="px-3 text-white" type="button">
                 <span className="float-start">
-                  <i className="" aria-hidden="true"></i> &nbsp;New Diesel Vendor
+                  <i className="" aria-hidden="true"></i> &nbsp;New
                 </span>
               </CButton>
             </Link>
           </CCol>
         </CRow>
 
-        <CustomTable columns={columns} data={rowData} />
+        <CustomTable
+          columns={columns}
+          data={rowData}
+          feildName={'diesel_Vendor_Name'}
+          showSearchFilter={true}
+          
+        />
         <hr></hr>
       </CContainer>
     </CCard>

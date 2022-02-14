@@ -82,6 +82,11 @@ const VehicleInspection = () => {
       data.append('old_driver_id', oldDriver)
     }
 
+<<<<<<< HEAD
+=======
+    //  debugger;
+
+>>>>>>> e7926fd5dae994ba5e5267257d9a6ab4a0845d0f
     VehicleInspectionService.addVehicleInspectionDetails(data).then((res) => {
       if (res.status == 200) {
         toast.success('Vehicle Inspection process completed')

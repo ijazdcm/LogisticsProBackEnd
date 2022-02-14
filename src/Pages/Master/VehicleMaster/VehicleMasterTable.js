@@ -73,7 +73,8 @@ const VehicleMasterTable = () => {
           setInsuranceCopyBack(true)
         }
         break
-        default:return 0
+      default:
+        return 0
     }
   }
 
@@ -120,11 +121,10 @@ const VehicleMasterTable = () => {
           Insurance_Validity: data.insurance_validity,
           FC_Validity: data.fc_validity,
           Status: (
-
-            <span className={`badge rounded-pill bg-${ (data.vehicle_status === 1) ? 'info' : 'danger'}`} >
+            <span
+              className={`badge rounded-pill bg-${data.vehicle_status === 1 ? 'info' : 'danger'}`}
+            >
               {data.vehicle_status === 1 ? 'Active' : 'Inactive'}
-
-           
             </span>
           ),
           Action: (
@@ -143,7 +143,7 @@ const VehicleMasterTable = () => {
                 <i className="fa fa-trash" aria-hidden="true"></i>
               </CButton>
 
-              <Link to={ data.vehicle_status === 1 ? `VehicleMaster/${data.vehicle_id}` :''}>
+              <Link to={data.vehicle_status === 1 ? `VehicleMaster/${data.vehicle_id}` : ''}>
                 <CButton
                   disabled={data.vehicle_status === 1 ? false : true}
                   size="sm"
@@ -151,14 +151,12 @@ const VehicleMasterTable = () => {
                   shape="rounded"
                   id={data.id}
                   className="m-1"
-                  type='button'
+                  type="button"
                 >
-
-            
                   {/* Edit */}
                   <i className="fa fa-edit" aria-hidden="true"></i>
                 </CButton>
-                </Link>
+              </Link>
             </div>
           ),
         })
@@ -209,13 +207,11 @@ const VehicleMasterTable = () => {
     {
       name: 'RC Copy Front',
       selector: (row) => row.RC_Copy_Front,
-      sortable: true,
       center: true,
     },
     {
       name: 'RC Copy Back',
       selector: (row) => row.RC_Copy_Back,
-      sortable: true,
       center: true,
     },
     {
@@ -241,6 +237,7 @@ const VehicleMasterTable = () => {
     {
       name: 'Status',
       selector: (row) => row.Status,
+      sortable: true,
       center: true,
     },
     {
@@ -253,10 +250,8 @@ const VehicleMasterTable = () => {
   //============ column header data=========
 
   return (
-    <CCard className="mt-4">
+    <>
       <CContainer className="mt-2">
-        <CustomTable columns={columns} data={rowData} />
-        <hr></hr>
         <CRow className="mt-3">
           <CCol
             className="offset-md-6"
@@ -267,81 +262,93 @@ const VehicleMasterTable = () => {
           >
             <Link className="text-white" to="/VehicleMaster">
               <CButton
-                size="sm"
+                size="md"
                 color="warning"
                 // disabled={enableSubmit}
                 className="px-3 text-white"
-                type="submit"
+                type="button"
               >
-                New
+                <span className="float-start">
+                  <i className="" aria-hidden="true"></i> &nbsp;New
+                </span>
               </CButton>
             </Link>
           </CCol>
         </CRow>
-      </CContainer>
-      {/*Rc copy front model*/}
-      <CModal visible={RCCopyFront} onClose={() => setRCCopyFront(false)}>
-        <CModalHeader>
-          <CModalTitle>RC Copy Front</CModalTitle>
-        </CModalHeader>
-        <CModalBody>
-          <CCardImage orientation="top" src={documentSrc} />
-        </CModalBody>
-        <CModalFooter>
-          <CButton color="secondary" onClick={() => setRCCopyFront(false)}>
-            Close
-          </CButton>
-        </CModalFooter>
-      </CModal>
-      {/*Rc copy front model*/}
-      {/*Rc copy back model*/}
-      <CModal visible={RCCopyBack} onClose={() => setRCCopyBack(false)}>
-        <CModalHeader>
-          <CModalTitle>RC Copy Back</CModalTitle>
-        </CModalHeader>
-        <CModalBody>
-          <CCardImage orientation="top" src={documentSrc} />
-        </CModalBody>
-        <CModalFooter>
-          <CButton color="secondary" onClick={() => setRCCopyBack(false)}>
-            Close
-          </CButton>
-          {/* <CButton color="primary">Save changes</CButton> */}
-        </CModalFooter>
-      </CModal>
-      {/*Rc copy back model*/}
 
-      {/*Insurance copy front*/}
-      <CModal visible={InsuranceCopyFront} onClose={() => setInsuranceCopyFront(false)}>
-        <CModalHeader>
-          <CModalTitle>Insurance Copy Front</CModalTitle>
-        </CModalHeader>
-        <CModalBody>
-          <CCardImage orientation="top" src={documentSrc} />
-        </CModalBody>
-        <CModalFooter>
-          <CButton color="secondary" onClick={() => setInsuranceCopyFront(false)}>
-            Close
-          </CButton>
-        </CModalFooter>
-      </CModal>
-      {/*Insurance copy front*/}
-      {/*Insurance copy back*/}
-      <CModal visible={InsuranceCopyBack} onClose={() => setInsuranceCopyBack(false)}>
-        <CModalHeader>
-          <CModalTitle>Insurance Copy Back</CModalTitle>
-        </CModalHeader>
-        <CModalBody>
-          <CCardImage orientation="top" src={documentSrc} />
-        </CModalBody>
-        <CModalFooter>
-          <CButton color="secondary" onClick={() => setInsuranceCopyBack(false)}>
-            Close
-          </CButton>
-        </CModalFooter>
-      </CModal>
-      {/*Insurance copy back*/}
-    </CCard>
+        <CCard className="mt-1">
+          <CustomTable
+            columns={columns}
+            data={rowData}
+            feildName={'vehicle_Number'}
+            showSearchFilter={true}
+          />
+        </CCard>
+
+        {/*Rc copy front model*/}
+        <CModal visible={RCCopyFront} onClose={() => setRCCopyFront(false)}>
+          <CModalHeader>
+            <CModalTitle>RC Copy Front</CModalTitle>
+          </CModalHeader>
+          <CModalBody>
+            <CCardImage orientation="top" src={documentSrc} />
+          </CModalBody>
+          <CModalFooter>
+            <CButton color="secondary" onClick={() => setRCCopyFront(false)}>
+              Close
+            </CButton>
+          </CModalFooter>
+        </CModal>
+        {/*Rc copy front model*/}
+        {/*Rc copy back model*/}
+        <CModal visible={RCCopyBack} onClose={() => setRCCopyBack(false)}>
+          <CModalHeader>
+            <CModalTitle>RC Copy Back</CModalTitle>
+          </CModalHeader>
+          <CModalBody>
+            <CCardImage orientation="top" src={documentSrc} />
+          </CModalBody>
+          <CModalFooter>
+            <CButton color="secondary" onClick={() => setRCCopyBack(false)}>
+              Close
+            </CButton>
+            {/* <CButton color="primary">Save changes</CButton> */}
+          </CModalFooter>
+        </CModal>
+        {/*Rc copy back model*/}
+
+        {/*Insurance copy front*/}
+        <CModal visible={InsuranceCopyFront} onClose={() => setInsuranceCopyFront(false)}>
+          <CModalHeader>
+            <CModalTitle>Insurance Copy Front</CModalTitle>
+          </CModalHeader>
+          <CModalBody>
+            <CCardImage orientation="top" src={documentSrc} />
+          </CModalBody>
+          <CModalFooter>
+            <CButton color="secondary" onClick={() => setInsuranceCopyFront(false)}>
+              Close
+            </CButton>
+          </CModalFooter>
+        </CModal>
+        {/*Insurance copy front*/}
+        {/*Insurance copy back*/}
+        <CModal visible={InsuranceCopyBack} onClose={() => setInsuranceCopyBack(false)}>
+          <CModalHeader>
+            <CModalTitle>Insurance Copy Back</CModalTitle>
+          </CModalHeader>
+          <CModalBody>
+            <CCardImage orientation="top" src={documentSrc} />
+          </CModalBody>
+          <CModalFooter>
+            <CButton color="secondary" onClick={() => setInsuranceCopyBack(false)}>
+              Close
+            </CButton>
+          </CModalFooter>
+        </CModal>
+        {/*Insurance copy back*/}
+      </CContainer>
+    </>
   )
 }
 

@@ -355,6 +355,7 @@ const ParkingYardGate = () => {
                 <CFormTextarea
                   name="remarks"
                   id="remarks"
+                  maxLength={40}
                   onBlur={onBlur}
                   onChange={handleChange}
                   value={values.remarks}
@@ -404,7 +405,12 @@ const ParkingYardGate = () => {
         </CCard>
         <CCard className="mt-3">
           <CContainer className="mt-2">
-            <CustomTable columns={columns} data={rowData} />
+            <CustomTable
+              columns={columns}
+              data={rowData}
+              feildName={'Driver_Name'}
+              showSearchFilter={true}
+            />
           </CContainer>
         </CCard>
       </CContainer>

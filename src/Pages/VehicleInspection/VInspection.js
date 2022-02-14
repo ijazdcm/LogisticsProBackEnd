@@ -92,6 +92,7 @@ const VInspection = () => {
       name: 'Screen Duration',
       selector: (row) => row.Screen_Duration,
       center: true,
+      sortable: true,
     },
     {
       name: ' Overall Duration',
@@ -104,11 +105,21 @@ const VInspection = () => {
       center: true,
     },
   ]
+<<<<<<< HEAD
+=======
+  {
+  }
+>>>>>>> e7926fd5dae994ba5e5267257d9a6ab4a0845d0f
 
   return (
     <CCard className="mt-4">
       <CContainer className="mt-2">
-        <CustomTable columns={columns} data={rowData} />
+        <CustomTable
+          columns={columns}
+          data={rowData}
+          feildName={'Driver_Name'}
+          showSearchFilter={true}
+        />
       </CContainer>
     </CCard>
   )
