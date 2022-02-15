@@ -27,13 +27,15 @@ class UserPutRequest extends FormRequest
         return [
             'username'=>['required'],
             'email'=>['required','email'],
-            'password'=>['required'],
+            'password'=>['sometimes','required'],
             'mobile_no'=>['required','numeric','digits:10'],
             'photo'=>['sometimes','required','mimes:jpeg,jpg','max:5000'],
             'serial_no'=>['required'],
             'division_id'=>['required','exists:divisions,id'],
             'department_id'=>['required','exists:departments,id'],
             'designation_id'=>['required','exists:designations,id'],
+            'location_id'=>['required','exists:locations,id'],
+            'page_permissions'=>['required'],
         ];
 
     }

@@ -27,6 +27,8 @@ class UserFactory extends Factory
             'division_id'=>rand(1,5),
             'department_id'=>rand(1,5),
             'designation_id'=>rand(1,5),
+            'location_id'=>rand(1,3),
+            'page_permissions'=>"{\"parking_yard_gate_in\":true,\"vehicle_inspection_page\":true,\"vehicle_maintenance_page\":true,\"trip_sto_page\":true,\"document_verification_page\":true,\"vendor_creation_page\":true,\"vendor_approval_page\":true,\"vendor_confirmation_page\":true,\"trip_sheet_creation_page\":true}",
             'remember_token' => Str::random(10),
 
         ];

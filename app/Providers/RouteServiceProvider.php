@@ -92,7 +92,6 @@ class RouteServiceProvider extends ServiceProvider
                     ->namespace($this->namespace)
                     ->group(base_path("routes/v1/{$route['folder']}/{$route['file']}.php"));
             }
-
             Route::middleware('web')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/web.php'));
