@@ -56,7 +56,7 @@ class RouteServiceProvider extends ServiceProvider
         ['folder' => 'VehicleMaintenance', 'file' => 'work_order_routes'],
 
         ['folder' => 'Location', 'file' => 'location_routes'],
-        ['folder' => 'TripSto', 'file' => 'trip_sto_routes'],
+        ['folder' => 'TripSTO', 'file' => 'trip_sto_routes'],
 
     ];
 
