@@ -1,20 +1,20 @@
 <?php
 
-namespace App\Http\Controllers\VehicleInspection;
+namespace App\Http\Controllers\VehicleMaintenance;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\VehicleInspection\VehicleInspectionRequest;
+use App\Http\Requests\VehicleMaintenance\VehicleMaintenanceRequest;
 use App\Http\Resources\ParkingYardGate\ParkingYardGateResource;
 use App\Models\ParkingYardGate\Parking_Yard_Gate;
-use App\Models\Vehicles\Vehicle_Inspection;
+use App\Models\Vehicles\Vehicle_Maintance;
 use App\Service\ParkingYardGate\ParkingYardGateService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Http\Resources\VehicleInspection\VehicleInspectionResource;
+use App\Http\Resources\VehicleMaintenance\VehicleMaintenanceResource;
 use App\Service\Driver\DriverService;
 use Illuminate\Support\Facades\Log;
 
-class VehicleInspectionMasterController extends Controller
+class VehicleMaintenanceMasterController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -37,11 +37,13 @@ class VehicleInspectionMasterController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(VehicleInspectionRequest $request)
+    public function store(VehicleMaintenanceRequest $request)
     {
+
+
         DB::transaction(function () use ($request) {
 
-            if ($request->vehicle_inspection_status == Vehicle_Inspection::VEHICLE_INSPECTION_PASSED) {
+            if ($request->vehicle_maintenance_status == Vehicle_Maintance::VEHICLE_MAINTENANCE_PASSED) {
 
 
                 if ($request->driver_id && $request->old_driver_id) {
@@ -59,18 +61,22 @@ class VehicleInspectionMasterController extends Controller
                     (new ParkingYardGateService())->assignNewDriverToVehicle($request->vehicle_id, $request->driver_id);
                 }
 
-                Vehicle_Inspection::create($request->validated());
-            } else {
+                Vehicle_Maintance::create($request->validated());
 
-                Vehicle_Inspection::create($request->validated());
+            }
+            else {
+
+                Vehicle_Maintance::create($request->validated());
 
                 //this service make vehicle on parking Yard table to gateOut status
 
                 (new ParkingYardGateService())->gateOutVehicle($request->vehicle_id);
+
             }
+
         });
 
-        return VehicleInspectionResource::make($request);
+        return VehicleMaintenanceResource::make($request);
     }
 
     /**
@@ -81,7 +87,7 @@ class VehicleInspectionMasterController extends Controller
      */
     public function show($id)
     {
-        //
+
     }
 
     /**
@@ -93,7 +99,7 @@ class VehicleInspectionMasterController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+    //
     }
 
     /**
@@ -104,6 +110,8 @@ class VehicleInspectionMasterController extends Controller
      */
     public function destroy($id)
     {
-        //
+    //
     }
+
+
 }
