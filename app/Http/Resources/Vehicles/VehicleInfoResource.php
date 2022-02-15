@@ -29,7 +29,6 @@ class VehicleInfoResource extends JsonResource
             "fc_validity" => $this->fc_validity,
             "vehicle_status" => $this->vehicle_status,
             "created_at" => $this->created_at->format('d-m-y')
-
         ];
     }
 }

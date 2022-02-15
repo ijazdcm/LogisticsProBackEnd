@@ -19,7 +19,7 @@ class CreateVendorInfosTable extends Migration
             $table->foreign('vehicle_id')->references('id')->on('vehicle__infos');
             $table->unsignedBigInteger('shed_id');
             $table->foreign('shed_id')->references('id')->on('shed__infos');
-            $table->unsignedBigInteger('vendor_code');
+            $table->unsignedBigInteger('vendor_code')->default(0);
             $table->string('owner_name');
             $table->unsignedBigInteger('owner_number');
             $table->string('pan_card_number');

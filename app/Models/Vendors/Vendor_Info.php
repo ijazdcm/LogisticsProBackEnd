@@ -3,6 +3,7 @@
 namespace App\Models\Vendors;
 
 use App\Models\Shed\Shed_Info;
+use App\Models\Vehicles\Vehicle_Document;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -67,10 +68,13 @@ class Vendor_Info extends Model
         "created_by",
     ];
 
-
-
     public function Shed_Info()
     {
         return $this->hasOne(Shed_Info::class, 'id', 'shed_id');
+    }
+
+    public function Vehicle_Document_Info()
+    {
+        return $this->hasOne(Vehicle_Document::class, 'vendor_id', 'id');
     }
 }

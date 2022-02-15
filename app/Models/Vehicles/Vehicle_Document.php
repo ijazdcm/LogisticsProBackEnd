@@ -2,6 +2,7 @@
 
 namespace App\Models\Vehicles;
 
+use App\Models\Vendors\Vendor_Info;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -23,6 +24,7 @@ class Vehicle_Document extends Model
     protected $table = "vehicle__documents";
 
     protected $fillable = [
+        "vehicle_id",
         "vehicle_inspection_id",
         "vendor_id",
         "license_copy",
@@ -37,8 +39,14 @@ class Vehicle_Document extends Model
         "insurance_validity",
         "ownership_transfer_form",
         "freight_rate_per_ton",
-        "remarks",
+        "vendor_flag",
         "document_status",
+        "remarks",
         "created_by",
     ];
+
+    public function Vendor_Info()
+    {
+        return $this->hasOne(Vendor_Info::class, 'id', 'vendor_id');
+    }
 }

@@ -4,10 +4,13 @@ namespace App\Http\Controllers\Vendor;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Vendors\VendorInfoStoreRequest;
+use App\Http\Resources\ParkingYardGate\ParkingYardGateResource;
 use App\Http\Resources\Vendor\VendorInfoResource;
+use App\Models\ParkingYardGate\Parking_Yard_Gate;
 use App\Models\Vendors\Vendor_Info;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 
 class VendorMasterController extends Controller
 {
@@ -18,10 +21,13 @@ class VendorMasterController extends Controller
      */
     public function index()
     {
-        return VendorInfoResource::collection(Cache::remember('vendor_info',now()->addDecade(),function()
-        {
-             return Vendor_Info::with('Shed_Info')->where('vendor_status',2)->get();
-        }));
+
+        $parking_yard_gate = Parking_Yard_Gate::with('Vehicle_Info')
+            ->with('Vehicle_Type')
+            ->with('Vehicle_Document')
+            ->get();
+
+        return ParkingYardGateResource::collection($parking_yard_gate);
     }
 
     /**
