@@ -105,11 +105,8 @@ const VInspection = () => {
       center: true,
     },
   ]
-<<<<<<< HEAD
-=======
   {
   }
->>>>>>> e7926fd5dae994ba5e5267257d9a6ab4a0845d0f
 
   return (
     <CCard className="mt-4">
