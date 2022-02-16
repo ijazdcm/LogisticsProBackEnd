@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Department\Department;
 use App\Models\Designation\Designation;
 use App\Models\Divison\Division;
+use App\Models\Location\Location;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -15,13 +16,8 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    public const USER_PHOTO_PATH="User/UsersPhoto";
+    public const USER_PHOTO_PATH="User/UsersPhoto/";
 
-    public const DIVISION_CODES=["1"=>"FD","2"=>"CD","3"=>"LD","4"=>"MD","5"=>"FA"];
-
-    public const DEPARTMENT_CODES=["1"=>"AD","2"=>"AC","3"=>"MT","4"=>"SO","5"=>"BI"];
-
-    public const DESIGNATION_CODES=["1"=>"AD","2"=>"MA","3"=>"DE","4"=>"SE","5"=>"AS"];
 
     /**
      * The attributes that are mass assignable.
@@ -31,6 +27,7 @@ class User extends Authenticatable
     protected $fillable = [
         'username',
         'email',
+        'otp',
         'password',
         'mobile_no',
         'photo',
@@ -40,6 +37,9 @@ class User extends Authenticatable
         'division_id',
         'department_id',
         'designation_id',
+        'location_id',
+        'page_permissions',
+        'user_status',
         'created_by',
     ];
 
@@ -60,8 +60,8 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'page_permissions' => 'array',
     ];
-
 
     public function Division()
     {
@@ -78,6 +78,15 @@ class User extends Authenticatable
         return $this->hasOne(Department::class,'id','department_id');
     }
 
+    public function Location()
+    {
+        return $this->hasOne(Location::class,'id','location_id');
+    }
+
+    public function scopeOnlyAdmin($query)
+    {
+        return $query->where('id','>','2');
+    }
 
 
 }

@@ -31,31 +31,31 @@ class RouteServiceProvider extends ServiceProvider
     protected array $routes_path = [
 
 
-        ['folder'=>'Auth','file'=>'auth_routes'],
-        ['folder'=>'Vehicle','file'=>'vehicle_routes'],
-        ['folder'=>'Driver','file'=>'driver_routes'],
-        ['folder'=>'Division','file'=>'division_routes'],
-        ['folder'=>'Department','file'=>'department_routes'],
-        ['folder'=>'Designation','file'=>'designation_routes'],
-        ['folder'=>'Uom','file'=>'uom_routes'],
-        ['folder'=>'MaterialDescription','file'=>'material_description_routes'],
-        ['folder'=>'RejectionReason','file'=>'rejection_reason_routes'],
-        ['folder'=>'PreviousLoadDetails','file'=>'previous_load_details_routes'],
-        ['folder'=>'Status','file'=>'status_routes'],
-        ['folder'=>'Shed','file'=>'shed_routes'],
-        ['folder'=>'Vendor','file'=>'vendor_routes'],
-        ['folder'=>'User','file'=>'user_routes'],
-        ['folder'=>'ParkingYardGate','file'=>'parking_yard_gate_routes'],
-        ['folder'=>'DefectType','file'=>'defect_type_routes'],
-        ['folder'=>'Bank','file'=>'bank_routes'],
-        ['folder'=>'VehicleInspection','file'=>'vehicle_inspection_routes'],
-        ['folder'=>'VehicleInspection','file'=>'vehicle_inspection_routes'],
-        ['folder'=>'VehicleMaintenance','file'=>'vehicle_maintenance_routes'],
-
-        ['folder'=>'VehicleMaintenance','file'=>'work_order_routes'],
-
-        ['folder'=>'Location','file'=>'location_routes'],
+        ['folder' => 'Auth', 'file' => 'auth_routes'],
+        ['folder' => 'Vehicle', 'file' => 'vehicle_routes'],
+        ['folder' => 'Driver', 'file' => 'driver_routes'],
+        ['folder' => 'Division', 'file' => 'division_routes'],
+        ['folder' => 'Department', 'file' => 'department_routes'],
+        ['folder' => 'Designation', 'file' => 'designation_routes'],
+        ['folder' => 'Uom', 'file' => 'uom_routes'],
+        ['folder' => 'MaterialDescription', 'file' => 'material_description_routes'],
+        ['folder' => 'RejectionReason', 'file' => 'rejection_reason_routes'],
+        ['folder' => 'PreviousLoadDetails', 'file' => 'previous_load_details_routes'],
+        ['folder' => 'Status', 'file' => 'status_routes'],
+        ['folder' => 'Shed', 'file' => 'shed_routes'],
+        ['folder' => 'Vendor', 'file' => 'vendor_routes'],
+        ['folder' => 'User', 'file' => 'user_routes'],
+        ['folder' => 'ParkingYardGate', 'file' => 'parking_yard_gate_routes'],
+        ['folder' => 'DefectType', 'file' => 'defect_type_routes'],
+        ['folder' => 'Bank', 'file' => 'bank_routes'],
+        ['folder' => 'VehicleInspection', 'file' => 'vehicle_inspection_routes'],
+        ['folder' => 'VehicleInspection', 'file' => 'vehicle_inspection_routes'],
+        ['folder' => 'VehicleMaintenance', 'file' => 'vehicle_maintenance_routes'],
+        ['folder' => 'DocumentVerification', 'file' => 'document_verification_routes'],
+        ['folder' => 'VehicleMaintenance', 'file' => 'work_order_routes'],
+        ['folder' => 'Location', 'file' => 'location_routes'],
         ['folder' => 'TripSTO', 'file' => 'trip_sto_routes'],
+        ['folder' => 'Customer', 'file' => 'customer_routes'],
 
     ];
 
@@ -91,7 +91,6 @@ class RouteServiceProvider extends ServiceProvider
                     ->namespace($this->namespace)
                     ->group(base_path("routes/v1/{$route['folder']}/{$route['file']}.php"));
             }
-
             Route::middleware('web')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/web.php'));

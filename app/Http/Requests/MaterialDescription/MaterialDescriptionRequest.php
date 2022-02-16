@@ -24,9 +24,8 @@ class MaterialDescriptionRequest extends FormRequest
     public function rules()
     {
         return [
-            "material_description" => "required|regex:/^[a-zA-Z ]+$/u|max:255",
-            // "material_description" => "required|regex:/^[a-zA-Z ]+$/u|max:255|unique:material_description,material_description",
-            "material_description_status" => ['sometimes', 'required'],
+            "material_description" => "required|regex:/^[a-zA-Z ]+$/u|max:255|unique:material_description",
+
         ];
     }
 }
