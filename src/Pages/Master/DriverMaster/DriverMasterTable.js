@@ -172,6 +172,7 @@ const DriverMasterTable = () => {
         })
       })
       setRowData(rowDataList)
+
     })
   }, [mount])
 
@@ -233,6 +234,12 @@ const DriverMasterTable = () => {
       center: true,
     },
     {
+      name: 'License Validity Status',
+      selector: (row) => row.License_Validity,
+      sortable: true,
+      center: true,
+    },
+    {
       name: 'License Copy Front',
       selector: (row) => row.LC_Copy_Front,
       center: true,
@@ -242,12 +249,7 @@ const DriverMasterTable = () => {
       selector: (row) => row.LC_Copy_Back,
       center: true,
     },
-    {
-      name: 'License Validity Status',
-      selector: (row) => row.License_Validity,
-      sortable: true,
-      center: true,
-    },
+
     {
       name: 'Aadhar Card',
       selector: (row) => row.Aadhar_Copy,
@@ -305,7 +307,12 @@ const DriverMasterTable = () => {
           </CCol>
         </CRow>
 
-        <CustomTable columns={columns} data={rowData} />
+        <CustomTable
+          columns={columns}
+          data={rowData}
+          feildName={'Driver_Name'}
+          showSearchFilter={true}
+        />
         <hr></hr>
       </CContainer>
       {/*License copy front model*/}

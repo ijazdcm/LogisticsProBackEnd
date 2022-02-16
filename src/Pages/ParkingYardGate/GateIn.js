@@ -58,7 +58,7 @@ const ParkingYardGate = () => {
     driverId: '',
     driverName: '',
     driverPhoneNumber: '',
-    odometerKm:'',
+    odometerKm: '',
     odometerImg: '',
     partyName: '',
     vehicleBody: '',
@@ -95,11 +95,19 @@ const ParkingYardGate = () => {
     isTouched.remarks = false
   }
 
+  let navigation = useNavigate()
 
-  let navigation=useNavigate()
-
-  const { values, errors, handleChange, onFocus, enableSubmit, onBlur, isTouched, setIsTouched,setErrors } =
-    useForm(action, ParkingYardGateValidation, formValues)
+  const {
+    values,
+    errors,
+    handleChange,
+    onFocus,
+    enableSubmit,
+    onBlur,
+    isTouched,
+    setIsTouched,
+    setErrors,
+  } = useForm(action, ParkingYardGateValidation, formValues)
 
   function action(type) {
     const formData = new FormData()
@@ -107,8 +115,7 @@ const ParkingYardGate = () => {
     formData.append('vehicle_id', values.vehicleId)
     formData.append('driver_id', values.driverId)
     formData.append('odometer_km', values.odometerKm)
-    if(values.odometerImg!=="")
-    {
+    if (values.odometerImg !== '') {
       formData.append('odometer_photo', values.odometerImg)
     }
     formData.append('vehicle_number', values.vehicleNumber)
@@ -128,42 +135,31 @@ const ParkingYardGate = () => {
         loadParkingYardGateTable()
         setIsTouched({})
         setErrors({})
-
       } else {
         toast.danger('something went wrong!')
       }
     })
   }
 
-
-
-
-  const gateInAction=(vehicleId)=>{
-
-       ParkingYardGateService.actionWaitingOutsideToGateIn(vehicleId).then(res=>{
-          if(res.status===201)
-          {
-            toast.success('Vehicle Gate In process completed')
-            loadParkingYardGateTable()
-          }
-       })
-
+  const gateInAction = (vehicleId) => {
+    ParkingYardGateService.actionWaitingOutsideToGateIn(vehicleId).then((res) => {
+      if (res.status === 201) {
+        toast.success('Vehicle Gate In process completed')
+        loadParkingYardGateTable()
+      }
+    })
   }
 
-  const gateOutAction=(vehicleId)=>{
-
-    ParkingYardGateService.actionGateOut(vehicleId).then(res=>{
-       if(res.status===201)
-       {
-         toast.success('Vehicle Gate Out process completed')
-         loadParkingYardGateTable()
-       }
+  const gateOutAction = (vehicleId) => {
+    ParkingYardGateService.actionGateOut(vehicleId).then((res) => {
+      if (res.status === 201) {
+        toast.success('Vehicle Gate Out process completed')
+        loadParkingYardGateTable()
+      }
     })
+  }
 
-}
-
-
-  const loadParkingYardGateTable=()=>{
+  const loadParkingYardGateTable = () => {
     ParkingYardGateService.getParkingYardGateTrucks().then((res) => {
       tableData = res.data.data
       let rowDataList = []
@@ -183,32 +179,40 @@ const ParkingYardGate = () => {
                 : 'Gate Out'}
             </span>
           ),
-          Screen_Duration:data.updated_at ,
+          Screen_Duration: data.updated_at,
           Overall_Duration: data.created_at,
           Action:
             data.parking_status == ACTION.GATE_IN ? (
-              <CButton className="badge text-white" color="warning" type='button' >
-
+              <CButton className="badge text-white" color="warning" type="button">
                 Vehicle Inspection
-
               </CButton>
             ) : data.parking_status == ACTION.WAIT_OUTSIDE ? (
-              <CButton type='button' onClick={(e)=>
-              gateInAction(data.parking_yard_gate_id)} className="badge text-white" color="warning">
+              <CButton
+                type="button"
+                onClick={(e) => gateInAction(data.parking_yard_gate_id)}
+                className="badge text-white"
+                color="warning"
+              >
                 Gate IN
               </CButton>
             ) : (
-              <> <CButton type='button' onClick={(e)=>
-                gateOutAction(data.parking_yard_gate_id)} className="badge text-white" color="warning">
+              <>
+                {' '}
+                <CButton
+                  type="button"
+                  onClick={(e) => gateOutAction(data.parking_yard_gate_id)}
+                  className="badge text-white"
+                  color="warning"
+                >
                   Gate Out
-                </CButton></>
+                </CButton>
+              </>
             ),
         })
       })
       setRowData(rowDataList)
     })
   }
-
 
   useEffect(() => {
     isTouched.remarks = true
@@ -218,7 +222,6 @@ const ParkingYardGate = () => {
     })
 
     loadParkingYardGateTable()
-
   }, [])
 
   const columns = [
@@ -274,8 +277,6 @@ const ParkingYardGate = () => {
       center: true,
     },
   ]
-
-
 
   return (
     <>
@@ -354,6 +355,7 @@ const ParkingYardGate = () => {
                 <CFormTextarea
                   name="remarks"
                   id="remarks"
+                  maxLength={40}
                   onBlur={onBlur}
                   onChange={handleChange}
                   value={values.remarks}
@@ -403,7 +405,12 @@ const ParkingYardGate = () => {
         </CCard>
         <CCard className="mt-3">
           <CContainer className="mt-2">
-            <CustomTable columns={columns} data={rowData} />
+            <CustomTable
+              columns={columns}
+              data={rowData}
+              feildName={'Driver_Name'}
+              showSearchFilter={true}
+            />
           </CContainer>
         </CCard>
       </CContainer>

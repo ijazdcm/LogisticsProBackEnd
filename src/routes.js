@@ -1,24 +1,17 @@
-import React from 'react'
+// import React from 'react'
 
 // Master Pages
 import VehicleMaster from './Pages/Master/VehicleMaster/VehicleMaster'
 import DieselVendorMaster from './Pages/Master/DieselVendorMaster/DieselVendorMaster'
-
-// import DriverMaster from './Pages/Master/DriverMaster'
-// import ShedMaster from './Pages/Master/ShedMaster/ShedMaster'
 import ShedMasterEdit from './Pages/Master/ShedMaster/ShedMasterEdit'
-// import DieselVendorMaster from './Pages/Master/DieselVendorMaster'
-
 import DriverMaster from './Pages/Master/DriverMaster/DriverMaster'
 import ShedMaster from './Pages/Master/ShedMaster'
-
-import UserLoginMaster from './Pages/Master/UserMaster/UserLoginMaster'
-import UserLoginMasterTable from './Pages/Master/UserMaster/UserLoginMasterTable'
+import UserLoginMaster from './Pages/UserLoginMaster/UserLoginMaster'
+import UserLoginMasterTable from './Pages/Master/UserLoginMasterTable'
 
 // Sub-Master Pages
 
 import DesignationTable from './Pages/Master/Submaster/DesignationTable'
-
 import DefectTypeTable from './Pages/Master/Submaster/DefectTypeTable'
 import DepartmentTable from './Pages/Master/Submaster/DepartmentTable'
 import StatusTable from './Pages/Master/Submaster/StatusTable'
@@ -31,7 +24,6 @@ import UOMTable from './Pages/Master/Submaster/UOMTable'
 import ShedMasterTable from './Pages/Master/ShedMaster/ShedMasterTable'
 import VehicleMasterTable from './Pages/Master/VehicleMaster/VehicleMasterTable'
 import DieselVendorMasterTable from './Pages/Master/DieselVendorMaster/DieselVendorMasterTable'
-// import DriverMasterTable from './Pages/Master/DriverMaster/DriverMasterTable'
 
 // Small Master Pages
 
@@ -48,14 +40,12 @@ import DieselIntentOwn from './Pages/DiCreation/DieselIntentOwn'
 import DieselIntentHire from './Pages/DiCreation/DieselIntentHire'
 import DieselIntentHome from './Pages/DiCreation/DieselIntentHome'
 import DiConfirmation from './Pages/DiConfirmation/DiConfirmation'
-// import ParkingYardGate from './Pages/ParkingYardGate/ParkingYardGateIn'
 import GateIn from './Pages/ParkingYardGate/GateIn'
-// import hire from './Pages/ParkingYardGate/hire'
 import vInspection from './Pages/VehicleInspection/VInspection'
 import vehicleInspection from './Pages/VehicleInspection/vehicleInspection'
 import VehicleInspectionHire from './Pages/VehicleInspection/VehicleInspectionHire'
-import vehicleMaintainence from './Pages/VehicleMaintainence/vehicleMaintainence'
-import VMain from './Pages/VehicleMaintainence/VMain'
+import vehicleMaintainence from './Pages/VehicleMaintenance/vehicleMaintainence'
+import VMain from './Pages/VehicleMaintenance/VMain'
 import DocVerify from './Pages/DocumentVerification/DocsVerify'
 import DocVerifyVendorAvail from './Pages/DocumentVerification/DocVerifyVendorAvail'
 import DocVerifyVendorNotAvail from './Pages/DocumentVerification/DocVerifyVendorNotAvail'
@@ -63,7 +53,7 @@ import TripSheetCreationFG from './Pages/TripSheetCreation/TripSheetCreationFG'
 import TripSheetCreationOwnFG from './Pages/TripSheetCreation/TripSheetCreationOwnFG'
 import TripSheetCreationHome from './Pages/TripSheetCreation/TripSheetCreationHome'
 import TripSheetCreationSTO from './Pages/TripSheetCreation/TripSheetCreationSTO'
-import TripSTO from './Pages/TripSheetCreation/TripSTO'
+import TripSTO from './Pages/TripSTO/TripSto'
 import TripSheetSettleMentFG from './Pages/TripSheetSettleMent/TripSheetSettleMentFG'
 import TripSheetSettleMentNew from './Pages/TripSheetSettleMent/TripSheetSettleMentNew'
 import TripSheetSettleMentHome from './Pages/TripSheetSettleMent/TripSheetSettleMentHome'
@@ -78,7 +68,7 @@ import TSClossure from './Pages/TripsheetClossure/TSClossure'
 import TSClossureSto from './Pages/TripsheetClossure/TSClossureSto'
 import ShipmentCreation from './Pages/ShipmentCreation/ShipmentCreation'
 import ShipmentCreationConsumer from './Pages/ShipmentCreation/ShipmentCreationConsumer'
-import VendorCreationConfrimationOwn from './Pages/VendorCreationConfrimation/VendorCreationConfrimationOwn'
+// import VendorCreationConfrimationOwn from './Pages/VendorCreationConfrimation/VendorCreationConfrimationOwn'
 import DiApprovalHome from './Pages/DiApproval/DiApprovalHome'
 import DiApproval from './Pages/DiApproval/DiApproval'
 import RJcustomerCreationHome from './Pages/RJcustomerCreation/RJcustomerCreationHome'
@@ -103,8 +93,10 @@ import DriverMasterEdit from './Pages/Master/DriverMaster/DriverMasterEdit'
 
 import BankMasterTable from './Pages/Master/Submaster/Bank/BankMasterTable'
 import DriverMasterTable from './Pages/Master/DriverMaster/DriverMasterTable'
+
 import LocationTable from './Pages/Master/Submaster/LocationTable';
 import UserLoginMasterEdit from './Pages/Master/UserMaster/UserLoginMasterEdit'
+
 
 const routes = [
   // Master
@@ -137,29 +129,28 @@ const routes = [
     component: DieselVendorMasterEdit,
   },
   {
-
     path: '/ShedMasterTable/ShedMaster/:id',
     exact: true,
     name: 'ShedMasterEdit',
     component: ShedMasterEdit,
-
+  },
+  {
     path: '/DriverMasterTable/DriverMaster/:id',
     exact: true,
     name: 'DriverMasterTableEdit',
     component: DriverMasterEdit,
-
   },
   { path: '/ShedMasterTable', exact: true, name: 'ShedMasterTable', component: ShedMasterTable },
   {
     path: '/DriverMasterTable',
     exact: true,
-    name: 'DriverMasterTable',
+    name: 'Driver Master Table',
     component: DriverMasterTable,
   },
   {
     path: '/DieselVendorMasterTable',
     exact: true,
-    name: 'DieselVendorMasterTable',
+    name: 'Diesel Vendor Master Table',
     component: DieselVendorMasterTable,
   },
   {
@@ -208,13 +199,13 @@ const routes = [
   {
     path: '/VMain',
     exact: true,
-    name: 'VMain',
+    name: 'Vehicle Maintenance',
     component: VMain,
   },
   {
-    path: '/VMain/vehicleMaintainence',
+    path: '/VMain/vehicleMaintainence/:id',
     exact: true,
-    name: 'vehicleMaintainence',
+    name: 'Vehicle Maintainence',
     component: vehicleMaintainence,
   },
   {
@@ -224,7 +215,7 @@ const routes = [
     component: DocVerify,
   },
   {
-    path: '/DocsVerify/DocVerifyVendorAvail',
+    path: '/DocsVerify/DocVerifyVendorAvail/:id',
     exact: true,
     name: 'DocVerifyVendorAvail',
     component: DocVerifyVendorAvail,
@@ -284,7 +275,6 @@ const routes = [
     component: DiApproval,
   },
   { path: '/DiConfirmation', exact: true, name: 'Test', component: DiConfirmation },
-  // { path: '/hire', exact: true, name: 'Test', component: hire },
 
   {
     path: '/VendorCreationHome',
@@ -340,6 +330,7 @@ const routes = [
     name: '/TripSheetCreationOwnFG',
     component: TripSheetCreationOwnFG,
   },
+
   {
     path: '/TripSheetCreation/tripSto',
     exact: true,
@@ -349,7 +340,7 @@ const routes = [
   {
     path: '/TripSTO',
     exact: true,
-    name: 'TripSTO',
+    name: 'Trip - STO',
     component: TripSTO,
   },
   {

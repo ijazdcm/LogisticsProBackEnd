@@ -3,28 +3,34 @@ import React, { useEffect } from 'react'
 import VehicleCapacitySelectField from '../CommonComponent/VehicleCapacitySelectField'
 import VehicleTypeSelectField from '../CommonComponent/VehicleTypeSelectField'
 
-const HireSection = ({ errors, onFocus, onBlur, handleChange, values,isTouched,setIsTouched, setErrors }) => {
-
-
-  useEffect(()=>{
-
-       setErrors({})
-      isTouched.driverId=true
-      isTouched.odometerImg=true
-      isTouched.odometerKm=true
-      isTouched.partyName=true
-      isTouched.vehicleId=true
-      values.odometerImg=''
-
-  },[])
-
+const HireSection = ({
+  errors,
+  onFocus,
+  onBlur,
+  handleChange,
+  values,
+  isTouched,
+  setIsTouched,
+  setErrors,
+}) => {
+  useEffect(() => {
+    setErrors({})
+    isTouched.driverId = true
+    isTouched.odometerImg = true
+    isTouched.odometerKm = true
+    isTouched.partyName = true
+    isTouched.vehicleId = true
+    values.odometerImg = ''
+  }, [])
 
   return (
     <>
       <CCol xs={12} md={3}>
         <CFormLabel htmlFor="vehicleNumber">
           Vehicle Number*
-          {errors.vehicleNumber && <span className="small text-danger">{errors.vehicleNumber}</span>}
+          {errors.vehicleNumber && (
+            <span className="small text-danger">{errors.vehicleNumber}</span>
+          )}
         </CFormLabel>
         <CFormInput
           size="sm"
@@ -41,7 +47,9 @@ const HireSection = ({ errors, onFocus, onBlur, handleChange, values,isTouched,s
       <CCol xs={12} md={3}>
         <CFormLabel htmlFor="vehicleCapacity">
           Vehicle Capacity In MTS*{' '}
-          {errors.vehicleCapacity && <span className="small text-danger">{errors.vehicleCapacity}</span>}
+          {errors.vehicleCapacity && (
+            <span className="small text-danger">{errors.vehicleCapacity}</span>
+          )}
         </CFormLabel>
         <VehicleCapacitySelectField onBlur={onBlur} onFocus={onFocus} handleChange={handleChange} />
       </CCol>
@@ -55,6 +63,7 @@ const HireSection = ({ errors, onFocus, onBlur, handleChange, values,isTouched,s
           size="sm"
           name="driverName"
           id="driverName"
+          maxLength={30}
           onFocus={onFocus}
           onBlur={onBlur}
           onChange={handleChange}
@@ -65,11 +74,13 @@ const HireSection = ({ errors, onFocus, onBlur, handleChange, values,isTouched,s
       <CCol xs={12} md={3}>
         <CFormLabel htmlFor="driverPhoneNumber">
           Driver Contact Number*
-          {errors.driverPhoneNumber && <span className="small text-danger">{errors.driverPhoneNumber}</span>}
+          {errors.driverPhoneNumber && (
+            <span className="small text-danger">{errors.driverPhoneNumber}</span>
+          )}
         </CFormLabel>
         <CFormInput
           size="sm"
-          type='number'
+          type="number"
           name="driverPhoneNumber"
           id="driverPhoneNumber"
           maxLength={10}

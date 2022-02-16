@@ -22,6 +22,7 @@ import CustomTable from 'src/components/customComponent/CustomTable'
 import RejectionReasonApi from '../../../Service/SubMaster/RejectionReasonApi'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import RejectReasonSubMasterValidation from 'src/Utils/SubMaster/RejectReasonSubMasterValidation'
 
 const RejectResonTable = () => {
   const [modal, setModal] = useState(false)
@@ -49,7 +50,7 @@ const RejectResonTable = () => {
     onBlur,
     onClick,
     onKeyUp,
-  } = useForm(login, validate, formValues)
+  } = useForm(login, RejectReasonSubMasterValidation, formValues)
 
   function login() {
     // alert('No Errors CallBack Called')
@@ -179,14 +180,16 @@ const RejectResonTable = () => {
       center: true,
     },
     {
-      name: 'Created_at',
+      name: 'Creation date',
       selector: (row) => row.Created_at,
       left: true,
+      sortable: true,
     },
     {
       name: 'Rejection Reason',
       selector: (row) => row.Rejection,
       left: true,
+      sortable: true,
     },
     {
       name: 'Status',
@@ -232,8 +235,14 @@ const RejectResonTable = () => {
             </CButton>
           </CCol>
         </CRow>
+
         <CCard className="mt-1">
-          <CustomTable columns={columns} data={rowData || ''} />
+          <CustomTable
+            columns={columns}
+            data={rowData}
+            feildName={'Rejection'}
+            showSearchFilter={true}
+          />
         </CCard>
       </CContainer>
 
@@ -270,7 +279,7 @@ const RejectResonTable = () => {
               <CFormInput
                 size="sm"
                 id="rejection_reason"
-                maxLength={20}
+                maxLength={30}
                 className={`${errors.rejection_reason && 'is-invalid'}`}
                 name="rejection_reason"
                 value={values.rejection_reason || ''}

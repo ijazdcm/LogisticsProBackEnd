@@ -51,6 +51,7 @@ const useForm = (callback, validate, formValues) => {
         [event.target.name]: event.target.checked,
       }))
     } else {
+      // console.log(event.target.name + ':\t' + value)
       setValues((values) => ({
         ...values,
         [event.target.name]: value,

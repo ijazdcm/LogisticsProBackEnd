@@ -2,41 +2,43 @@ import { CCol, CFormInput, CFormLabel, CFormSelect } from '@coreui/react'
 import React, { useEffect, useState } from 'react'
 import ParkingYardGateService from 'src/Service/ParkingYardGate/ParkingYardGateService'
 import validate from 'src/Utils/Validation'
-const OwnAndContractSection = ({ errors, onFocus, onBlur, handleChange, values,isTouched,setIsTouched, setErrors }) => {
-
+const OwnAndContractSection = ({
+  errors,
+  onFocus,
+  onBlur,
+  handleChange,
+  values,
+  isTouched,
+  setIsTouched,
+  setErrors,
+}) => {
   const [vehicleByType, setVehicleByType] = useState([])
   const [vehicleCapacityByVId, setVehicleCapacityByVId] = useState(0)
   const [driver, setDriver] = useState([])
-  const [driverPhoneNumberById, setDriverPhoneNumberById] = useState("")
+  const [driverPhoneNumberById, setDriverPhoneNumberById] = useState('')
 
   useEffect(() => {
-
     // setIsTouched({})
     setErrors({})
     //fetch to get Vehicles list form master by type Own or Contract
-    isTouched.partyName=true
-    isTouched.vehicleBody=true
+    isTouched.partyName = true
+    isTouched.vehicleBody = true
     ParkingYardGateService.getVehiclebyType(values.vehicleType).then((res) => {
       setVehicleByType(res.data.data)
     })
-
   }, [values.vehicleType])
 
   useEffect(() => {
     if (values.vehicleId) {
-
-       //fetch by VehicleId to get Capacity info of vehicle & Vehicle Number
+      //fetch by VehicleId to get Capacity info of vehicle & Vehicle Number
 
       ParkingYardGateService.getVehicleInfoById(values.vehicleId).then((res) => {
-
         isTouched.vehicleCapacity = true
         isTouched.vehicleNumber = true
-        values.vehicleNumber=res.data.data.vehicle_number
+        values.vehicleNumber = res.data.data.vehicle_number
         values.vehicleCapacity = res.data.data.vehicle_capacity_info.id
         setVehicleCapacityByVId(res.data.data.vehicle_capacity_info.capacity)
-
       })
-
     }
   }, [values.vehicleId])
 
@@ -48,22 +50,16 @@ const OwnAndContractSection = ({ errors, onFocus, onBlur, handleChange, values,i
   }, [])
 
   useEffect(() => {
-
-    if (values.driverId)
-    {
-
+    if (values.driverId) {
       //fetch to get Drivers info list form master by id
-    ParkingYardGateService.getDriverInfoById(values.driverId).then((res) => {
-
-      isTouched.driverPhoneNumber =true
-      values.driverPhoneNumber =res.data.data.driver_phone_1
-      isTouched.driverName =true
-      values.driverName =res.data.data.driver_name
-      setDriverPhoneNumberById(res.data.data.driver_phone_1)
-    })
-
+      ParkingYardGateService.getDriverInfoById(values.driverId).then((res) => {
+        isTouched.driverPhoneNumber = true
+        values.driverPhoneNumber = res.data.data.driver_phone_1
+        isTouched.driverName = true
+        values.driverName = res.data.data.driver_name
+        setDriverPhoneNumberById(res.data.data.driver_phone_1)
+      })
     }
-
   }, [values.driverId])
 
   return (
@@ -71,9 +67,7 @@ const OwnAndContractSection = ({ errors, onFocus, onBlur, handleChange, values,i
       <CCol xs={12} md={3}>
         <CFormLabel htmlFor="vehicleId">
           Vehicle Number*
-          {errors.vehicleId && (
-            <span className="small text-danger">{errors.vehicleId}</span>
-          )}
+          {errors.vehicleId && <span className="small text-danger">{errors.vehicleId}</span>}
         </CFormLabel>
         <CFormSelect
           size="sm"
@@ -86,9 +80,7 @@ const OwnAndContractSection = ({ errors, onFocus, onBlur, handleChange, values,i
           className={`${errors.vehicleId && 'is-invalid'}`}
           aria-label="Small select example"
         >
-          <option value="">
-            Select...
-          </option>
+          <option value="">Select...</option>
           {vehicleByType.map(({ vehicle_id, vehicle_number }) => {
             return (
               <>
@@ -121,6 +113,7 @@ const OwnAndContractSection = ({ errors, onFocus, onBlur, handleChange, values,i
           size="sm"
           name="driverId"
           id="driverId"
+          maxLength={30}
           onFocus={onFocus}
           onBlur={onBlur}
           onChange={handleChange}
@@ -128,9 +121,7 @@ const OwnAndContractSection = ({ errors, onFocus, onBlur, handleChange, values,i
           className={`${errors.driverId && 'is-invalid'}`}
           aria-label="Small select example"
         >
-          <option value={""}>
-            Select...
-          </option>
+          <option value={''}>Select...</option>
           {driver.map(({ driver_id, driver_name }) => {
             return (
               <>
@@ -144,9 +135,7 @@ const OwnAndContractSection = ({ errors, onFocus, onBlur, handleChange, values,i
       </CCol>
 
       <CCol xs={12} md={3}>
-        <CFormLabel htmlFor="driverPhoneNumber">
-          Driver Contact Number
-        </CFormLabel>
+        <CFormLabel htmlFor="driverPhoneNumber">Driver Contact Number</CFormLabel>
         <CFormInput
           size="sm"
           name="driverPhoneNumberByID"
@@ -161,10 +150,10 @@ const OwnAndContractSection = ({ errors, onFocus, onBlur, handleChange, values,i
 
       <CCol xs={12} md={3}>
         <CFormLabel htmlFor="odometerKm">
-          Odometer KM* {errors.odometerKm && <span className="small text-danger">{errors.odometerKm}</span>}
+          Odometer KM*{' '}
+          {errors.odometerKm && <span className="small text-danger">{errors.odometerKm}</span>}
         </CFormLabel>
         <CFormInput
-         type='number'
           size="sm"
           name="odometerKm"
           id="odometerKm"
@@ -190,7 +179,7 @@ const OwnAndContractSection = ({ errors, onFocus, onBlur, handleChange, values,i
           className={`${errors.odometerImg && 'is-invalid'}`}
           size="sm"
           id="odoImg"
-          accept='.jpg,.jpeg'
+          accept=".jpg,.jpeg"
         />
       </CCol>
     </>

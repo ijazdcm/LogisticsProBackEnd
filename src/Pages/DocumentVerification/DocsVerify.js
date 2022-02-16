@@ -1,9 +1,64 @@
-import React from 'react'
-import { CButton, CCard, CContainer } from '@coreui/react'
+// Implemented by David - Exciteon
+import { React, useState, useEffect } from 'react'
+import { CButton, CCard, CContainer, CSpinner } from '@coreui/react'
 import { Link } from 'react-router-dom'
+// import { Lines } from 'react-preloaders'
 import CustomTable from 'src/components/customComponent/CustomTable'
+import DocsVerifyService from 'src/Service/DocsVerify/DocsVerifyService'
 
 const DocsVerify = () => {
+  const [rowData, setRowData] = useState([])
+  const [spinnerHide, setSpinnerHide] = useState(false)
+
+  let tableData = []
+
+  const ACTION = {
+    GATE_IN: 1,
+    GATE_OUT: 2,
+    WAIT_OUTSIDE: 3,
+  }
+  const loadDocsVerifyTable = () => {
+    DocsVerifyService.getDocsVerifyTableData().then((res) => {
+      tableData = res.data.data
+      let rowDataList = []
+      const filterData = tableData.filter((data) => data.vehicle_type_id.id == 3)
+      console.log(filterData)
+      filterData.map((data, index) => {
+        rowDataList.push({
+          sno: index + 1,
+          // Tripsheet_No: '',
+          Vehicle_Type: data.vehicle_type_id.type,
+          Vehicle_No: data.vehicle_number,
+          Driver_Name: data.driver_name,
+          Waiting_At: (
+            <span className="badge rounded-pill bg-info">
+              {data.parking_status == ACTION.GATE_IN
+                ? 'Docs. Verify'
+                : data.parking_status == ACTION.WAIT_OUTSIDE
+                ? 'Waiting Outside'
+                : 'Docs. Verify'}
+            </span>
+          ),
+          Screen_Duration: data.updated_at,
+          Overall_Duration: data.created_at,
+          Action: (
+            <CButton className="badge" color="warning">
+              <Link className="text-dark" to={`DocVerifyVendorAvail/${data.parking_yard_gate_id}`}>
+                VERIFY
+              </Link>
+            </CButton>
+          ),
+        })
+      })
+      setRowData(rowDataList)
+      setSpinnerHide(true)
+    })
+  }
+
+  useEffect(() => {
+    loadDocsVerifyTable()
+  }, [])
+
   const columns = [
     {
       name: 'S.No',
@@ -11,18 +66,18 @@ const DocsVerify = () => {
       sortable: true,
       center: true,
     },
-    {
-      name: 'VA No',
-      selector: (row) => row.VA_No,
-      sortable: true,
-      center: true,
-    },
-    {
-      name: 'Tripsheet No',
-      selector: (row) => row.Tripsheet_No,
-      sortable: true,
-      center: true,
-    },
+    // {
+    //   name: 'VA No',
+    //   selector: (row) => row.VA_No,
+    //   sortable: true,
+    //   center: true,
+    // },
+    // {
+    //   name: 'Tripsheet No',
+    //   selector: (row) => row.Tripsheet_No,
+    //   sortable: true,
+    //   center: true,
+    // },
     {
       name: 'Vehicle Type',
       selector: (row) => row.Vehicle_Type,
@@ -64,69 +119,14 @@ const DocsVerify = () => {
     },
   ]
 
-  const data = [
-    {
-      id: 1,
-      sno: 1,
-      VA_No: 12000,
-      Tripsheet_No: 102556,
-      Vehicle_Type: 'own',
-      Vehicle_No: 'TN45AT8417',
-      Driver_Name: 'Saravana',
-      Waiting_At: <span className="badge rounded-pill bg-info">DI Creation</span>,
-      Screen_Duration: '0 Hrs 07 Mins',
-      Overall_Duration: '0 Hrs 55 Mins',
-      Action: (
-        <CButton className="badge text-white" color="warning">
-          <Link className="text-white" to="/DocsVerify/DocVerifyVendorAvail">
-            Hire Avail
-          </Link>
-        </CButton>
-      ),
-    },
-    {
-      id: 2,
-      sno: 2,
-      VA_No: 12070,
-      Tripsheet_No: 102501,
-      Vehicle_Type: 'contract',
-      Vehicle_No: 'TN54AT8417',
-      Driver_Name: 'David',
-      Waiting_At: <span className="badge rounded-pill bg-info">Waiting</span>,
-      Screen_Duration: '0 Hrs 07 Mins',
-      Overall_Duration: '0 Hrs 55 Mins',
-      Action: (
-        <CButton className="badge text-white" color="warning">
-          <Link className="text-white" to="/DocsVerify/DocVerifyVendorNotAvail">
-            Hire Not Avail
-          </Link>
-        </CButton>
-      ),
-    },
-    {
-      id: 3,
-      sno: 3,
-      VA_No: 12018,
-      Tripsheet_No: 102501,
-      Vehicle_Type: 'Hire',
-      Vehicle_No: 'TN54CT8417',
-      Driver_Name: 'Alvin',
-      Waiting_At: <span className="badge rounded-pill bg-info">Ts Creation</span>,
-      Screen_Duration: '1 Hrs 07 Mins',
-      Overall_Duration: '2 Hrs 55 Mins',
-      Action: (
-        <Link to="/Gateout">
-          <CButton className="badge text-white" color="warning">
-            Gate Out
-          </CButton>
-        </Link>
-      ),
-    },
-  ]
   return (
     <CCard className="mt-4">
       <CContainer className="mt-2">
-        <CustomTable columns={columns} data={data} />
+        <div className="text-center">
+          <CSpinner color="primary" hidden={spinnerHide} />
+        </div>
+
+        <CustomTable columns={columns} data={rowData} />
       </CContainer>
     </CCard>
   )
