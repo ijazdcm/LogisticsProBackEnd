@@ -6,7 +6,7 @@ use App\Models\Bank\Bank_info;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Customer extends Model
+class Customer_info extends Model
 {
     use HasFactory;
     //FILE PATH CONSTANTS FOR FILE HANDLE FOR THIS MODEL
