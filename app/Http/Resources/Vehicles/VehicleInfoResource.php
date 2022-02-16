@@ -16,19 +16,19 @@ class VehicleInfoResource extends JsonResource
     public function toArray($request)
     {
         return [
-        "vehicle_id"=>$this->id,
-        "vehicle_type_info"=>VehicleTypeResource::make($this->whenLoaded('Vehicle_Type')),
-        "vehicle_number"=>$this->vehicle_number,
-        "vehicle_capacity_info"=>VehicleCapacityResource::make($this->whenLoaded('Vehicle_Capacity')) ,
-        "vehicle_body_type_info"=>VehicleBodyResource::make($this->whenLoaded('Vehicle_Body_Type')),
-        "rc_copy_front"=>url('/')."/storage/".Vehicle_Info::RC_FRONT_PATH.$this->rc_copy_front,
-        "rc_copy_back"=>url('/')."/storage/".Vehicle_Info::RC_BACK_PATH.$this->rc_copy_back,
-        "insurance_copy_front"=>url('/')."/storage/".Vehicle_Info::INSURANCE_FRONT_PATH.$this->insurance_copy_front,
-        "insurance_copy_back"=>url('/')."/storage/".Vehicle_Info::INSURANCE_BACK_PATH.$this->insurance_copy_back,
-        "insurance_validity"=>$this->insurance_validity,
-        "fc_validity"=>$this->fc_validity,
-        "vehicle_status"=>$this->vehicle_status,
-        "created_at"=>$this->created_at->format('d-m-Y')
+            "vehicle_id" => $this->id,
+            "vehicle_type_info" => VehicleTypeResource::make($this->whenLoaded('Vehicle_Type')),
+            "vehicle_number" => $this->vehicle_number,
+            "vehicle_capacity_info" => VehicleCapacityResource::make($this->whenLoaded('Vehicle_Capacity')),
+            "vehicle_body_type_info" => VehicleBodyResource::make($this->whenLoaded('Vehicle_Body_Type')),
+            "rc_copy_front" => url('/') . "/storage/" . Vehicle_Info::RC_FRONT_PATH . $this->rc_copy_front,
+            "rc_copy_back" => url('/') . "/storage/" . Vehicle_Info::RC_BACK_PATH . $this->rc_copy_back,
+            "insurance_copy_front" => url('/') . "/storage/" . Vehicle_Info::INSURANCE_FRONT_PATH . $this->insurance_copy_front,
+            "insurance_copy_back" => url('/') . "/storage/" . Vehicle_Info::INSURANCE_BACK_PATH . $this->insurance_copy_back,
+            "insurance_validity" => $this->insurance_validity,
+            "fc_validity" => $this->fc_validity,
+            "vehicle_status" => $this->vehicle_status,
+            "created_at" => $this->created_at->diff()->format('%h hrs and %i min'),
         ];
     }
 }
