@@ -95,6 +95,7 @@ import BankMasterTable from './Pages/Master/Submaster/Bank/BankMasterTable'
 import DriverMasterTable from './Pages/Master/DriverMaster/DriverMasterTable'
 
 import LocationTable from './Pages/Master/Submaster/LocationTable';
+import UserLoginMasterEdit from './Pages/Master/UserMaster/UserLoginMasterEdit'
 
 
 const routes = [
@@ -157,6 +158,12 @@ const routes = [
     exact: true,
     name: 'UserLoginMasterTable',
     component: UserLoginMasterTable,
+  },
+  {
+    path: '/UserLoginMasterTable/UserLoginMasterEdit/:id',
+    exact: true,
+    name: 'UserLoginMasterTable Edit',
+    component: UserLoginMasterEdit,
   },
 
   // Sub-Master
