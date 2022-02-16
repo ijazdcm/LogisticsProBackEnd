@@ -52,11 +52,10 @@ class RouteServiceProvider extends ServiceProvider
         ['folder' => 'VehicleInspection', 'file' => 'vehicle_inspection_routes'],
         ['folder' => 'VehicleMaintenance', 'file' => 'vehicle_maintenance_routes'],
         ['folder' => 'DocumentVerification', 'file' => 'document_verification_routes'],
-
         ['folder' => 'VehicleMaintenance', 'file' => 'work_order_routes'],
-
         ['folder' => 'Location', 'file' => 'location_routes'],
         ['folder' => 'TripSTO', 'file' => 'trip_sto_routes'],
+        ['folder' => 'Customer', 'file' => 'customer_routes'],
 
     ];
 

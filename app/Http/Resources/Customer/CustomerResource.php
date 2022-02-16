@@ -4,6 +4,7 @@ namespace App\Http\Resources\Customer;
 
 use App\Http\Resources\Bank\BankInfoResource;
 use App\Models\Customer\Customer;
+use App\Models\Customer\Customer_info;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class CustomerResource extends JsonResource
@@ -21,10 +22,10 @@ class CustomerResource extends JsonResource
             "customer_name" => $this->customer_name,
             "customer_mobile_number" => $this->customer_mobile_number,
             "customer_PAN_card_number" => $this->customer_PAN_card_number,
-            "customer_PAN_card" => url('/') . "/storage/" . Customer::CUSTOMER_PAN_CARD_PATH . $this->customer_PAN_card,
-            "customer_Aadhar_card" => url('/') . "/storage/" . Customer::CUSTOMER_AADHAR_CARD_PATH . $this->customer_Aadhar_card,
+            "customer_PAN_card" => url('/') . "/storage/" . Customer_info::CUSTOMER_PAN_CARD_PATH . $this->customer_PAN_card,
+            "customer_Aadhar_card" => url('/') . "/storage/" . Customer_info::CUSTOMER_AADHAR_CARD_PATH . $this->customer_Aadhar_card,
             "customer_Aadhar_card_number"  => $this->customer_Aadhar_card_number,
-            "customer_bank_passbook" => url('/') . "/storage/" . Customer::CUSTOMER_BANK_PASSBOOK_PATH . $this->customer_bank_passbook,
+            "customer_bank_passbook" => url('/') . "/storage/" . Customer_info::CUSTOMER_BANK_PASSBOOK_PATH . $this->customer_bank_passbook,
             "customer_bank_id" => BankInfoResource::make($this->whenLoaded('Bank_Name')),
             "customer_bank_branch"  => $this->customer_bank_branch,
             "customer_bank_ifsc_code"  => $this->customer_bank_ifsc_code,
