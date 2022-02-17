@@ -1,18 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Vendor;
+namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Vendors\VendorInfoStoreRequest;
-use App\Http\Resources\ParkingYardGate\ParkingYardGateResource;
-use App\Http\Resources\Vendor\VendorInfoResource;
-use App\Models\ParkingYardGate\Parking_Yard_Gate;
-use App\Models\Vendors\Vendor_Info;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\DB;
 
-class VendorMasterController extends Controller
+class CustomerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,13 +14,7 @@ class VendorMasterController extends Controller
      */
     public function index()
     {
-
-        $parking_yard_gate = Parking_Yard_Gate::with('Vehicle_Info')
-            ->with('Vehicle_Type')
-            ->with('Vehicle_Document')
-            ->get();
-
-        return ParkingYardGateResource::collection($parking_yard_gate);
+        //
     }
 
     /**
@@ -36,7 +23,7 @@ class VendorMasterController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(VendorInfoStoreRequest $request)
+    public function store(Request $request)
     {
         //
     }
@@ -49,7 +36,7 @@ class VendorMasterController extends Controller
      */
     public function show($id)
     {
-        
+        //
     }
 
     /**

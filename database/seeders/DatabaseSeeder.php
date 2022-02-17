@@ -37,12 +37,14 @@ class DatabaseSeeder extends Seeder
         $this->call(VendorInfoSeeder::class); // Added By Saravana Sai
         $this->call(DieselVendorSeeder::class); // Added By Saravana Sai
 
+        $this->call(LocationSeeder::class); //added by Saravana Sai
          // \App\Models\User::factory(10)->create();
          $this->call(UserSeeder::class);
 
          $this->call(ParkingYardGateSeeder::class); //added by Saravana Sai
          $this->call(DefectTypeSeeder::class); //added by Saravana Sai
          $this->call(BankInfoSeeder::class); //added by Saravana Sai
+
 
     }
 }

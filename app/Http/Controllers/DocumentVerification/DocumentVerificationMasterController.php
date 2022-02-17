@@ -79,11 +79,14 @@ class DocumentVerificationMasterController extends Controller
             "vehicle_inspection_id" => $request->vehicle_inspection_id,
             "vendor_id" => $vendor_id->id,
             "license_copy" => $helper->storeImage($request->license_copy, Vehicle_Document::LICENSE_COPY_PATH),
+            "aadhar_copy" => $helper->storeImage($request->license_copy, Vehicle_Document::AADHAR_COPY_PATH),
+            "pan_copy" => $helper->storeImage($request->license_copy, Vehicle_Document::PAN_COPY_PATH),
+            "bank_pass_copy" => $helper->storeImage($request->license_copy, Vehicle_Document::BANK_PASS_COPY_PATH),
             "rc_copy_front" => $helper->storeImage($request->rc_copy_front, Vehicle_Document::RC_COPY_FRONT_PATH),
             "rc_copy_back" => $helper->storeImage($request->rc_copy_back, Vehicle_Document::RC_COPY_BACK_PATH),
             "insurance_copy_front" => $helper->storeImage($request->insurance_copy_front, Vehicle_Document::INSURANCE_COPY_FRONT_PATH),
             "insurance_copy_back" => $helper->storeImage($request->insurance_copy_front, Vehicle_Document::INSURANCE_COPY_BACK_PATH),
-            "transport_shed_sheet" => $helper->storeImage($request->transport_shed_sheet, Vehicle_Document::TRANSPORT_SHED_SHEET_COPY_BACK_PATH),
+            "transport_shed_sheet" => $helper->storeImage($request->transport_shed_sheet, Vehicle_Document::TRANSPORT_SHED_SHEET_COPY_PATH),
             "tds_dec_form_front" => $helper->storeImage($request->tds_dec_form_front, Vehicle_Document::TDS_DEC_FORM_COPY_FRONT_PATH),
             "tds_dec_form_back" => $helper->storeImage($request->tds_dec_form_back, Vehicle_Document::TDS_DEC_FORM_COPY_BACK_PATH),
             "shed_id" => $request->shed_id,
@@ -106,6 +109,9 @@ class DocumentVerificationMasterController extends Controller
      */
     public function show($id)
     {
+        $vehicle_document_info = Vehicle_Document::where('vehicle_id', '=', $id)->with('Vendor_Info')
+            ->get();
+        return DocumentVerificationResource::collection($vehicle_document_info);
     }
 
     /**

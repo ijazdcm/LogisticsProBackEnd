@@ -22,6 +22,9 @@ class CreateVehicleDocumentsTable extends Migration
             $table->unsignedBigInteger('vendor_id');
             $table->foreign('vendor_id')->references('id')->on('vendor__infos');
             $table->string('license_copy');
+            $table->string('aadhar_copy');
+            $table->string('pan_copy');
+            $table->string('bank_pass_copy');
             $table->string('rc_copy_front');
             $table->string('rc_copy_back');
             $table->string('insurance_copy_front');
