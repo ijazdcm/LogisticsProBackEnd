@@ -25,6 +25,17 @@ class ShedStoreRequest extends FormRequest
      */
     public function rules()
     {
+        if(request()->isMethod('put'))
+        {
+            if(request()->hasFile('shed_owner_photo'))
+            {
+                $file_validation_shed_owner_photo="required|mimes:png,jpg,jpeg|max:5000";
+            }
+            else{
+
+                $file_validation_shed_owner_photo="sometimes";
+            }
+        }
         return [
         "shed_type_id"=>['required','exists:shed__types,id'],
         "shed_name"=>['required'],
@@ -32,9 +43,9 @@ class ShedStoreRequest extends FormRequest
         "shed_owner_phone_1"=>['required','numeric','digits:10'],
         "shed_owner_phone_2"=>['required','numeric','digits:10'],
         "shed_owner_address"=>['required'],
-        "shed_owner_photo"=>['required','mimes:jpeg,jpg','max:5000'],
+        "shed_owner_photo"=>"$file_validation_shed_owner_photo",
         "pan_number"=>['required','alpha_num'],
-        "shed_adhar_number"=>['required','numeric','digits:14'],
+        "shed_adhar_number"=>['required','numeric','digits:12'],
         "gst_no"=>['required','alpha_num'],
         ];
     }
