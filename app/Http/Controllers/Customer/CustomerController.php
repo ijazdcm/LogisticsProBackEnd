@@ -22,15 +22,12 @@ class CustomerController extends Controller
      */
     public function index()
     {
-      // return CustomerResource::collection(Cache::remember('customer', now()->addDay(), function () {
+        return CustomerResource::collection(Cache::remember('Customer_info', now()->addDay(), function () {
 
-      //   return Customer_info::with('customer_id')->get();
-      // }));
-      $parking_yard_gate = Parking_Yard_Gate::with('Vehicle_Type')
-      ->gate_in_status()
-      ->get();
+            return Customer_info::with('bank_name')
+              ->get();
 
-  return ParkingYardGateResource::collection($parking_yard_gate);
+        }));
     }
 
     /**
@@ -81,7 +78,16 @@ class CustomerController extends Controller
      */
     public function show($id)
     {
-        //
+
+        $customer=Customer_info::where('customer_status',1)
+                                ->where('id',$id)
+                                ->first();
+
+        if($customer)
+        {
+            return new CustomerResource($customer->load('customer_id'));
+        }
+        return response()->json(['message' => 'Customer Not found'], 404);
     }
 
     /**
