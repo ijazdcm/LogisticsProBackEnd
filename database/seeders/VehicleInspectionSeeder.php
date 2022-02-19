@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Vehicles\Vehicle_Inspection;
 use Illuminate\Database\Seeder;
 
 class VehicleInspectionSeeder extends Seeder
@@ -13,6 +14,6 @@ class VehicleInspectionSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Vehicle_Inspection::factory()->count(5)->create();
     }
 }

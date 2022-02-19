@@ -10,9 +10,15 @@ class TripSheet extends Model
     use HasFactory;
 
 
+
+    public const VEHICLE_CODE_BY_TYPE=[1=>'O',2=>'C',3=>'H'];
+    public const LOCATION_CODE_BY_LOCATION_ID=[1=>'S',2=>'T',3=>'C'];
+
+
     protected $table="trip_sheets";
 
     protected $fillable=[
+        "trip_sheet_no",
         "vehicle_id",
         "driver_id",
         "division_id",
