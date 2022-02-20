@@ -3,9 +3,10 @@
 namespace Database\Factories\Customer;
 
 use App\Models\Customer\Customer;
+use App\Models\Customer\Customer_info;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class CustomerFactory extends Factory
+class Customer_infoFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -13,14 +14,14 @@ class CustomerFactory extends Factory
      * @return array
      */
 
-    protected $model=Customer::class;
+    protected $model=Customer_info::class;
 
     public function definition()
     {
         $Vh_Type=rand(1,4); //to fill the Party name by vehicle Type
 
         return [
-            "id" => $Vh_Type,
+            // "id" => $Vh_Type,
             "customer_name" => $this->faker->name,
             "customer_mobile_number" => $this->faker->unique()->numberBetween($min = 1000000000, $max = 10000000000),
             "customer_PAN_card_number" => $Vh_Type,

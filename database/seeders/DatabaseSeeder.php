@@ -44,7 +44,7 @@ class DatabaseSeeder extends Seeder
          $this->call(ParkingYardGateSeeder::class); //added by Saravana Sai
          $this->call(DefectTypeSeeder::class); //added by Saravana Sai
          $this->call(BankInfoSeeder::class); //added by Saravana Sai
-
+         $this->call(CustomerSeeder::class); //added by Maria
 
     }
 }
