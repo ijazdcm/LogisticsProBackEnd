@@ -38,6 +38,25 @@ class ParkingYardGateService
 
         Parking_Yard_Gate::where('vehicle_id',$vehicle_id)
         ->update(['driver_name'=>$driver_info->driver_name]);
+    }
+
+
+
+    public function checkDriverChanged($vehicle_id,$driver_id):bool
+    {
+
+        $vehicle_info=Parking_Yard_Gate::where('vehicle_id',$vehicle_id)->first();
+
+        return ($vehicle_info->driver_id==$driver_id)?false:true;
+    }
+
+
+
+    public function unAssignDriverByVehicleId($vehicle_id)
+    {
+        $vehicle_info=Parking_Yard_Gate::where('vehicle_id',$vehicle_id)->first();
+
+         (new DriverService())->unAssignDriver($vehicle_info->driver_id);
 
     }
 }
