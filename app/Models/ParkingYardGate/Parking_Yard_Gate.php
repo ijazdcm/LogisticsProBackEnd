@@ -8,6 +8,7 @@ use App\Models\Vehicles\Vehicle_Capacity;
 use App\Models\Vehicles\Vehicle_Info;
 use App\Models\Vehicles\Vehicle_Inspection;
 use App\Models\Vehicles\Vehicle_Type;
+use App\Models\Vendors\Vendor_Info;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -92,6 +93,11 @@ class Parking_Yard_Gate extends Model
     public function Vehicle_Inspection_Trip()
     {
         return $this->hasOne(Vehicle_Inspection::class, 'id', 'vehicle_inspection_id');
+    }
+
+    public function Vendor_Info()
+    {
+        return $this->hasOne(Vendor_Info::class, 'vehicle_id', 'vehicle_id');
     }
 
 

@@ -9,6 +9,7 @@ use App\Http\Requests\TripSheet\TripSheetCreateRequest;
 use App\Http\Resources\ParkingYardGate\ParkingYardGateResource;
 use Illuminate\Http\Request;
 use App\Models\ParkingYardGate\Parking_Yard_Gate;
+use App\Models\TripSheet\TripSheet;
 
 class TripSheetMasterController extends Controller
 {
@@ -49,7 +50,11 @@ class TripSheetMasterController extends Controller
         else {
             $vehicle_info_ready_to_trip = Parking_Yard_Gate::with('Vehicle_Type')
             ->with('Vehicle_Inspection_Trip')
+            ->with('Vendor_Info','Vendor_Info.Shed_Info')
+            ->with('Vehicle_Capacity')
             ->where('id', $id)->first();
+
+            // return $vehicle_info_ready_to_trip;
         }
 
         return ParkingYardGateResource::make($vehicle_info_ready_to_trip);
@@ -68,12 +73,31 @@ class TripSheetMasterController extends Controller
 
          $trip_sheet_no=TripSheetHelper::generateTripSheetNo($request->vehicle_type_id,request()->user()->location_id);
 
-          if($tripsheetaction->CreateTripSheetOwnAndContract($request,$trip_sheet_no))
-          {
-              return $request;
-          }
+
+         switch($request->vehicle_type_id)
+         {
+             case TripSheet::VEHICLE_TYPE['OWN']:if($tripsheetaction->CreateTripSheetOwnAndContract($request,$trip_sheet_no))
+             {
+                 return $request;
+             } break;
+             case TripSheet::VEHICLE_TYPE['CONTRACT']:if($tripsheetaction->CreateTripSheetOwnAndContract($request,$trip_sheet_no))
+             {
+                 return $request;
+             } break;
+             case TripSheet::VEHICLE_TYPE['HIRE']:if($tripsheetaction->CreateTripSheetHire($request,$trip_sheet_no))
+             {
+                 return $request;
+             } break;
+             default:break;
+         }
+
+
 
     }
+
+
+
+
 
 
 }

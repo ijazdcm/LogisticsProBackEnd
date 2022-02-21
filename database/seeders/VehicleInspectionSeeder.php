@@ -14,6 +14,6 @@ class VehicleInspectionSeeder extends Seeder
      */
     public function run()
     {
-        Vehicle_Inspection::factory()->count(5)->create();
+        Vehicle_Inspection::factory()->count(10)->create();
     }
 }

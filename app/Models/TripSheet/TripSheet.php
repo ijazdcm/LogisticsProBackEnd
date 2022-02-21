@@ -12,6 +12,7 @@ class TripSheet extends Model
 
 
     public const VEHICLE_CODE_BY_TYPE=[1=>'O',2=>'C',3=>'H'];
+    public const VEHICLE_TYPE=['OWN'=>1,'CONTRACT'=>2,'HIRE'=>3];
     public const LOCATION_CODE_BY_LOCATION_ID=[1=>'S',2=>'T',3=>'C'];
 
 
@@ -25,10 +26,10 @@ class TripSheet extends Model
         "trip_advance_eligiblity",
         "advance_amount",
         "purpose",
+        "vehicle_sourced_by",
         "expected_date_time",
         "expected_return_date_time",
         "freight_rate_per_tone",
-        "advance_payment_bank",
         "advance_payment_diesel",
         "remarks",
         "status",
