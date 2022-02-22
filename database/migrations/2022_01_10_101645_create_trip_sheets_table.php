@@ -15,23 +15,24 @@ class CreateTripSheetsTable extends Migration
     {
         Schema::create('trip_sheets', function (Blueprint $table) {
             $table->id();
+            $table->string('trip_sheet_no')->unique();
             $table->unsignedBigInteger('vehicle_id');
             $table->foreign('vehicle_id')->references('id')->on('vehicle__infos');
-            $table->unsignedBigInteger('driver_id');
+            $table->unsignedBigInteger('driver_id')->nullable()->default(null);
             $table->foreign('driver_id')->references('id')->on('driver__infos');
             $table->unsignedBigInteger('division_id');
             $table->foreign('division_id')->references('id')->on('divisions');
-            $table->unsignedBigInteger('trip_advance_eligiblity')->default(null)->comment('0 - No, 1 - Yes');
-            $table->tinyInteger('advance_amount')->default(null);
-            $table->string('purpose');
+            $table->unsignedBigInteger('trip_advance_eligiblity')->nullable()->default(null)->comment('0 - No, 1 - Yes');
+            $table->unsignedBigInteger('advance_amount')->nullable()->default(null);
+            $table->string('purpose')->nullable()->default(null);
+            $table->string('vehicle_sourced_by')->nullable()->default(null);
             $table->timestamp('expected_date_time')->useCurrent();
             $table->timestamp('expected_return_date_time')->useCurrent();
-            $table->string('freight_rate_per_tone');
-            $table->string('advance_payment_bank');
-            $table->string('advance_payment_diesel');
-            $table->string('remarks');
+            $table->string('freight_rate_per_tone')->nullable()->default(null);
+            $table->string('advance_payment_diesel')->nullable()->default(null);
+            $table->string('remarks')->nullable()->default(null);
             $table->string('status')->default(null)->comment('0 -Open , 1 - Assigned, 2 - Closed');
-            $table->unsignedBigInteger('created_by')->default(0);
+            $table->unsignedBigInteger('created_by')->nullable()->default(null);
             $table->timestamps();
         });
     }

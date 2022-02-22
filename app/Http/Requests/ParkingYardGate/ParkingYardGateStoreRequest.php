@@ -27,7 +27,7 @@ class ParkingYardGateStoreRequest extends FormRequest
      */
     public function rules()
     {
-        Log::info($this);
+
         return [
             "vehicle_type_id"=>['required'],
             "vehicle_id"=>[Rule::requiredIf(function ()  {
@@ -63,6 +63,9 @@ class ParkingYardGateStoreRequest extends FormRequest
     {
         if ($this->vehicle_type_id==Parking_Yard_Gate::VEHICLE_VALIDATION_IDS["OWN"]||$this->vehicle_type_id==Parking_Yard_Gate::VEHICLE_VALIDATION_IDS["CONTRACT"]) {
             return array_merge(parent::validated(), ['odometer_photo' => (new FileHelper())->storeImage(request()->odometer_photo,Parking_Yard_Gate::ODOMETER_PHOTO_PATH)]);
+        }
+        else{
+            return array_merge(parent::validated(), ['vendor_creation_status' => '0']);
         }
         return parent::validated();
     }
