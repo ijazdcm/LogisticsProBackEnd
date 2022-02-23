@@ -34,6 +34,7 @@ class UserSeeder extends Seeder
             "division_id"=>1,
             "department_id"=>1,
             "designation_id"=>1,
+            "location_id"=>2,
 
         ]);
 
