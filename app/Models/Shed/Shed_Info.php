@@ -9,13 +9,11 @@ class Shed_Info extends Model
 {
     use HasFactory;
 
+    public const SHED_OWNER_PHOTO_PATH = "Shed/ShedOwner/";
 
+    protected $table = "shed__infos";
 
-    public const SHED_OWNER_PHOTO_PATH="Shed/ShedOwner/";
-
-    protected $table="shed__infos";
-
-    protected $fillable=[
+    protected $fillable = [
         "shed_type_id",
         "shed_name",
         "shed_owner_name",
@@ -33,11 +31,11 @@ class Shed_Info extends Model
 
     public function Shed_Type()
     {
-        return $this->hasOne(Shed_Type::class,'id','shed_type_id');
+        return $this->hasOne(Shed_Type::class, 'id', 'shed_type_id');
     }
 
     public function scopeActive($query)
     {
-        return $query->where('shed_status',1);
+        return $query->where('shed_status', 1);
     }
 }

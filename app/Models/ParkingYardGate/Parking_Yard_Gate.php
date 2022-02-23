@@ -5,12 +5,14 @@ namespace App\Models\ParkingYardGate;
 use App\Models\Driver\Driver_Info;
 use App\Models\Vehicles\Vehicle_Body_Type;
 use App\Models\Vehicles\Vehicle_Capacity;
+use App\Models\Vehicles\Vehicle_Document;
 use App\Models\Vehicles\Vehicle_Info;
 use App\Models\Vehicles\Vehicle_Inspection;
 use App\Models\Vehicles\Vehicle_Type;
 use App\Models\Vendors\Vendor_Info;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Parking_Yard_Gate extends Model
 {
@@ -81,6 +83,16 @@ class Parking_Yard_Gate extends Model
     public function Vehicle_Body_Type()
     {
         return $this->hasOne(Vehicle_Body_Type::class, 'id', 'vehicle_body_type_id');
+    }
+
+    public function Vehicle_Document()
+    {
+        return $this->hasOne(Vehicle_Document::class, 'vehicle_id', 'vehicle_id');
+    }
+
+    public function Vendor_Info()
+    {
+        return $this->hasOne(Vendor_Info::class, 'vehicle_id', 'vehicle_id');
     }
 
 
