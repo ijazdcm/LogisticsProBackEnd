@@ -10,14 +10,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::group(["middleware"=>"auth:sanctum"],function()
-{
+Route::group(["middleware" => "auth:sanctum"], function () {
 
- //after the auth  have been implemented move the below routes inside the middle ware
+    //after the auth  have been implemented move the below routes inside the middle ware
 
 });
 
-Route::apiResource('vendor',VendorMasterController::class);
+Route::apiResource('vendorCreation', VendorMasterController::class);
 
-Route::apiResource('dieselvendor',DieselVendorMasterController::class);
+Route::get('vendorRequest', [VendorMasterController::class, 'vendor_request_index']);
+Route::get('vendorApproval', [VendorMasterController::class, 'vendor_approval_index']);
+Route::get('vendorConfirmation', [VendorMasterController::class, 'vendor_confirmation_index']);
 
+Route::apiResource('dieselvendor', DieselVendorMasterController::class);

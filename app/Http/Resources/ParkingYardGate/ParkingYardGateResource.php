@@ -2,7 +2,11 @@
 
 namespace App\Http\Resources\ParkingYardGate;
 
+
+use App\Http\Resources\DocumentVerification\DocumentVerificationResource;
+
 use App\Http\Resources\Drivers\DriverInfoResource;
+
 use App\Http\Resources\VehicleInspection\VehicleInspectionResource;
 use App\Http\Resources\Vehicles\VehicleBodyResource;
 use App\Http\Resources\Vehicles\VehicleCapacityResource;
@@ -47,8 +51,11 @@ class ParkingYardGateResource extends JsonResource
             "updated_at" => $this->updated_at->diff()->format('%h hrs and %i min'),
             "gate_in_date_time_string" => $this->created_at->format('d-m-Y h:i A'),
             "vehicle_inspection" => VehicleInspectionResource::make($this->whenLoaded('Vehicle_Inspection')),
+            "vehicle_document" => DocumentVerificationResource::make($this->whenLoaded('Vehicle_Document')),
+            "vendor_info" => VendorInfoResource::make($this->whenLoaded('Vendor_Info')),
             "vehicle_inspection_trip"=>VehicleInspectionResource::make($this->whenLoaded('Vehicle_Inspection_Trip')),
-            "vehicle_vendor_info"=>VendorInfoResource::make($this->whenLoaded('Vendor_Info')),
+//             "vehicle_vendor_info"=>VendorInfoResource::make($this->whenLoaded('Vendor_Info')),
+
         ];
     }
 }
