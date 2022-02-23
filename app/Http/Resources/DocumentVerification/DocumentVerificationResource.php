@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\DocumentVerification;
 
+use App\Http\Resources\Vendor\VendorInfoResource;
 use App\Models\Vehicles\Vehicle_Document;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -26,6 +27,7 @@ class DocumentVerificationResource extends JsonResource
             "remarks" => $this->remarks,
             "insurance_validity" =>  $this->insurance_validity,
             "freight_rate_per_ton" => $this->freight_rate_per_ton,
+            "vendor_info" => VendorInfoResource::make($this->whenLoaded('Vendor_Info')),
             "license_copy" => url('/') . "/storage/" . Vehicle_Document::LICENSE_COPY_PATH . $this->license_copy,
             "aadhar_copy" => url('/') . "/storage/" . Vehicle_Document::AADHAR_COPY_PATH . $this->aadhar_copy,
             "pan_copy" => url('/') . "/storage/" . Vehicle_Document::PAN_COPY_PATH . $this->pan_copy,

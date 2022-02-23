@@ -7,6 +7,7 @@ use App\Http\Resources\VehicleInspection\VehicleInspectionResource;
 use App\Http\Resources\Vehicles\VehicleBodyResource;
 use App\Http\Resources\Vehicles\VehicleCapacityResource;
 use App\Http\Resources\Vehicles\VehicleTypeResource;
+use App\Http\Resources\Vendor\VendorInfoResource;
 use App\Models\ParkingYardGate\Parking_Yard_Gate;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -42,6 +43,7 @@ class ParkingYardGateResource extends JsonResource
             "gate_in_date_time_string" => $this->created_at->format('jS F Y h:i:s A'),
             "vehicle_inspection" => VehicleInspectionResource::make($this->whenLoaded('Vehicle_Inspection')),
             "vehicle_document" => DocumentVerificationResource::make($this->whenLoaded('Vehicle_Document')),
+            "vendor_info" => VendorInfoResource::make($this->whenLoaded('Vendor_Info')),
         ];
     }
 }

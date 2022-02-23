@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\DocumentVerification;
 
+use App\Action\DocumentVerification\UpdateDocumentsVerificationAction;
 use App\Helper\File\FileHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\DocumentVerification\DocumentVerificationResource;
@@ -16,6 +17,7 @@ use App\Models\Vehicles\Vehicle_Inspection;
 use App\Models\Vehicles\Vehicle_Type;
 use App\Models\Vendors\Vendor_Info;
 use App\Service\ParkingYardGate\ParkingYardGateService;
+use Illuminate\Support\Facades\Storage;
 
 
 class DocumentVerificationMasterController extends Controller
@@ -28,7 +30,9 @@ class DocumentVerificationMasterController extends Controller
     public function index()
     {
 
-        $parking_yard_gate = Parking_Yard_Gate::with('Vehicle_Info')->with('Vehicle_Type')
+        $parking_yard_gate = Parking_Yard_Gate::with('Vehicle_Info')
+            ->with('Vehicle_Type')
+            ->with('Vehicle_Inspection')
             ->get();
 
         return ParkingYardGateResource::collection($parking_yard_gate);
@@ -54,7 +58,7 @@ class DocumentVerificationMasterController extends Controller
     {
 
         if ($request->document_status == Vehicle_Document::VEHICLE_DOCUMENTATION_PASSED) {
-            $vendor_status = 2;
+            $vendor_status = 1;
         } else {
             $vendor_status = 0;
             (new ParkingYardGateService())->gateOutVehicle($request->vehicle_id);
@@ -79,9 +83,9 @@ class DocumentVerificationMasterController extends Controller
             "vehicle_inspection_id" => $request->vehicle_inspection_id,
             "vendor_id" => $vendor_id->id,
             "license_copy" => $helper->storeImage($request->license_copy, Vehicle_Document::LICENSE_COPY_PATH),
-            "aadhar_copy" => $helper->storeImage($request->license_copy, Vehicle_Document::AADHAR_COPY_PATH),
-            "pan_copy" => $helper->storeImage($request->license_copy, Vehicle_Document::PAN_COPY_PATH),
-            "bank_pass_copy" => $helper->storeImage($request->license_copy, Vehicle_Document::BANK_PASS_COPY_PATH),
+            "aadhar_copy" => $helper->storeImage($request->aadhar_copy, Vehicle_Document::AADHAR_COPY_PATH),
+            "pan_copy" => $helper->storeImage($request->pan_copy, Vehicle_Document::PAN_COPY_PATH),
+            "bank_pass_copy" => $helper->storeImage($request->bank_pass_copy, Vehicle_Document::BANK_PASS_COPY_PATH),
             "rc_copy_front" => $helper->storeImage($request->rc_copy_front, Vehicle_Document::RC_COPY_FRONT_PATH),
             "rc_copy_back" => $helper->storeImage($request->rc_copy_back, Vehicle_Document::RC_COPY_BACK_PATH),
             "insurance_copy_front" => $helper->storeImage($request->insurance_copy_front, Vehicle_Document::INSURANCE_COPY_FRONT_PATH),
@@ -98,7 +102,7 @@ class DocumentVerificationMasterController extends Controller
             "remarks" => $request->remarks,
         ]);
 
-        return DocumentVerificationResource::make($request);
+        return response()->json(['message' => 'Updated'], 200);
     }
 
     /**
@@ -132,9 +136,26 @@ class DocumentVerificationMasterController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id, UpdateDocumentsVerificationAction $action)
     {
-        //
+        $document = Vehicle_Document::where('document_status', 1)
+            ->where('vehicle_id', $id)
+            ->first();
+
+
+        if ($document) {
+            $document = $action->handleUpdateImages($request, $document);
+
+            $is_updated = $document->update();
+
+            if ($is_updated) {
+                return response()->json(['message' => 'Update Success'], 200);
+            } else {
+                return response()->json(['message' => 'Something went wrong'], 500);
+            }
+        } else {
+            return response()->json(['message' => 'Something went wrong'], 500);
+        }
     }
 
     /**
