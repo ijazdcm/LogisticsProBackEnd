@@ -28,7 +28,7 @@ class VehicleInfoResource extends JsonResource
             "insurance_validity" => $this->insurance_validity,
             "fc_validity" => $this->fc_validity,
             "vehicle_status" => $this->vehicle_status,
-            "created_at" => $this->created_at->diff()->format('%h hrs and %i min'),
+            "created_at" => $this->created_at->format('d-m-y')
         ];
     }
 }

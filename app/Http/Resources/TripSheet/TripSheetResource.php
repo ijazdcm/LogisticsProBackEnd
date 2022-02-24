@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\Bank;
+namespace App\Http\Resources\TripSheet;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class BankInfoResource extends JsonResource
+class TripSheetResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -14,11 +14,6 @@ class BankInfoResource extends JsonResource
      */
     public function toArray($request)
     {
-        return [
-            "bank_id" => $this->id,
-            "bank_name" => $this->bank_name,
-            "bank_status" => $this->bank_status,
-            "created_at" => $this->created_at->format('d-m-y')
-        ];
+        return parent::toArray($request);
     }
 }

@@ -59,6 +59,7 @@ class VehicleInspectionMasterController extends Controller
                     (new ParkingYardGateService())->assignNewDriverToVehicle($request->vehicle_id, $request->driver_id);
                 }
 
+                Parking_Yard_Gate::where('vehicle_id', (int)$request->vehicle_id)->update(['vehicle_inspection_status'=>'1','vehicle_inspection_id'=>Vehicle_Inspection::latest()->first()->id]);
                 Vehicle_Inspection::create($request->validated());
             } else {
 

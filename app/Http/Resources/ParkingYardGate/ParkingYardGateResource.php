@@ -2,12 +2,19 @@
 
 namespace App\Http\Resources\ParkingYardGate;
 
+
+use App\Http\Resources\DocumentVerification\DocumentVerificationResource;
+
+use App\Http\Resources\Drivers\DriverInfoResource;
+
 use App\Http\Resources\VehicleInspection\VehicleInspectionResource;
 use App\Http\Resources\Vehicles\VehicleBodyResource;
 use App\Http\Resources\Vehicles\VehicleCapacityResource;
 use App\Http\Resources\Vehicles\VehicleTypeResource;
+use App\Http\Resources\Vendor\VendorInfoResource;
 use App\Models\ParkingYardGate\Parking_Yard_Gate;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Log;
 
 class ParkingYardGateResource extends JsonResource
 {
@@ -19,6 +26,9 @@ class ParkingYardGateResource extends JsonResource
      */
     public function toArray($request)
     {
+
+
+
         return [
             "parking_yard_gate_id" => $this->id,
             "vehicle_type_id" => VehicleTypeResource::make($this->whenLoaded('Vehicle_Type')),
@@ -29,6 +39,7 @@ class ParkingYardGateResource extends JsonResource
             "vehicle_number" => $this->vehicle_number,
             "vehicle_capacity_id" => VehicleCapacityResource::make($this->whenLoaded('Vehicle_Capacity')),
             "driver_name" => $this->driver_name,
+            "driver_info" => DriverInfoResource::make($this->whenLoaded('Driver_Info')),
             "driver_contact_number" => $this->driver_contact_number,
             "vehicle_body_type_id" => VehicleBodyResource::make($this->whenLoaded('Vehicle_Body_Type')),
             "party_name" => $this->party_name,
@@ -38,8 +49,13 @@ class ParkingYardGateResource extends JsonResource
             "gate_out_date_time" => $this->gate_out_date_time->diff()->format('%h hrs and %i min'),
             "created_at" => $this->created_at->diff()->format('%h hrs and %i min'),
             "updated_at" => $this->updated_at->diff()->format('%h hrs and %i min'),
-            "gate_in_date_time_string" => $this->created_at->format('jS F Y h:i:s A'),
+            "gate_in_date_time_string" => $this->created_at->format('d-m-Y h:i A'),
             "vehicle_inspection" => VehicleInspectionResource::make($this->whenLoaded('Vehicle_Inspection')),
+            "vehicle_document" => DocumentVerificationResource::make($this->whenLoaded('Vehicle_Document')),
+            "vendor_info" => VendorInfoResource::make($this->whenLoaded('Vendor_Info')),
+            "vehicle_inspection_trip"=>VehicleInspectionResource::make($this->whenLoaded('Vehicle_Inspection_Trip')),
+//             "vehicle_vendor_info"=>VendorInfoResource::make($this->whenLoaded('Vendor_Info')),
+
         ];
     }
 }
