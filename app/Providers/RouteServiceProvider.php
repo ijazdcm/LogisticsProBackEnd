@@ -52,12 +52,15 @@ class RouteServiceProvider extends ServiceProvider
         ['folder' => 'VehicleInspection', 'file' => 'vehicle_inspection_routes'],
         ['folder' => 'VehicleMaintenance', 'file' => 'vehicle_maintenance_routes'],
         ['folder' => 'DocumentVerification', 'file' => 'document_verification_routes'],
-
         ['folder' => 'VehicleMaintenance', 'file' => 'work_order_routes'],
-
         ['folder' => 'Location', 'file' => 'location_routes'],
         ['folder' => 'TripSTO', 'file' => 'trip_sto_routes'],
+
         ['folder' => 'RJSaleOrder', 'file' => 'rj_sale_order_routes'],
+
+        ['folder' => 'Customer', 'file' => 'customer_routes'],
+        ['folder' => 'TripSheet', 'file' => 'trip_sheet_routes'],
+
 
     ];
 
@@ -93,7 +96,6 @@ class RouteServiceProvider extends ServiceProvider
                     ->namespace($this->namespace)
                     ->group(base_path("routes/v1/{$route['folder']}/{$route['file']}.php"));
             }
-
             Route::middleware('web')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/web.php'));

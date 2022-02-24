@@ -22,11 +22,11 @@ class VehicleInspectionResource extends JsonResource
         }
 
         return [
-            // "parking_yard_info" => ParkingYardGateResource::make($this->whenLoaded('ParkingYard_Info')),
             "inspection_id" => $this->id,
             "vehicle_id" => $this->vehicle_id,
             "status" => $this->vehicle_inspection_status,
             "inspection_time" => $this->created_at->diff()->format('%h hrs and %i min'),
+            "inspection_time_string" => $this->created_at->format('d-m-Y h:i A'),
         ];
     }
 }

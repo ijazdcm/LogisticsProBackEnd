@@ -22,7 +22,7 @@ class CreateVehicleMaintancesTable extends Migration
             $table->string('maintenance_typ');
             $table->string('maintenance_by');
             $table->string('work_order');
-            $table->tinyInteger('vendor_id');
+            $table->string('vendor_id');
             $table->string('closing_odometer_km')->nullable();
             $table->date('maintenance_start_datetime')->nullable()->default(null);
             $table->date('maintenance_end_datetime')->nullable()->default(null);

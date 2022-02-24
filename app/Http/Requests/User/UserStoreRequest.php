@@ -35,6 +35,9 @@ class UserStoreRequest extends FormRequest
             'division_id'=>['required','exists:divisions,id'],
             'department_id'=>['required','exists:departments,id'],
             'designation_id'=>['required','exists:designations,id'],
+            'location_id'=>['required','exists:locations,id'],
+            'user_auto_id'=>['required','alpha_num'],
+            'page_permissions'=>['required'],
         ];
 
     }

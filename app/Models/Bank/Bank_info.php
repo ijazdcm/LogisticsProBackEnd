@@ -9,9 +9,9 @@ class Bank_info extends Model
 {
     use HasFactory;
 
-    protected $table="bank_infos";
+    protected $table = "bank_infos";
 
-    protected $fillable=[
+    protected $fillable = [
         "bank_name",
         "bank_status",
         "created_by",

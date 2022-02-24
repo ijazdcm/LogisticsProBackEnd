@@ -21,9 +21,8 @@ class UserMasterController extends Controller
      */
     public function index()
     {
-        return  UserResource::collection(Cache::remember('user_master',now()->addDecade(),function()
-        {
-             return User::with('Division')->with('Designation')->with('Department')->get();
+        return  UserResource::collection(Cache::remember('user_master', now()->addDecade(), function () {
+            return User::onlyadmin()->with('Division')->with('Designation')->with('Department')->with('Location')->get();
         }));
     }
 
@@ -33,20 +32,12 @@ class UserMasterController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UserStoreRequest $request,UserIdAction $action)
+    public function store(UserStoreRequest $request, UserIdAction $action)
     {
 
-        $altered_request=array_merge($request->validated(),
+        $user = User::create($request->validated());
 
-            ['user_auto_id'=>$action->getUserId(
-                $request->division_id,
-            $request->department_id,
-            $request->designation_id).$request->serial_no]
-        );
-
-        $user=User::create($altered_request);
-
-        return  UserResource::make($user->load('Division')->load('Designation')->load('Department'));
+        return  UserResource::make($user->load('Division')->load('Designation')->load('Department')->load('Location'));
     }
 
     /**
@@ -57,11 +48,10 @@ class UserMasterController extends Controller
      */
     public function show($id)
     {
-        $user=User::find($id);
+        $user = User::find($id);
 
-        if($user)
-        {
-            return new UserResource($user->load('Division')->load('Designation')->load('Department'));
+        if ($user) {
+            return new UserResource($user->load('Division')->load('Designation')->load('Department')->load('Location'));
         }
         return response()->json(['message' => 'User Not found'], 404);
     }
@@ -73,38 +63,35 @@ class UserMasterController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UserPutRequest $request, $id,UpdateUserImageAction $action,UserIdAction $userIdAction)
+    public function update(UserPutRequest $request, $id, UpdateUserImageAction $action, UserIdAction $userIdAction)
     {
 
-        $user=User::find($id);
+        $user = User::find($id);
 
-        if($user)
-        {
+        if ($user) {
 
-          $user=$action->handleUpdateImages($request,$user);
+            $user = $action->handleUpdateImages($request, $user);
 
-           $is_updated=$user->update([
-               "username"=>$request->username,
-               "email"=>$request->email,
-               "password"=>$request->password,
-               "mobile_no"=>$request->mobile_no,
-               "serial_no"=>$request->serial_no,
-               "user_auto_id"=>$userIdAction->getUserId( $request->division_id, $request->department_id,$request->designation_id).$request->serial_no,
-               "division_id"=>$request->division_id,
-               "department_id"=>$request->department_id,
-               "designation_id"=>$request->designation_id,
-           ]);
+            $is_updated = $user->update([
+                "username" => $request->username,
+                "email" => $request->email,
+                "mobile_no" => $request->mobile_no,
+                "serial_no" => $request->serial_no,
+                "user_auto_id" => $request->user_auto_id,
+                "division_id" => $request->division_id,
+                "department_id" => $request->department_id,
+                "designation_id" => $request->designation_id,
+                "location_id" => $request->location_id,
+                "page_permissions" => $request->page_permissions,
+            ]);
 
-           if($is_updated)
-           {
-              $updated_user=User::find($id);
+            if ($is_updated) {
+                $updated_user = User::find($id);
 
-               return new UserResource($updated_user->load('Division')->load('Designation')->load('Department'));
-           }
+                return  UserResource::make($updated_user->load('Division')->load('Designation')->load('Department')->load('Location'));
+            }
         }
-        return response()->json(['message' => 'Something went wrong'],500);
-
-
+        return response()->json(['message' => 'Something went wrong'], 500);
     }
 
     /**
@@ -115,7 +102,14 @@ class UserMasterController extends Controller
      */
     public function destroy($id)
     {
-        User::destroy($id);
-        return response('',204)->header('Content-Type', 'application/json');
+
+        $user = User::where('id', $id)
+            ->first();
+        if ($user) {
+            $status = ($user->user_status == 0) ? 1 : 0;
+            $user->update(["user_status" => $status]);
+            return response('', 204)->header('Content-Type', 'application/json');
+        }
+        return response()->json(['message' => 'User Not found'], 404);
     }
 }
