@@ -24,7 +24,7 @@ class UomRequest extends FormRequest
     public function rules()
     {
         return [
-            "uom" => "required|regex:/^[a-zA-Z]+$/u|max:255",
+            "uom" => "required|regex:/^[a-zA-Z]+$/u|max:255|unique:uom,",
             "uom_status" =>  ['sometimes', 'required'],
         ];
     }
