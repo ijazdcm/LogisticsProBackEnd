@@ -57,6 +57,7 @@ class RouteServiceProvider extends ServiceProvider
 
         ['folder' => 'Location', 'file' => 'location_routes'],
         ['folder' => 'TripSTO', 'file' => 'trip_sto_routes'],
+        ['folder' => 'RJSaleOrder', 'file' => 'rj_sale_order_routes'],
 
     ];
 
