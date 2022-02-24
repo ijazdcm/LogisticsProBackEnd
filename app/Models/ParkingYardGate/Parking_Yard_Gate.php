@@ -90,11 +90,7 @@ class Parking_Yard_Gate extends Model
         return $this->hasOne(Vehicle_Document::class, 'vehicle_id', 'vehicle_id');
     }
 
-    public function Vendor_Info()
-    {
-        return $this->hasOne(Vendor_Info::class, 'vehicle_id', 'vehicle_id');
-    }
-
+   
 
     public function Driver_Info()
     {

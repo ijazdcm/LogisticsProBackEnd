@@ -27,52 +27,43 @@ class CustomerUpdateRequest extends FormRequest
         {
             if(request()->hasFile('customer_PAN_card'))
             {
-                $file_validation_customer_PAN_card="required|mimes:jpg,jpeg|max:5000";
+                $file_validation_customer_PAN_card="mimes:jpg,jpeg|max:5000";
             }
-            else{
 
-                $file_validation_customer_PAN_card="sometimes";
-            }
             if(request()->hasFile('customer_Aadhar_card'))
             {
-                $file_validation_customer_Aadhar_card="required|mimes:jpg,jpeg|max:5000";
+                $file_validation_customer_Aadhar_card="mimes:jpg,jpeg|max:5000";
             }
-            else{
 
-                $file_validation_customer_Aadhar_card="sometimes";
-            }
             if(request()->hasFile('customer_bank_passbook'))
             {
-                $file_validation_customer_bank_passbook="required|mimes:jpg,jpeg|max:5000";
-            }
-            else{
-
-                $file_validation_customer_bank_passbook="sometimes";
+                $file_validation_customer_bank_passbook="mimes:jpg,jpeg|max:5000";
             }
 
         }
 
         return [
-            "customer_name" => "required|alpha",
-            "customer_mobile_number" => "required|numeric",
-            "customer_PAN_card_number" => ['alpha_num'],
-            "customer_gst_number" => ['alpha_num'],
+            "creation_type" => ['required'],
+            "customer_name" => ['required'],
+            "customer_mobile_number" => ['required', 'numeric', 'digits:10'],
+            "customer_PAN_card_number" => [''],
+            "customer_gst_number" => [''],
             "customer_Aadhar_card_number" => ['numeric'],
             "customer_PAN_card"=>"$file_validation_customer_PAN_card",
             "customer_Aadhar_card"=>"$file_validation_customer_Aadhar_card",
             "customer_bank_passbook"=>"$file_validation_customer_bank_passbook",
-            "customer_bank_id" => ['alpha'],
-            "customer_bank_account_number" => ['numeric'],
-            "customer_bank_branch" => ['alpha'],
-            "customer_bank_ifsc_code" => ['alpha_num'],
-            "customer_street_name" => ['alpha_num'],
-            "customer_city" => ['alpha'],
-            "customer_district" => ['alpha'],
-            "customer_area" => ['alpha'],
-            "customer_state" => ['alpha'],
-            "customer_postal_code" => ['numeric'],
-            "customer_region" => ['numeric'],
-            "customer_payment_terms" => ['alpha'],
+            "customer_bank_id" => ['exists:bank_infos,id'],
+            "customer_bank_account_number" => [''],
+            "customer_bank_branch" => [''],
+            "customer_bank_ifsc_code" => [''],
+            "customer_street_name" => [''],
+            "customer_city" => [''],
+            "customer_district" => [''],
+            "customer_area" => [''],
+            "customer_state" => [''],
+            "customer_postal_code" => [''],
+            "customer_region" => [''],
+            "customer_payment_terms" => [''],
             // "customer_status" => ['']
         ];
 
