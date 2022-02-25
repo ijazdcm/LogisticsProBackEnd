@@ -92,8 +92,7 @@ class BankMasterController extends Controller
 
             $bank->update([$bank->bank_status = $status]);
             return response('', 204)->header('Content-Type', 'application/json');
-        }
-        else {
+        } else {
             return response()->json(['message' => 'Bank Not found'], 404);
         }
     }

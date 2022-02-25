@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Events\Auth\SendOtpEvent;
+use App\Listeners\Auth\SendOtpEventListener;
 use App\Models\Bank\Bank_info;
 use App\Models\DefectType\Defect_Type;
 use App\Models\Department\Department;
@@ -9,12 +11,14 @@ use App\Models\Designation\Designation;
 use App\Models\Diesel\Diesel_Vendor;
 use App\Models\Divison\Division;
 use App\Models\Driver\Driver_Info;
+use App\Models\Location\Location;
 use App\Models\MaterialDescription\MaterialDescription;
 use App\Models\PreviousLoadDetails\PreviousLoadDetails;
 use App\Models\RejectionReason\RejectionReason;
 use App\Models\Shed\Shed_Info;
 use App\Models\Status\Status;
 use App\Models\Uom\Uom;
+use App\Models\User;
 use App\Models\Vehicles\Vehicle_Capacity;
 use App\Models\Vehicles\Vehicle_Info;
 use App\Models\Vendors\Vendor_Info;
@@ -28,13 +32,16 @@ use App\Observers\Division\DivisionObserver;
 use App\Observers\Department\DepartmentObserver;
 use App\Observers\Designation\DesignationObserver;
 use App\Observers\DieselVendor\DieselVendorInfoObserver;
+use App\Observers\Location\LocationObserver;
 use App\Observers\MaterialDescription\MaterialDescriptionObserver;
 use App\Observers\PreviousLoadDetails\PreviousLoadDetailsObserver;
 use App\Observers\RejectionReason\RejectionReasonObserver;
 use App\Observers\Sheds\ShedInfoObserver;
 use App\Observers\Status\StatusObserver;
 use App\Observers\Uom\UomObserver;
+use App\Observers\User\UserObserver;
 use App\Observers\Vendor\VendorInfoObserver;
+
 
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -52,6 +59,7 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+        SendOtpEvent::class=>[SendOtpEventListener::class]
     ];
 
     /**
@@ -79,7 +87,8 @@ class EventServiceProvider extends ServiceProvider
         Diesel_Vendor::observe(DieselVendorInfoObserver::class); // Added By Saravana Sai
         Defect_Type::observe(DefectTypeObserver::class); // Added By Saravana Sai
         Bank_info::observe(BankInfoObserver::class); // Added By Saravana Sai
-
+        User::observe(UserObserver::class); // Added By Saravana Sai
+        Location::observe(LocationObserver::class); //Added By Parthiban
 
     }
 }

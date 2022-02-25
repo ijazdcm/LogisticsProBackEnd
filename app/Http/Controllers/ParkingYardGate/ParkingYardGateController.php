@@ -45,7 +45,7 @@ class ParkingYardGateController extends Controller
             $gateAction->handleGateEntry($request);
 
             //getting the new added vehicle Id to insert into parkingYard gate
-            $validated=$gateAction->handleVehicleId($validated,Vehicle_Info::latest()->first());
+            $validated = $gateAction->handleVehicleId($validated, Vehicle_Info::latest()->first());
 
             Parking_Yard_Gate::create($validated);
         });
@@ -62,6 +62,7 @@ class ParkingYardGateController extends Controller
     public function show($id)
     {
         $parkingYardVehicle = Parking_Yard_Gate::with('Vehicle_Type')->with('Vehicle_Capacity')
+            ->with('Vehicle_Inspection')
             ->gate_in_status()
             ->where('id', $id)
             ->first();

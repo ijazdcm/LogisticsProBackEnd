@@ -9,9 +9,9 @@ class Vehicle_Type extends Model
 {
     use HasFactory;
 
-    protected $table="vehicle__types";
+    protected $table = "vehicle__types";
 
-    protected $fillable=[
+    protected $fillable = [
         "vehicle_type",
         "vehicle_type_status",
         "created_by",

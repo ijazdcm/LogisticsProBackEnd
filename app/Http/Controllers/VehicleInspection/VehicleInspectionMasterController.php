@@ -59,19 +59,16 @@ class VehicleInspectionMasterController extends Controller
                     (new ParkingYardGateService())->assignNewDriverToVehicle($request->vehicle_id, $request->driver_id);
                 }
 
+                Parking_Yard_Gate::where('vehicle_id', (int)$request->vehicle_id)->update(['vehicle_inspection_status'=>'1','vehicle_inspection_id'=>Vehicle_Inspection::latest()->first()->id]);
                 Vehicle_Inspection::create($request->validated());
-
-            }
-            else {
+            } else {
 
                 Vehicle_Inspection::create($request->validated());
 
                 //this service make vehicle on parking Yard table to gateOut status
 
                 (new ParkingYardGateService())->gateOutVehicle($request->vehicle_id);
-
             }
-
         });
 
         return VehicleInspectionResource::make($request);
@@ -85,7 +82,7 @@ class VehicleInspectionMasterController extends Controller
      */
     public function show($id)
     {
-    //
+        //
     }
 
     /**
@@ -97,7 +94,7 @@ class VehicleInspectionMasterController extends Controller
      */
     public function update(Request $request, $id)
     {
-    //
+        //
     }
 
     /**
@@ -108,6 +105,6 @@ class VehicleInspectionMasterController extends Controller
      */
     public function destroy($id)
     {
-    //
+        //
     }
 }

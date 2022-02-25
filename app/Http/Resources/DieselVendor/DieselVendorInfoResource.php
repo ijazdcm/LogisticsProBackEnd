@@ -16,7 +16,7 @@ class DieselVendorInfoResource extends JsonResource
     {
         return [
             "diesel_vendor_id" => $this->id,
-            "created_at" => $this->created_at->format('d.m.Y'),
+            "created_at" => $this->created_at->format('d-m-y'),
             "diesel_vendor_name" => $this->diesel_vendor_name,
             "vendor_code" => $this->vendor_code,
             "vendor_phone_1" => $this->vendor_phone_1,

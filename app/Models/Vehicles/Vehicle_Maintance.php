@@ -9,6 +9,8 @@ class Vehicle_Maintance extends Model
 {
     use HasFactory;
 
+    public const VEHICLE_MAINTENANCE_PASSED='1';
+
     protected $table="vehicle__maintances";
 
     protected $fillable=[
@@ -20,6 +22,7 @@ class Vehicle_Maintance extends Model
         "vendor_id",
         "maintenance_start_datetime",
         "maintenance_end_datetime",
+        "closing_odometer_km",
         "remarks",
         "created_by",
     ];

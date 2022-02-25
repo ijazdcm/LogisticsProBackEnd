@@ -22,6 +22,7 @@ class CreateVehicleMaintancesTable extends Migration
             $table->string('maintenance_typ');
             $table->string('maintenance_by');
             $table->string('work_order');
+
             $table->tinyInteger('vendor_id');
             $table->string('closing_km')->default(null);
             $table->string('closing_km_photo')->default(null);
@@ -29,6 +30,14 @@ class CreateVehicleMaintancesTable extends Migration
             $table->timestamp('maintenance_end_datetime')->useCurrent();
             $table->string('remarks');
             $table->unsignedBigInteger('created_by')->default(null);
+
+//             $table->string('vendor_id');
+//             $table->string('closing_odometer_km')->nullable();
+//             $table->date('maintenance_start_datetime')->nullable()->default(null);
+//             $table->date('maintenance_end_datetime')->nullable()->default(null);
+//             $table->string('remarks')->nullable()->default(null);
+//             $table->unsignedBigInteger('created_by')->default(0);
+
             $table->timestamps();
         });
     }

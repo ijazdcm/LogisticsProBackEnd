@@ -37,6 +37,8 @@ class DriverMasterController extends Controller
     public function store(DriverInfoPostRequest $request, FileHelper $helper)
     {
 
+        // return $request;
+
 
         //adding the new Driver
         $new_driver = Driver_Info::create([
