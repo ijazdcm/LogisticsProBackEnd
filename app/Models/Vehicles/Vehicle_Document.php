@@ -2,6 +2,7 @@
 
 namespace App\Models\Vehicles;
 
+use App\Models\ParkingYardGate\Parking_Yard_Gate;
 use App\Models\Vendors\Vendor_Info;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -50,6 +51,7 @@ class Vehicle_Document extends Model
         "remarks",
         "created_by",
     ];
+
 
     public function Vendor_Info()
     {

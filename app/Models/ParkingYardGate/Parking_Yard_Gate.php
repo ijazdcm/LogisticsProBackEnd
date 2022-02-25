@@ -90,7 +90,10 @@ class Parking_Yard_Gate extends Model
         return $this->hasOne(Vehicle_Document::class, 'vehicle_id', 'vehicle_id');
     }
 
-   
+    public function Vendor_Info()
+    {
+        return $this->hasOne(Vendor_Info::class, 'vehicle_id', 'vehicle_id');
+    }
 
     public function Driver_Info()
     {
@@ -103,29 +106,33 @@ class Parking_Yard_Gate extends Model
         return $this->hasOne(Vehicle_Inspection::class, 'id', 'vehicle_inspection_id');
     }
 
-    public function Vendor_Info()
-    {
-        return $this->hasOne(Vendor_Info::class, 'vehicle_id', 'vehicle_id');
-    }
-
 
     public function scopeParkingstatus($query)
     {
         return $query->where('parking_status', '3')->orWhere('parking_status', '2')->orderBy('id', 'DESC');
     }
 
+
     public function scopeGate_in_status($query)
     {
-        return $query->where('parking_status', '1')->where('vehicle_inspection_status',null)->orderBy('id', 'DESC');
+        return $query->where('parking_status', '1')
+            ->where('vehicle_inspection_status', null)
+            ->orderBy('id', 'DESC');
     }
 
     public function scopeReady_to_load($query)
     {
         return $query->where('parking_status', '1')
-        ->where('maintenance_status',null)
-        ->where('vehicle_inspection_status','1')
-        ->where('vendor_creation_status',null)
-        ->orWhere('vendor_creation_status',1)
-        ->orderBy('id', 'DESC');
+            ->where('maintenance_status', null)
+            ->where('vehicle_inspection_status', '1')
+            ->where('vendor_creation_status', null)
+            ->orWhere('vendor_creation_status', 1)
+            ->orderBy('id', 'DESC');
+    }
+    public function scopeInspectionStatus($query)
+    {
+        return $query->where('parking_status', '1')
+            ->where('vehicle_inspection_status', '1')
+            ->orderBy('id', 'DESC');
     }
 }
