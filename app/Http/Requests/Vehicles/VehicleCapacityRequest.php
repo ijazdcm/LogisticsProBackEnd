@@ -24,7 +24,7 @@ class VehicleCapacityRequest extends FormRequest
     public function rules()
     {
         return [
-            "vehicle_capacity"=>"numeric|required|unique:vehicle__capacities,vehicle_capacity"
+            "vehicle_capacity"=>"numeric|required|uznique:vehicle__capacities,vehicle_capacity"
         ];
     }
 }
