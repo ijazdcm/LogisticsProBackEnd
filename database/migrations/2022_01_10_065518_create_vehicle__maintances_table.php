@@ -17,13 +17,14 @@ class CreateVehicleMaintancesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('vehicle_id');
             $table->foreign('vehicle_id')->references('id')->on('vehicle__infos');
-            $table->unsignedBigInteger('driver_id');
+            $table->unsignedBigInteger('driver_id')->nullable()->default(null);
             $table->foreign('driver_id')->references('id')->on('driver__infos');
             $table->string('maintenance_typ');
             $table->string('maintenance_by');
-            $table->string('work_order');
-            $table->string('vendor_id');
-            $table->string('closing_odometer_km')->nullable();
+            $table->string('work_order')->nullable()->default(null);
+            $table->string('vendor_id')->nullable()->default(null);
+            $table->string('opening_odometer_km')->nullable()->default(null);
+            $table->string('closing_odometer_km')->nullable()->default(null);
             $table->date('maintenance_start_datetime')->nullable()->default(null);
             $table->date('maintenance_end_datetime')->nullable()->default(null);
             $table->string('remarks')->nullable()->default(null);

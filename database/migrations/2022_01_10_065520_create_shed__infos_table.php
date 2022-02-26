@@ -15,7 +15,7 @@ class CreateShedInfosTable extends Migration
     {
         Schema::create('shed__infos', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('shed_type_id');
+            $table->unsignedBigInteger('shed_type_id')->nullable()->default(null);;
             $table->foreign('shed_type_id')->references('id')->on('shed__types');
             $table->string('shed_name');
             $table->string('shed_owner_name');
