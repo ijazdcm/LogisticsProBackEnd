@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\DocumentVerification;
 
+use App\Http\Resources\ParkingYardGate\ParkingYardGateResource;
 use App\Http\Resources\Vendor\VendorInfoResource;
 use App\Models\Vehicles\Vehicle_Document;
 use Illuminate\Http\Resources\Json\JsonResource;

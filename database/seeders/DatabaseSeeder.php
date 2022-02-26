@@ -31,6 +31,7 @@ class DatabaseSeeder extends Seeder
         $this->call(RejectionReasonSeeder::class); // Added By Alwin
         $this->call(PreviousLoadDetailsSeeder::class); // Added By Alwin
         $this->call(StatusSeeder::class); // Added By Alwin
+        $this->call(RJSaleOrderCreationSeeder::class); // Added By Alwin
 
         $this->call(ShedTypeSeeder::class); // Added By Saravana Sai
         $this->call(ShedInfoSeeder::class); // Added By Saravana Sai
@@ -44,6 +45,7 @@ class DatabaseSeeder extends Seeder
          $this->call(ParkingYardGateSeeder::class); //added by Saravana Sai
          $this->call(DefectTypeSeeder::class); //added by Saravana Sai
          $this->call(BankInfoSeeder::class); //added by Saravana Sai
+
 
          $this->call(TripSheetSeeder::class); //added by Saravana Sai
 
