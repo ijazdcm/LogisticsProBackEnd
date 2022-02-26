@@ -74,6 +74,21 @@ class ParkingYardGateController extends Controller
         return response()->json(['message' => 'Truck Not Found In Gate'], 404);
     }
 
+    public function view($id)
+    {
+        $parkingYardVehicle = Parking_Yard_Gate::with('Vehicle_Type')->with('Vehicle_Capacity')
+            ->with('Vehicle_Inspection')
+            ->InspectionStatus()
+            ->where('id', $id)
+            ->first();
+
+        if ($parkingYardVehicle) {
+
+            return ParkingYardGateResource::make($parkingYardVehicle);
+        }
+        return response()->json(['message' => 'Truck Not Found In Gate'], 404);
+    }
+
     /**
      * Update the specified resource in storage.
      *
