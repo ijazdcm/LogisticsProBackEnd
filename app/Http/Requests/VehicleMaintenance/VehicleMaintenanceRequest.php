@@ -25,12 +25,13 @@ class VehicleMaintenanceRequest extends FormRequest
     {
         return [
             "vehicle_id"=>['required','exists:vehicle__infos,id'],
-            "driver_id"=>['required'],
+            "driver_id"=>[''],
             "maintenance_typ"=>['required'],
-            "maintenance_by"=>['required'],
-            "work_order"=>['required'],
-            "vendor_id"=>['required'],
-            "maintenance_start_datetime"=>['required'],
+            "maintenance_by"=>[''],
+            "work_order"=>[''],
+            "vendor_id"=>[''],
+            "maintenance_start_datetime"=>[''],
+            "opening_odometer_km"=>[''],
             "closing_odometer_km"=>[''],
             "maintenance_end_datetime"=>[''],
             "remarks"=>[''],
