@@ -37,13 +37,14 @@ class ShedStoreRequest extends FormRequest
             }
         }
         return [
-        "shed_type_id"=>'required','exists:shed__types,id',
+
+
         "shed_name"=>['required'],
         "shed_owner_name"=>['required'],
         "shed_owner_phone_1"=>['required','numeric','digits:10'],
         "shed_owner_phone_2"=>['required','numeric','digits:10'],
         "shed_owner_address"=>['required'],
-        "shed_owner_photo"=>"$file_validation_shed_owner_photo",
+        "shed_owner_photo"=>['required', 'max:5000', 'mimes:png,jpg,jpeg,pdf'],
         "pan_number"=>['required','alpha_num'],
         "shed_adhar_number"=>['required','numeric','digits:12'],
         "gst_no"=>['required','alpha_num'],
