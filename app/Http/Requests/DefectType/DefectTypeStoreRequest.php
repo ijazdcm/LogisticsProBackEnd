@@ -24,7 +24,7 @@ class DefectTypeStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            "defect_type"=>['required']
+            "defect_type" => "required|max:255|unique:defect__types,defect_types"
         ];
     }
 }
