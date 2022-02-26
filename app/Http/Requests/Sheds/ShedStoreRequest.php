@@ -37,7 +37,8 @@ class ShedStoreRequest extends FormRequest
             }
         }
         return [
-        "shed_type_id"=>['exists:shed__types,id'],
+
+
         "shed_name"=>['required'],
         "shed_owner_name"=>['required'],
         "shed_owner_phone_1"=>['required','numeric','digits:10'],

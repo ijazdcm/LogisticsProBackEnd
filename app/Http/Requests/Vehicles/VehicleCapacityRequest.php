@@ -24,7 +24,7 @@ class VehicleCapacityRequest extends FormRequest
     public function rules()
     {
         return [
-            "vehicle_capacity"=>"numeric|required|uznique:vehicle__capacities,vehicle_capacity"
+            "vehicle_capacity" => "required|regex:/^[0-9]+$/u|unique:vehicle__capacities,vehicle_capacity"
         ];
     }
 }

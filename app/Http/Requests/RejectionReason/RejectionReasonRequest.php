@@ -25,6 +25,7 @@ class RejectionReasonRequest extends FormRequest
     {
         return [
             "rejection_reason" => "required|regex:/^[a-zA-Z ]+$/u|max:255|unique:rejection_reasons,rejection_reason"
+            
         ];
     }
 }

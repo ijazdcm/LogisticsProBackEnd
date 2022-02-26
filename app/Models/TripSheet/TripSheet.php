@@ -30,6 +30,7 @@ class TripSheet extends Model
         "expected_date_time",
         "expected_return_date_time",
         "freight_rate_per_tone",
+        "advance_payment_bank",
         "advance_payment_diesel",
         "remarks",
         "status",
