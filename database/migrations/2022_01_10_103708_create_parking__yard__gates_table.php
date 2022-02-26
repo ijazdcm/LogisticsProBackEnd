@@ -39,6 +39,7 @@ class CreateParkingYardGatesTable extends Migration
             $table->string('trip_sto_status')->nullable()->default(null)->comment('1 means trip sto 0 means on trip sto');
             $table->string('vendor_creation_status')->nullable()->default(null)->comment('1 means vendor created  0 means vendor not created');
             $table->string('vehicle_inspection_status')->nullable()->default(null)->comment('1 means Passed on inspection  0 means failed on inspection Null means need to inspect');
+            $table->string('document_verification_status')->nullable()->default(0)->comment('0 - Not Done, 1 - Done');
             $table->timestamp('gate_in_date_time')->useCurrent();
             $table->timestamp('gate_out_date_time')->useCurrent();
             $table->unsignedBigInteger('created_by')->default(0);

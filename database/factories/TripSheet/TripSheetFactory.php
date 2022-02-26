@@ -29,7 +29,9 @@ class TripSheetFactory extends Factory
         "expected_date_time"=>$this->faker->dateTimeThisYear(),
         "expected_return_date_time"=>$this->faker->dateTimeThisYear(),
         "freight_rate_per_tone"=>$this->faker->randomElement($array=['1500','4000','6000']),
+        "advance_payment_bank"=>$this->faker->randomElement($array=['1500','4000','6000']),
         "advance_payment_diesel"=>$this->faker->randomElement($array=['1500','4000','6000']),
+        "vehicle_source_by "=>$this->faker->randomElement($array=['a','b','c']),
         "status"=>$this->faker->randomElement($array=['1','0']),
         ];
     }
