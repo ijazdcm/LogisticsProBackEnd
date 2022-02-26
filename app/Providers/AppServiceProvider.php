@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -29,5 +30,11 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
 
+        /*this macro is added by saravana sai to access it
+          Authentication username & password need to be changed on production
+        */
+        Http::macro('auth', function () {
+            return Http::withBasicAuth('trainee5', 'Sbharu');
+        });
     }
 }

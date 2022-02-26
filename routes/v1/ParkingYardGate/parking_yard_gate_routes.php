@@ -12,12 +12,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::group(["middleware"=>"auth:sanctum"],function()
-{
+Route::group(["middleware" => "auth:sanctum"], function () {
     //after the auth  have been implemented move the below routes inside the middle ware
 });
 
-Route::apiResource('parkingYard',ParkingYardGateController::class);
+Route::apiResource('parkingYard', ParkingYardGateController::class);
 
-Route::put('parkingYard/action/gateIn/{id}',ParkingYardGateInActionController::class);
-Route::put('parkingYard/action/gateOut/{id}',ParkingYardGateOutActionController::class);
+Route::put('parkingYard/action/gateIn/{id}', ParkingYardGateInActionController::class);
+Route::put('parkingYard/action/gateOut/{id}', ParkingYardGateOutActionController::class);
+
+Route::get('parkingYardGate/{id}', [ParkingYardGateController::class, 'view']);
