@@ -17,6 +17,7 @@ class Customer_info extends Model
     protected $table = "customer_infos";
 
     protected $fillable = [
+        "creation_type",
         "customer_name",
         "customer_mobile_number",
         "customer_PAN_card_number",
@@ -44,9 +45,10 @@ class Customer_info extends Model
 
     protected $dates = ['created_at'];
 
-    public function Bank_Name()
+    public function bank_infos()
     {
         return $this->hasOne(Bank_info::class, 'id', 'customer_bank_id');
     }
 
 }
+

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DieselVendor\DieselVendorMasterController;
+use App\Http\Controllers\Sap\VendorCreation\SapVendorCreationController;
 use App\Http\Controllers\Vendor\VendorMasterController;
 use Illuminate\Support\Facades\Route;
 /*
@@ -23,3 +24,4 @@ Route::get('vendorApproval', [VendorMasterController::class, 'vendor_approval_in
 Route::get('vendorConfirmation', [VendorMasterController::class, 'vendor_confirmation_index']);
 
 Route::apiResource('dieselvendor', DieselVendorMasterController::class);
+Route::post('sap/vendor-creation-confirmation',SapVendorCreationController::class);

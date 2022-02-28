@@ -22,6 +22,7 @@ class Customer_infoFactory extends Factory
 
         return [
             // "id" => $Vh_Type,
+            "creation_type" => $this->faker->name,
             "customer_name" => $this->faker->name,
             "customer_mobile_number" => $this->faker->unique()->numberBetween($min = 1000000000, $max = 10000000000),
             "customer_PAN_card_number" => $Vh_Type,

@@ -83,9 +83,9 @@ class DocumentVerificationMasterController extends Controller
             "vehicle_inspection_id" => $request->vehicle_inspection_id,
             "vendor_id" => $vendor_id->id,
             "license_copy" => $helper->storeImage($request->license_copy, Vehicle_Document::LICENSE_COPY_PATH),
-            "aadhar_copy" => $helper->storeImage($request->aadhar_copy, Vehicle_Document::AADHAR_COPY_PATH),
-            "pan_copy" => $helper->storeImage($request->pan_copy, Vehicle_Document::PAN_COPY_PATH),
-            "bank_pass_copy" => $helper->storeImage($request->bank_pass_copy, Vehicle_Document::BANK_PASS_COPY_PATH),
+            "aadhar_copy" => $helper->storeImage($request->license_copy, Vehicle_Document::AADHAR_COPY_PATH),
+            "pan_copy" => $helper->storeImage($request->license_copy, Vehicle_Document::PAN_COPY_PATH),
+            "bank_pass_copy" => $helper->storeImage($request->license_copy, Vehicle_Document::BANK_PASS_COPY_PATH),
             "rc_copy_front" => $helper->storeImage($request->rc_copy_front, Vehicle_Document::RC_COPY_FRONT_PATH),
             "rc_copy_back" => $helper->storeImage($request->rc_copy_back, Vehicle_Document::RC_COPY_BACK_PATH),
             "insurance_copy_front" => $helper->storeImage($request->insurance_copy_front, Vehicle_Document::INSURANCE_COPY_FRONT_PATH),
@@ -101,6 +101,10 @@ class DocumentVerificationMasterController extends Controller
             "document_status" => $request->document_status,
             "remarks" => $request->remarks,
         ]);
+
+        $parking_yard_gate = Parking_Yard_Gate::select('vehicle_id', $request->vehicle_id)->first();
+
+        $parking_yard_gate->update(["document_verification_status" => $request->document_verification_status]);
 
         return response()->json(['message' => 'Updated'], 200);
     }

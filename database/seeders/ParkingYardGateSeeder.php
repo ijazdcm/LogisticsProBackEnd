@@ -33,30 +33,32 @@ class ParkingYardGateSeeder extends Seeder
             "trip_sto_status" => null,
             "vendor_creation_status" => "1",
             "vehicle_inspection_status" => "1",
+            "document_verification_status" => "0",
             "gate_in_date_time" => now(),
             "gate_out_date_time" => now(),
         ]);
 
-         //Own & Contract vehicle flow after document verification
-         Parking_Yard_Gate::create([
+        //Own & Contract vehicle flow after document verification
+        Parking_Yard_Gate::create([
             "vehicle_type_id" => 1,
             "vehicle_id" => 23,
-            "driver_id"=>2,
-            "odometer_km"=>"58200",
-            "odometer_photo"=>"dummy photo",
-            "vehicle_number"=>"TN36NA1724",
-            "vehicle_capacity_id"=>4,
-            "driver_name"=>"shane",
-            "driver_contact_number"=>"9785622145",
-            "vehicle_body_type_id"=>1,
-            "vehicle_inspection_id"=>6,
-            "parking_status"=>"1",
-            "maintenance_status"=>null,
-            "trip_sto_status"=>null,
-            "vendor_creation_status"=>null,
-            "vehicle_inspection_status"=>"1",
-            "gate_in_date_time"=>now(),
-            "gate_out_date_time"=>now(),
+            "driver_id" => 2,
+            "odometer_km" => "58200",
+            "odometer_photo" => "dummy photo",
+            "vehicle_number" => "TN36NA1724",
+            "vehicle_capacity_id" => 4,
+            "driver_name" => "shane",
+            "driver_contact_number" => "9785622145",
+            "vehicle_body_type_id" => 1,
+            "vehicle_inspection_id" => 6,
+            "parking_status" => "1",
+            "maintenance_status" => null,
+            "trip_sto_status" => null,
+            "vendor_creation_status" => null,
+            "vehicle_inspection_status" => "1",
+            "document_verification_status" => "1",
+            "gate_in_date_time" => now(),
+            "gate_out_date_time" => now(),
         ]);
 
 

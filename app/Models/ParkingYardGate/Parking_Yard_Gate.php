@@ -95,7 +95,6 @@ class Parking_Yard_Gate extends Model
         return $this->hasOne(Vendor_Info::class, 'vehicle_id', 'vehicle_id');
     }
 
-
     public function Driver_Info()
     {
         return $this->hasOne(Driver_Info::class, 'id', 'driver_id');
@@ -107,16 +106,16 @@ class Parking_Yard_Gate extends Model
         return $this->hasOne(Vehicle_Inspection::class, 'id', 'vehicle_inspection_id');
     }
 
-
-
     public function scopeParkingstatus($query)
     {
         return $query->where('parking_status', '3')->orWhere('parking_status', '2')->orderBy('id', 'DESC');
     }
 
+
     public function scopeGate_in_status($query)
     {
         return $query->where('parking_status', '1')->where('vehicle_inspection_status', null)->orderBy('id', 'DESC');
+
     }
 
     public function scopeTrip_Sto_status($query)
@@ -131,6 +130,13 @@ class Parking_Yard_Gate extends Model
             ->where('vehicle_inspection_status', '1')
             ->where('vendor_creation_status', null)
             ->orWhere('vendor_creation_status', 1)
+            ->orderBy('id', 'DESC');
+
+    }
+    public function scopeInspectionStatus($query)
+    {
+        return $query->where('parking_status', '1')
+            ->where('vehicle_inspection_status', '1')
             ->orderBy('id', 'DESC');
     }
 }

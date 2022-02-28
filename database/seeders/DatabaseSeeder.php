@@ -35,7 +35,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call(ShedTypeSeeder::class); // Added By Saravana Sai
         $this->call(ShedInfoSeeder::class); // Added By Saravana Sai
-        $this->call(VendorInfoSeeder::class); // Added By Saravana Sai
+        // $this->call(VendorInfoSeeder::class); // Added By Saravana Sai
         $this->call(DieselVendorSeeder::class); // Added By Saravana Sai
 
         $this->call(LocationSeeder::class); //added by Saravana Sai

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Uom;
+namespace App\Http\Requests\Sap;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UomRequest extends FormRequest
+class RjSaleOrderRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,10 @@ class UomRequest extends FormRequest
     public function rules()
     {
         return [
-            "uom" => "required|regex:/^[a-zA-Z]+$/u|max:255|unique:uoms,uom",
-            "uom_status" =>  ['sometimes', 'required'],
+            "hsn_code" => ['required'],
+            "frieght_amount" => ['required'],
+            "tripsheet_no" => ['required'],
+            "material" => ['required'],
         ];
     }
 }

@@ -25,10 +25,11 @@ class VehicleInfoResource extends JsonResource
             "rc_copy_back" => url('/') . "/storage/" . Vehicle_Info::RC_BACK_PATH . $this->rc_copy_back,
             "insurance_copy_front" => url('/') . "/storage/" . Vehicle_Info::INSURANCE_FRONT_PATH . $this->insurance_copy_front,
             "insurance_copy_back" => url('/') . "/storage/" . Vehicle_Info::INSURANCE_BACK_PATH . $this->insurance_copy_back,
-            "insurance_validity" => $this->insurance_validity,
-            "fc_validity" => $this->fc_validity,
+            "insurance_validity" => date("d-m-Y", strtotime($this->insurance_validity)),
+            "fc_validity" => date("d-m-Y", strtotime($this->fc_validity)),
             "vehicle_status" => $this->vehicle_status,
             "created_at" => $this->created_at->format('d-m-y')
         ];
     }
 }
+

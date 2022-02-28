@@ -15,9 +15,9 @@ class VehicleCapacityResource extends JsonResource
     public function toArray($request)
     {
         return [
-            "id"=>$this->id,
-            "capacity"=>$this->vehicle_capacity,
-            "vehicle_status"=>$this->vehicle_status,
+            "id" => $this->id,
+            "capacity" => $this->vehicle_capacity,
+            "vehicle_status" => $this->vehicle_status,
             'created_at' => $this->created_at->format('d-m-y'),
         ];
     }

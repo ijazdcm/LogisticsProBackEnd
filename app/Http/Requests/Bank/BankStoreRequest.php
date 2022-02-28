@@ -24,7 +24,7 @@ class BankStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            "bank_name" => "required|regex:/^[a-zA-Z ]+$/u|max:255|unique:bank_name"
+            "bank_name" => "required|regex:/^[a-zA-Z ]+$/u|max:255|unique:bank_infos,bank_name"
         ];
     }
 }

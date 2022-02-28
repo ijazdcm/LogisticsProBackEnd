@@ -28,9 +28,19 @@ class CreateTripSheetsTable extends Migration
             $table->string('vehicle_sourced_by')->nullable()->default(null);
             $table->timestamp('expected_date_time')->useCurrent();
             $table->timestamp('expected_return_date_time')->useCurrent();
-            $table->string('freight_rate_per_tone')->nullable()->default(null);
-            $table->string('advance_payment_diesel')->nullable()->default(null);
-            $table->string('remarks')->nullable()->default(null);
+
+            $table->string('freight_rate_per_tone');
+            $table->string('advance_payment_bank')->default(null);
+            $table->string('advance_payment_diesel');
+            $table->string('vehicle_source_by')->default(null);
+            $table->string('rj_pod_copy')->default(null);
+            $table->string('unregistered_vendor')->default(null);
+            $table->string('remarks');
+
+            //             $table->string('freight_rate_per_tone')->nullable()->default(null);
+            //             $table->string('advance_payment_diesel')->nullable()->default(null);
+            //             $table->string('remarks')->nullable()->default(null);
+
             $table->string('status')->default(null)->comment('0 -Open , 1 - Assigned, 2 - Closed');
             $table->unsignedBigInteger('created_by')->nullable()->default(null);
             $table->timestamps();

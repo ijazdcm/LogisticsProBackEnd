@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\RJSaleOrder\RJSaleOrderCreationController;
+use App\Http\Controllers\Sap\RJourney\SapRjCreationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,3 +16,5 @@ Route::group(["middleware" => "auth:sanctum"], function () {
 });
 
 Route::apiResource('rj_saleorder_creation', RJSaleOrderCreationController::class);
+
+Route::post('sap/rj-sale-order-creation', SapRjCreationController::class);
