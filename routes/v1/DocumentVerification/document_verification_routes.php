@@ -22,5 +22,5 @@ Route::group(["middleware" => "auth:sanctum"], function () {
  * this resource index method query against Document Verification table
  */
 Route::apiResource('DocumentVerification', DocumentVerificationMasterController::class);
-// Route::get('sap/check-document-available/{$pan_card_no}', SapDocumentVerificationController::class);
+
 Route::get('sap/check-document-available/{pan_card_no}', SapDocumentVerificationController::class);
