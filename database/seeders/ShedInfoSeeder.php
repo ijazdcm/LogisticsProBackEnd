@@ -14,6 +14,6 @@ class ShedInfoSeeder extends Seeder
      */
     public function run()
     {
-         Shed_Info::factory()->count(50)->create();
+         Shed_Info::factory()->count(5)->create();
     }
 }

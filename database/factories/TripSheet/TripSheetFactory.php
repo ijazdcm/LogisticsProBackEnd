@@ -31,7 +31,7 @@ class TripSheetFactory extends Factory
         "freight_rate_per_tone"=>$this->faker->randomElement($array=['1500','4000','6000']),
         "advance_payment_bank"=>$this->faker->randomElement($array=['1500','4000','6000']),
         "advance_payment_diesel"=>$this->faker->randomElement($array=['1500','4000','6000']),
-        "vehicle_source_by "=>$this->faker->randomElement($array=['a','b','c']),
+        // "vehicle_source_by "=>$this->faker->randomElement($array=['WH-TEAM','LOGISTICS','INVENTERY TEAM']),
         "status"=>$this->faker->randomElement($array=['1','0']),
         ];
     }
