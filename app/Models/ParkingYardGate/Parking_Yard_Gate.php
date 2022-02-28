@@ -119,6 +119,11 @@ class Parking_Yard_Gate extends Model
         return $query->where('parking_status', '1')->where('vehicle_inspection_status', null)->orderBy('id', 'DESC');
     }
 
+    public function scopeTrip_Sto_status($query)
+    {
+        return $query->where('parking_status', '1')->where('trip_sto_status', null)->where('vehicle_type_id', '!=', 4)->orderBy('id', 'DESC');
+    }
+
     public function scopeReady_to_load($query)
     {
         return $query->where('parking_status', '1')
