@@ -102,6 +102,10 @@ class DocumentVerificationMasterController extends Controller
             "remarks" => $request->remarks,
         ]);
 
+        $parking_yard_gate = Parking_Yard_Gate::select('vehicle_id', $request->vehicle_id)->first();
+
+        $parking_yard_gate->update(["document_verification_status" => $request->document_verification_status]);
+
         return response()->json(['message' => 'Updated'], 200);
     }
 

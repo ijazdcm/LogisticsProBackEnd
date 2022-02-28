@@ -45,6 +45,7 @@ class ParkingYardGateResource extends JsonResource
             "party_name" => $this->party_name,
             "remarks" => $this->remarks,
             "parking_status" => $this->parking_status,
+            "document_verification_status" => $this->document_verification_status,
             "gate_in_date_time" => $this->gate_in_date_time->diff()->format('%h hrs and %i min'),
             "gate_out_date_time" => $this->gate_out_date_time->diff()->format('%h hrs and %i min'),
             "created_at" => $this->created_at->diff()->format('%h hrs and %i min'),
@@ -53,9 +54,7 @@ class ParkingYardGateResource extends JsonResource
             "vehicle_inspection" => VehicleInspectionResource::make($this->whenLoaded('Vehicle_Inspection')),
             "vehicle_document" => DocumentVerificationResource::make($this->whenLoaded('Vehicle_Document')),
             "vendor_info" => VendorInfoResource::make($this->whenLoaded('Vendor_Info')),
-            "vehicle_inspection_trip"=>VehicleInspectionResource::make($this->whenLoaded('Vehicle_Inspection_Trip')),
-//             "vehicle_vendor_info"=>VendorInfoResource::make($this->whenLoaded('Vendor_Info')),
-
+            "vehicle_inspection_trip" => VehicleInspectionResource::make($this->whenLoaded('Vehicle_Inspection_Trip')),
         ];
     }
 }
