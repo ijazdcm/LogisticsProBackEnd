@@ -37,6 +37,7 @@ class RJSaleOrderCreationRequest extends FormRequest
             "order_qty" => ['required'],
             // "customer_code" => "required|regex:/^[\d]{5}$/u|unique:rj_so_creation,customer_code",
             "customer_code" => ['required'],
+            "hsn_code" => ['required'],
             "freight_income" => ['required'],
             "advance_amount" => ['required'],
             "last_Delivery_point" => ['required'],
@@ -47,7 +48,7 @@ class RJSaleOrderCreationRequest extends FormRequest
             "expected_delivery_date_time" => ['sometimes', 'required'],
             "expected_return_date_time" => ['sometimes', 'required'],
             "remarks" => ['sometimes', 'required'],
-            "rj_so_no" => "required|regex:/^[\d]{6}$/u|unique:rj_so_creation,rj_so_no",
+            "rj_so_no" => "required|regex:/^[\d]{8}$/u|unique:rj_so_creation,rj_so_no",
             "created_by" => ['sometimes', 'required'],
         ];
     }
