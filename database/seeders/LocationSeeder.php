@@ -8,6 +8,7 @@ use Illuminate\Database\Seeder;
 class LocationSeeder extends Seeder
 {
     public $location_list = ["Salem", "Trichy", "Chennai"];
+    public $location_code_list = ["S", "T", "C"];
     /**
      * Run the database seeds.
      *
@@ -19,6 +20,7 @@ class LocationSeeder extends Seeder
 
             $locations = new Location();
             $locations->location_name = $this->location_list[$i];
+            $locations->location_code = $this->location_code_list[$i];
             $locations->save();
         }
     }

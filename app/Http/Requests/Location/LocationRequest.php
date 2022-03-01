@@ -24,7 +24,8 @@ class LocationRequest extends FormRequest
     public function rules()
     {
         return [
-            "location_name" => "required|regex:/^[a-zA-Z]+$/u|max:255|unique:locations,location_name"
+            "location_name" => "required|regex:/^[a-zA-Z]+$/u|max:255|unique:locations,location_name",
+            "location_code" => "required|regex:/^[a-zA-Z]+$/u|max:10|unique:locations,location_code"
         ];
     }
 }
