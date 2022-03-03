@@ -33,6 +33,7 @@ class DocumentVerificationMasterController extends Controller
         $parking_yard_gate = Parking_Yard_Gate::with('Vehicle_Info')
             ->with('Vehicle_Type')
             ->with('Vehicle_Inspection')
+            ->InspectionStatus()
             ->get();
 
         return ParkingYardGateResource::collection($parking_yard_gate);
