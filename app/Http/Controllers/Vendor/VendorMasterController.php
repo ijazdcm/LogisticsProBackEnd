@@ -112,7 +112,6 @@ class VendorMasterController extends Controller
 
         $vendor_info = Vendor_Info::where('id', $request->vendor_id)->first();
 
-
         if ($vendor_info) {
             if ($vendor_status == 1) {
                 $vendor_info->update([
