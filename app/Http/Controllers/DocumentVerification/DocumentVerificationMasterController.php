@@ -80,6 +80,7 @@ class DocumentVerificationMasterController extends Controller
 
         $vehicle_document = Vehicle_Document::create([
             "vehicle_id" => $request->vehicle_id,
+            "shed_id" => $request->shed_id,
             "vehicle_inspection_id" => $request->vehicle_inspection_id,
             "vendor_id" => $vendor_id->id,
             "license_copy" => $helper->storeImage($request->license_copy, Vehicle_Document::LICENSE_COPY_PATH),
@@ -93,7 +94,7 @@ class DocumentVerificationMasterController extends Controller
             "transport_shed_sheet" => $helper->storeImage($request->transport_shed_sheet, Vehicle_Document::TRANSPORT_SHED_SHEET_COPY_PATH),
             "tds_dec_form_front" => $helper->storeImage($request->tds_dec_form_front, Vehicle_Document::TDS_DEC_FORM_COPY_FRONT_PATH),
             "tds_dec_form_back" => $helper->storeImage($request->tds_dec_form_back, Vehicle_Document::TDS_DEC_FORM_COPY_BACK_PATH),
-            "shed_id" => $request->shed_id,
+
             "insurance_validity" => $request->insurance_validity,
             "ownership_transfer_form" => $helper->storeImage($request->ownership_transfer_form, Vehicle_Document::OWNERSHIP_TRANSFER_FORM_PATH),
             "freight_rate_per_ton" => $request->freight_rate,
