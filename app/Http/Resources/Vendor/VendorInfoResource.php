@@ -30,7 +30,7 @@ class VendorInfoResource extends JsonResource
             "bank_name" => $this->bank_name,
             "bank_branch" => $this->bank_branch,
             "bank_acc_holder_name" => $this->bank_acc_holder_name,
-            "bank_ifsc_code" => $this->bank_ifsc_code,
+            "bank_ifsc_code" => $this->bank_ifsc,
             "street" => $this->street,
             "area" => $this->area,
             "city" => $this->city,
