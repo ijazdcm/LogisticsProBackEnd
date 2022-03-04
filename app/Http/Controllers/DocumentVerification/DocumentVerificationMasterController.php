@@ -64,48 +64,52 @@ class DocumentVerificationMasterController extends Controller
             $vendor_status = 0;
             (new ParkingYardGateService())->gateOutVehicle($request->vehicle_id);
         }
+        $vendor_info = Vendor_Info::where('vehicle_id',$request->vehicle_id)->first();
 
-        $vendor_info = Vendor_Info::create([
-            "vehicle_id" => $request->vehicle_id,
-            "shed_id" => $request->shed_id,
-            "vendor_code" => $request->vendor_code,
-            "owner_name" => $request->owner_name,
-            "owner_number" => $request->owner_number,
-            "pan_card_number" => $request->pan_number,
-            "aadhar_card_number" => $request->aadhar_number,
-            "bank_acc_number" => $request->bank_acc_number,
-            "vendor_status" => $vendor_status,
-        ]);
+        if(!$vendor_info){
+            Vendor_Info::create([
+                "vehicle_id" => $request->vehicle_id,
+                "shed_id" => $request->shed_id,
+                "vendor_code" => $request->vendor_code,
+                "owner_name" => $request->owner_name,
+                "owner_number" => $request->owner_number,
+                "pan_card_number" => $request->pan_number,
+                "aadhar_card_number" => $request->aadhar_number,
+                "bank_acc_number" => $request->bank_acc_number,
+                "vendor_status" => $vendor_status,
+            ]);
 
-        $vendor_id = Vendor_Info::select('id')->latest('id')->first();
+            $vendor_id = Vendor_Info::select('id')->latest('id')->first();
 
-        $vehicle_document = Vehicle_Document::create([
-            "vehicle_id" => $request->vehicle_id,
-            "vehicle_inspection_id" => $request->vehicle_inspection_id,
-            "vendor_id" => $vendor_id->id,
-            "license_copy" => $helper->storeImage($request->license_copy, Vehicle_Document::LICENSE_COPY_PATH),
-            "aadhar_copy" => $helper->storeImage($request->license_copy, Vehicle_Document::AADHAR_COPY_PATH),
-            "pan_copy" => $helper->storeImage($request->license_copy, Vehicle_Document::PAN_COPY_PATH),
-            "bank_pass_copy" => $helper->storeImage($request->license_copy, Vehicle_Document::BANK_PASS_COPY_PATH),
-            "rc_copy_front" => $helper->storeImage($request->rc_copy_front, Vehicle_Document::RC_COPY_FRONT_PATH),
-            "rc_copy_back" => $helper->storeImage($request->rc_copy_back, Vehicle_Document::RC_COPY_BACK_PATH),
-            "insurance_copy_front" => $helper->storeImage($request->insurance_copy_front, Vehicle_Document::INSURANCE_COPY_FRONT_PATH),
-            "insurance_copy_back" => $helper->storeImage($request->insurance_copy_front, Vehicle_Document::INSURANCE_COPY_BACK_PATH),
-            "transport_shed_sheet" => $helper->storeImage($request->transport_shed_sheet, Vehicle_Document::TRANSPORT_SHED_SHEET_COPY_PATH),
-            "tds_dec_form_front" => $helper->storeImage($request->tds_dec_form_front, Vehicle_Document::TDS_DEC_FORM_COPY_FRONT_PATH),
-            "tds_dec_form_back" => $helper->storeImage($request->tds_dec_form_back, Vehicle_Document::TDS_DEC_FORM_COPY_BACK_PATH),
-            "shed_id" => $request->shed_id,
-            "insurance_validity" => $request->insurance_validity,
-            "ownership_transfer_form" => $helper->storeImage($request->ownership_transfer_form, Vehicle_Document::OWNERSHIP_TRANSFER_FORM_PATH),
-            "freight_rate_per_ton" => $request->freight_rate,
-            "vendor_flag" => ($request->vendor_code != 0 ? 1 : 0),
-            "document_status" => $request->document_status,
-            "remarks" => $request->remarks,
-        ]);
+            $vehicle_document = Vehicle_Document::create([
+                "vehicle_id" => $request->vehicle_id,
+                "vehicle_inspection_id" => $request->vehicle_inspection_id,
+                "vendor_id" => $vendor_id->id,
+                "license_copy" => ($request->license_copy) ? $helper->storeImage($request->license_copy, Vehicle_Document::LICENSE_COPY_PATH) : '',
+                "aadhar_copy" => $helper->storeImage($request->aadhar_copy, Vehicle_Document::AADHAR_COPY_PATH),
+                "pan_copy" => $helper->storeImage($request->pan_copy, Vehicle_Document::PAN_COPY_PATH),
+                "bank_pass_copy" => $helper->storeImage($request->pass_copy, Vehicle_Document::BANK_PASS_COPY_PATH),
+                "rc_copy_front" => $helper->storeImage($request->rc_copy_front, Vehicle_Document::RC_COPY_FRONT_PATH),
+                "rc_copy_back" => $helper->storeImage($request->rc_copy_back, Vehicle_Document::RC_COPY_BACK_PATH),
+                "insurance_copy_front" => $helper->storeImage($request->insurance_copy_front, Vehicle_Document::INSURANCE_COPY_FRONT_PATH),
+                "insurance_copy_back" => $helper->storeImage($request->insurance_copy_front, Vehicle_Document::INSURANCE_COPY_BACK_PATH),
+                "transport_shed_sheet" => ($request->transport_shed_sheet) ? $helper->storeImage($request->transport_shed_sheet, Vehicle_Document::TRANSPORT_SHED_SHEET_COPY_PATH) : '',
+                "tds_dec_form_front" => $helper->storeImage($request->tds_dec_form_front, Vehicle_Document::TDS_DEC_FORM_COPY_FRONT_PATH),
+                "tds_dec_form_back" => $helper->storeImage($request->tds_dec_form_back, Vehicle_Document::TDS_DEC_FORM_COPY_BACK_PATH),
+                "shed_id" => $request->shed_id,
+                "insurance_validity" => $request->insurance_validity,
+                "ownership_transfer_form" => ($request->ownership_transfer_form) ? $helper->storeImage($request->ownership_transfer_form, Vehicle_Document::OWNERSHIP_TRANSFER_FORM_PATH) : '',
+                "freight_rate_per_ton" =>($request->freight_rate) ? $request->freight_rate : 0,
+                "vendor_flag" => ($request->vendor_code != 0 ? 1 : 0),
+                "document_status" => $request->document_status,
+                "remarks" => $request->remarks,
+            ]);
 
-        Parking_Yard_Gate::where('vehicle_id', $request->vehicle_id)->update(['document_verification_status' => $request->document_status]);
+            Parking_Yard_Gate::where('vehicle_id', $request->vehicle_id)->update(['document_verification_status' => $request->document_status]);
 
-        return response()->json(['message' => 'Updated'], 200);
+            return response()->json(['message' => 'Updated'], 200);
+        }
+        return response()->json(['message' => 'Vendor Already Available'], 500);
     }
 
     /**
