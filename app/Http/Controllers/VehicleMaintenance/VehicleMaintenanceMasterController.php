@@ -11,6 +11,7 @@ use App\Service\ParkingYardGate\ParkingYardGateService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Resources\VehicleMaintenance\VehicleMaintenanceResource;
+use App\Models\Vehicles\vehicle_maintenance_type;
 use App\Service\Driver\DriverService;
 use Illuminate\Support\Facades\Log;
 
@@ -39,8 +40,6 @@ class VehicleMaintenanceMasterController extends Controller
      */
     public function store(VehicleMaintenanceRequest $request)
     {
-
-
         DB::transaction(function () use ($request) {
 
             if ($request->vehicle_maintenance_status == Vehicle_Maintance::VEHICLE_MAINTENANCE_PASSED) {
@@ -62,7 +61,7 @@ class VehicleMaintenanceMasterController extends Controller
                 }
 
                 Vehicle_Maintance::create($request->validated());
-
+                Parking_Yard_Gate::where('vehicle_id', (int)$request->vehicle_id)->update(['maintenance_status'=>Vehicle_Maintance::latest()->first()->id]);
             }
             else {
 
@@ -87,7 +86,14 @@ class VehicleMaintenanceMasterController extends Controller
      */
     public function show($id)
     {
+        $maintenance = Vehicle_Maintance::where('vehicle_maintenance_status', 1)
+        ->where('id', $id)
+        ->first();
 
+    if ($maintenance) {
+        return new VehicleMaintenanceResource($maintenance->load('maintenance_typ'));
+    }
+    return response()->json(['message' => 'maintenance Not found'], 404);
     }
 
     /**
