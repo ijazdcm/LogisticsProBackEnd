@@ -78,10 +78,10 @@ class User extends Authenticatable
         return $this->hasOne(Department::class,'id','department_id');
     }
 
-    // public function Location()
-    // {
-    //     return $this->hasOne(Location::class,'id','location_id');
-    // }
+    public function Location()
+    {
+        return $this->hasOne(Location::class,'id','location_id');
+    }
 
     public function scopeOnlyAdmin($query)
     {
