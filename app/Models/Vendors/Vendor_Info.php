@@ -36,6 +36,7 @@ class Vendor_Info extends Model
         'bank_name',
         'bank_acc_number',
         'bank_acc_holder_name',
+        'bank_branch',
         'bank_ifsc',
         'street',
         'area',

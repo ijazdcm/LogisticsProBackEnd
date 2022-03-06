@@ -40,7 +40,6 @@ class VehicleMasterController extends Controller
     public function store(VehicleInfoRequest $request, FileHelper $helper)
     {
 
-
         //section get the files from $request
 
         $rc_copy_front = $request->rc_copy_front;

@@ -110,9 +110,7 @@ class VendorMasterController extends Controller
                 break;
         }
 
-        $vendor_info = Vendor_Info::where('vendor_status', $vendor_status)
-            ->where('vehicle_id', $id)
-            ->first();
+        $vendor_info = Vendor_Info::where('id', $request->vendor_id)->first();
 
         if ($vendor_info) {
             if ($vendor_status == 1) {
@@ -125,6 +123,7 @@ class VendorMasterController extends Controller
                     'bank_name' => $request->bank_name,
                     'bank_acc_number' => $request->bank_acc_number,
                     'bank_acc_holder_name' => $request->bank_acc_holder_name,
+                    'bank_branch' => $request->bank_branch,
                     'bank_ifsc' => $request->bank_ifsc_code,
                     'street' => $request->street,
                     'area' => $request->area,

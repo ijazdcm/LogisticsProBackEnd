@@ -22,7 +22,8 @@ class UserSeeder extends Seeder
             "password"=>Hash::make('naga'),
             "mobile_no"=>"1231231231",
             "photo"=>"adminImage.jpeg",
-            "is_admin"=>1
+            "is_admin"=>1,
+            "location_id"=>"1,2"
         ]);
          //user login credentials
         User::create([
@@ -34,7 +35,7 @@ class UserSeeder extends Seeder
             "division_id"=>1,
             "department_id"=>1,
             "designation_id"=>1,
-            "location_id"=>2,
+            "location_id"=>"1,2",
 
         ]);
 

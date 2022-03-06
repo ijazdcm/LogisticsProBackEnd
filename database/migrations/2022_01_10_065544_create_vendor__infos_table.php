@@ -27,6 +27,7 @@ class CreateVendorInfosTable extends Migration
             $table->string('bank_name')->nullable();
             $table->string('bank_acc_number')->nullable();
             $table->string('bank_acc_holder_name')->nullable();
+            $table->string('bank_branch')->nullable();
             $table->string('bank_ifsc')->nullable();
             $table->string('street')->nullable();
             $table->string('area')->nullable();
