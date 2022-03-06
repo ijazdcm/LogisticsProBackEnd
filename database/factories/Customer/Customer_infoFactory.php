@@ -43,9 +43,13 @@ class Customer_infoFactory extends Factory
             "customer_region"  => $Vh_Type,
             "customer_gst_number"  => $Vh_Type,
             "customer_payment_terms"  => $Vh_Type,
+            "incoterms" => $Vh_Type,
+            "incoterms_description" => $Vh_Type,
             "customer_remarks" => $this->faker->text,
             "customer_status"  => ($Vh_Type!=1 && $Vh_Type!=2)?rand(1,2):3,
-            "created_by"  => 0
+            "created_by"  => 0,
+            "customer_payment_id"=>$Vh_Type,
+            "customer_code"=>$Vh_Type,
         ];
     }
 }

@@ -34,6 +34,7 @@ class VehicleMaintenanceRequest extends FormRequest
             "opening_odometer_km"=>[''],
             "closing_odometer_km"=>[''],
             "maintenance_end_datetime"=>[''],
+            "vehicle_maintenance_status"=>['required'],
             "remarks"=>[''],
         ];
     }
