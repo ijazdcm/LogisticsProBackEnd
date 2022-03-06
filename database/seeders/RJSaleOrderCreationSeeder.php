@@ -31,6 +31,7 @@ class RJSaleOrderCreationSeeder extends Seeder
             "uom_id" => "1",
             "order_qty" => "200",
             "customer_code" =>  "34562",
+            "hsn_code" =>  "12332112",
             "freight_income" => "3450.00",
             "advance_amount" => "1450.00",
             "last_Delivery_point" => "Chennai",
