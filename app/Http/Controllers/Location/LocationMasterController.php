@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Location;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Location\LocationRequest;
+use App\Http\Requests\Location\LocationUpdateRequest;
 use App\Http\Resources\Location\LocationResource;
 use App\Models\Location\Location;
 use Illuminate\Support\Facades\Cache;
@@ -60,7 +61,7 @@ class LocationMasterController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(LocationRequest $request, $id)
+    public function update(LocationUpdateRequest $request, $id)
     {
 
         $old_location = Location::where('location_status', 1)

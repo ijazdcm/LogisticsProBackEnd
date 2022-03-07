@@ -14,6 +14,7 @@ class Location extends Model
     protected $fillable=[
         "location_name",
         "location_code",
+        "location_alpha_code",
         "location_status",
         "created_by",
     ];

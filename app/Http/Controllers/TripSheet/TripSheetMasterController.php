@@ -43,6 +43,7 @@ class TripSheetMasterController extends Controller
             $vehicle_info_ready_to_trip = Parking_Yard_Gate::with('Vehicle_Type')
             ->with('Vehicle_Inspection_Trip')
             ->with('Vehicle_Capacity')
+            ->with('Vehicle_Location')
             ->with('Driver_Info')
             ->where('id', $id)
             ->first();
@@ -50,6 +51,8 @@ class TripSheetMasterController extends Controller
         else {
             $vehicle_info_ready_to_trip = Parking_Yard_Gate::with('Vehicle_Type')
             ->with('Vehicle_Inspection_Trip')
+            ->with('Vehicle_Location')
+
             ->with('Vendor_Info','Vendor_Info.Shed_Info')
             ->with('Vehicle_Capacity')
             ->where('id', $id)->first();
@@ -71,7 +74,7 @@ class TripSheetMasterController extends Controller
     public function createTripSheet(TripSheetCreateRequest $request,TripSheetAction $tripsheetaction)
     {
 
-         $trip_sheet_no=TripSheetHelper::generateTripSheetNo($request->vehicle_type_id,request()->user()->location_id);
+         $trip_sheet_no=TripSheetHelper::generateTripSheetNo($request->vehicle_type_id,$request->vehicle_location_id);
 
 
          switch($request->vehicle_type_id)

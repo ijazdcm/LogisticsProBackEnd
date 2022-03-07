@@ -24,7 +24,8 @@ class DivisionRequest extends FormRequest
     public function rules()
     {
         return [
-            "division_name" => "required|regex:/^[a-zA-Z]+$/u|max:255|unique:divisions,division_name"
+            "division_name" => "required|regex:/^[a-zA-Z ]+$/u|max:255|unique:divisions,division_name",
+            "division_code" => "required|regex:/^[0-9]{8}$/u|unique:divisions,division_code"
         ];
     }
 }

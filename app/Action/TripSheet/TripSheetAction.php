@@ -31,7 +31,7 @@ class TripSheetAction
         $trip_sheet->trip_sheet_no = $trip_sheet_no;
         $trip_sheet->vehicle_id = $request->vehicle_id;
         $trip_sheet->driver_id = $request->driver_id;
-        $trip_sheet->division_id = $request->division_id;
+        $trip_sheet->to_divison = $request->division_id;
         $trip_sheet->trip_advance_eligiblity = $request->trip_advance_eligiblity;
         $trip_sheet->advance_amount = $request->advance_amount;
         $trip_sheet->purpose = $request->purpose;
@@ -50,7 +50,7 @@ class TripSheetAction
 
         $trip_sheet->trip_sheet_no = $trip_sheet_no;
         $trip_sheet->vehicle_id = $request->vehicle_id;
-        $trip_sheet->division_id = $request->division_id;
+        $trip_sheet->to_divison = $request->division_id;
         $trip_sheet->trip_advance_eligiblity = $request->trip_advance_eligiblity;
         $trip_sheet->advance_amount = $request->advance_amount;
         $trip_sheet->advance_payment_diesel = $request->advance_payment_diesel;
