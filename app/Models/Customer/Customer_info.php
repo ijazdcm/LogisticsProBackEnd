@@ -41,6 +41,10 @@ class Customer_info extends Model
         "customer_remarks",
         "customer_status",
         "created_by",
+        "customer_payment_id",
+        "customer_code",
+        "incoterms",
+        "incoterms_description",
     ];
 
     protected $dates = ['created_at'];

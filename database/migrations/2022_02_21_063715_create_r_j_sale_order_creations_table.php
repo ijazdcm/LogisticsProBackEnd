@@ -28,8 +28,9 @@ class CreateRJSaleOrderCreationsTable extends Migration
             $table->tinyInteger('material_description_id');
             $table->string('material_descriptions');
             $table->tinyInteger('uom_id');
-            $table->smallInteger('order_qty');
+            $table->string('order_qty');
             $table->integer('customer_code');
+            $table->integer('hsn_code');
             $table->string('freight_income');
             $table->string('advance_amount');
             $table->string('last_Delivery_point');

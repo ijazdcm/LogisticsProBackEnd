@@ -28,6 +28,7 @@ class RJSaleOrderCreationFactory extends Factory
             "uom_id" => rand(1, 5),
             "order_qty" => rand(101, 999),
             "customer_code" =>  $this->faker->unique()->numberBetween($min = 10001, $max = 99999),
+            "hsn_code" =>  rand(10000001, 99999999),
             "freight_income" => rand(1001, 9999) . "00",
             "advance_amount" => rand(1001, 9999) . "00",
             "last_Delivery_point" => $this->faker->word,

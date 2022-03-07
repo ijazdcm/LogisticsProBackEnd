@@ -24,10 +24,11 @@ class RjSaleOrderRequest extends FormRequest
     public function rules()
     {
         return [
-            "hsn_code" => ['required'],
-            "frieght_amount" => ['required'],
-            "tripsheet_no" => ['required'],
-            "material" => ['required'],
+            "kunnr" => ['required'],
+            "netwr" => ['required'],
+            "Tripsheet" => ['required'],
+            "matnr" => ['required'],
+            "HSN_SAC" => ['required'],
         ];
     }
 }
