@@ -64,6 +64,10 @@ class CustomerUpdateRequest extends FormRequest
             "customer_postal_code" => [''],
             "customer_region" => [''],
             "customer_payment_terms" => [''],
+            "customer_payment_id"=> [''],
+            "customer_code"=> [''],
+            "incoterms" => [''],
+            "incoterms_description" => [''],
             // "customer_status" => ['']
         ];
 

@@ -23,8 +23,8 @@ class Customer extends Migration
             $table->string('customer_Aadhar_card_number')->nullable()->default(null);
             $table->string('customer_Aadhar_card')->nullable()->default(null);
             $table->string('customer_bank_passbook')->nullable()->default(null);
-            $table->unsignedBigInteger('customer_bank_id')->nullable()->default(null);
-            $table->foreign('customer_bank_id')->references('id')->on('bank_infos')->nullable()->default(null);
+            $table->integer('customer_bank_id')->nullable()->default(null);
+            // $table->foreign('customer_bank_id')->references('id')->on('bank_infos')->nullable()->default(null);
             $table->string('customer_bank_branch')->nullable()->default(null);
             $table->string('customer_bank_ifsc_code')->nullable()->default(null);
             $table->string('customer_bank_account_number')->nullable()->default(null);
@@ -37,6 +37,10 @@ class Customer extends Migration
             $table->string('customer_region')->nullable()->default(null);
             $table->string('customer_gst_number')->nullable()->default(null);
             $table->string('customer_payment_terms')->nullable()->default(null);
+            $table->string('customer_payment_id')->nullable()->default(null);
+            $table->integer('customer_code')->nullable()->default(null);
+            $table->string('incoterms')->nullable()->default(null);
+            $table->string('incoterms_description')->nullable()->default(null);
             $table->string('customer_remarks')->nullable()->default(null);
             $table->tinyInteger('customer_status')->comment('0 - Created, 1 - Approved, 2 - Confirmed, 3 - Rejected')->nullable()->default(null);
             $table->unsignedBigInteger('created_by')->default(0);

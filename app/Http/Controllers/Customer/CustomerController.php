@@ -82,11 +82,14 @@ class CustomerController extends Controller
             "customer_region" => $request->customer_region,
             "customer_gst_number" => $request->customer_gst_number,
             "customer_payment_terms" => $request->customer_payment_terms,
+            "customer_payment_id"=> $request->customer_payment_id,
+            "customer_code"=> $request->customer_code,
             "customer_remarks" => $request->customer_remarks,
             "customer_PAN_card" => $helper->storeImage($request->customer_PAN_card, Customer_info::CUSTOMER_PAN_CARD_PATH),
             "customer_Aadhar_card" => $helper->storeImage($request->customer_Aadhar_card, Customer_info::CUSTOMER_AADHAR_CARD_PATH),
             "customer_bank_passbook" => $helper->storeImage($request->customer_bank_passbook, Customer_info::CUSTOMER_BANK_PASSBOOK_PATH),
-
+            "incoterms" => $request->incoterms,
+            "incoterms_description" => $request->incoterms_description,
           ]);
 
         return  new CustomerResource($new_customer->load('bank_infos'));
@@ -157,7 +160,11 @@ class CustomerController extends Controller
             "customer_region" => $request->customer_region,
             "customer_gst_number" => $request->customer_gst_number,
             "customer_payment_terms" => $request->customer_payment_terms,
+            "customer_payment_id"=> $request->customer_payment_id,
+            "customer_code"=> $request->customer_code,
              "customer_remarks" => $request->customer_remarks,
+             "incoterms" => $request->incoterms,
+             "incoterms_description" => $request->incoterms_description,
 
            ]);
 

@@ -11,7 +11,9 @@ use App\Service\ParkingYardGate\ParkingYardGateService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Resources\VehicleInspection\VehicleInspectionResource;
+use App\Models\Vehicles\Vehicle_Info;
 use App\Service\Driver\DriverService;
+use App\Service\Vehicle\VehicleService;
 use Illuminate\Support\Facades\Log;
 
 class VehicleInspectionMasterController extends Controller
@@ -59,8 +61,22 @@ class VehicleInspectionMasterController extends Controller
                     (new ParkingYardGateService())->assignNewDriverToVehicle($request->vehicle_id, $request->driver_id);
                 }
 
-                Parking_Yard_Gate::where('vehicle_id', (int)$request->vehicle_id)->update(['vehicle_inspection_status'=>'1','vehicle_inspection_id'=>Vehicle_Inspection::latest()->first()->id]);
+
+                 //this block is for move vehicle back to Gate-out
+                 $vehicle_type=(new VehicleService())->getVehicleType($request->vehicle_id);
+
+                  if($vehicle_type==Vehicle_Info::VEHICLE_TYPE_PARTY)
+                  {
+
+                      //this block executes only if its party vehicle
+                      (new ParkingYardGateService())->gateOutVehicle($request->vehicle_id);
+                  }
+
                 Vehicle_Inspection::create($request->validated());
+                Parking_Yard_Gate::where('vehicle_id', (int)$request->vehicle_id)->update(['vehicle_inspection_status'=>'1','vehicle_inspection_id'=>Vehicle_Inspection::latest()->first()->id]);
+
+
+
             } else {
 
                 Vehicle_Inspection::create($request->validated());

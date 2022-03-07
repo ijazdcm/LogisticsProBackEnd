@@ -5,6 +5,8 @@ namespace App\Http\Requests\User;
 use App\Helper\File\FileHelper;
 use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserStoreRequest extends FormRequest
 {
@@ -45,7 +47,7 @@ class UserStoreRequest extends FormRequest
     public function validated(): array
     {
         if (true) {
-            return array_merge(parent::validated(), ['photo' => (new FileHelper())->storeImage(request()->photo,User::USER_PHOTO_PATH)]);
+            return array_merge(parent::validated(), ['photo' => (new FileHelper())->storeImage(request()->photo,User::USER_PHOTO_PATH),'password'=>Hash::make($this->password)]);
         }
         return parent::validated();
     }

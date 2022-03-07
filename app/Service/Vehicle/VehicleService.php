@@ -38,4 +38,16 @@ class VehicleService
         return 0;
     }
 
+
+    public function getVehicleType($vehicle_id)
+    {
+
+        $vehicle_info=Vehicle_Info::find($vehicle_id);
+        if($vehicle_info)
+        {
+            return  (int)$vehicle_info->vehicle_type_id;
+        }
+        return false;
+    }
+
 }
