@@ -17,6 +17,7 @@ class CreateLocationsTable extends Migration
             $table->id();
             $table->string('location_name');
             $table->string('location_code');
+            $table->string('location_alpha_code');
             $table->tinyInteger('location_status')->default(1)->comment('1 - Active, 0 - In-Active');
             $table->unsignedBigInteger('created_by')->default(0);
             $table->timestamps();

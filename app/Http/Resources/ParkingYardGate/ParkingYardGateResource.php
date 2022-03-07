@@ -6,7 +6,7 @@ namespace App\Http\Resources\ParkingYardGate;
 use App\Http\Resources\DocumentVerification\DocumentVerificationResource;
 
 use App\Http\Resources\Drivers\DriverInfoResource;
-
+use App\Http\Resources\Location\LocationResource;
 use App\Http\Resources\VehicleInspection\VehicleInspectionResource;
 use App\Http\Resources\Vehicles\VehicleBodyResource;
 use App\Http\Resources\Vehicles\VehicleCapacityResource;
@@ -32,6 +32,7 @@ class ParkingYardGateResource extends JsonResource
         return [
             "parking_yard_gate_id" => $this->id,
             "vehicle_type_id" => VehicleTypeResource::make($this->whenLoaded('Vehicle_Type')),
+            "vehicle_location_id" => LocationResource::make($this->whenLoaded('Vehicle_Location')),
             "vehicle_id" => $this->vehicle_id,
             "driver_id" => $this->driver_id,
             "odometer_km" => $this->odometer_km,
@@ -45,6 +46,10 @@ class ParkingYardGateResource extends JsonResource
             "party_name" => $this->party_name,
             "remarks" => $this->remarks,
             "parking_status" => $this->parking_status,
+            "maintenance_status" => $this->maintenance_status,
+            "trip_sto_status" => $this->trip_sto_status,
+            "vendor_creation_status" => $this->vendor_creation_status,
+            "vehicle_inspection_status" => $this->vehicle_inspection_status,
             "document_verification_status" => $this->document_verification_status,
             "gate_in_date_time" => $this->gate_in_date_time->diff()->format('%h hrs and %i min'),
             "gate_out_date_time" => $this->gate_out_date_time->diff()->format('%h hrs and %i min'),

@@ -19,6 +19,7 @@ class User extends Authenticatable
     public const USER_PHOTO_PATH="User/UsersPhoto/";
 
 
+    protected $with=['Location'];
     /**
      * The attributes that are mass assignable.
      *
