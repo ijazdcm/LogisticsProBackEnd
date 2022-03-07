@@ -17,15 +17,13 @@ class SapRjCreationController extends Controller
      */
     public function __invoke(RjSaleOrderRequest $request)
     {
-         // this Helper function is used to push data to Sap & Get back the response
-       $response = SapHelper::PushToSap('/ZSALE_ORDER_LP/Saleordercreation',$request->all());
+        // this Helper function is used to push data to Sap & Get back the response
+        $response = SapHelper::PushToSap('/ZSALE_ORDER_LP/Saleordercreation', $request->validated());
 
-       if($response!=null)
-       {
-          return  response(json_encode($response[0]),200);
-       }
+        if ($response != null) {
+            return  response(json_encode($response[0]), 200);
+        }
 
-       response(json_encode(["message"=>"Something Went Wrong in SAP"]),500);
-
+        response(json_encode(["message" => "Something Went Wrong in SAP"]), 500);
     }
 }

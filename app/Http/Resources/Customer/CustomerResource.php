@@ -41,7 +41,11 @@ class CustomerResource extends JsonResource
             "customer_payment_terms"  => $this->customer_payment_terms,
             "customer_remarks"  => $this->customer_remarks,
             "customer_status"  => $this->customer_status,
-            "created_by"  => $this->created_by
+            "customer_payment_id"=> $this->customer_payment_id,
+            "customer_code"=> $this->customer_code,
+            "created_by"  => $this->created_by,
+            "incoterms" => $this->incoterms,
+            "incoterms_description" => $this->incoterms_description,
         ];
     }
 }

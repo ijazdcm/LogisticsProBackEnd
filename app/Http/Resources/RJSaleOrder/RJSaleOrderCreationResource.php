@@ -28,6 +28,7 @@ class RJSaleOrderCreationResource extends JsonResource
             "uom_id" => $this->uom_id,
             "order_qty" => $this->order_qty,
             "customer_code" => $this->customer_code,
+            "hsn_code" => $this->hsn_code,
             "freight_income" => $this->freight_income,
             "advance_amount" => $this->advance_amount,
             "last_Delivery_point" => $this->last_Delivery_point,
