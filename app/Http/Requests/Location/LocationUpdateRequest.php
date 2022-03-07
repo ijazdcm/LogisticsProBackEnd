@@ -3,8 +3,10 @@
 namespace App\Http\Requests\Location;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
-class LocationRequest extends FormRequest
+class LocationUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +26,8 @@ class LocationRequest extends FormRequest
     public function rules()
     {
         return [
-            "location_name" => "required|regex:/^[a-zA-Z]+$/u|max:255|unique:locations,location_name",
-            "location_code" => "required|regex:/^[0-9]{4}$/u|unique:locations,location_code",
+            "location_name" => "required|regex:/^[a-zA-Z]+$/",
+            "location_code" => "required|regex:/^[0-9]{4}$/",
             "location_alpha_code" => "required|regex:/^[A-Z]$/u"
         ];
     }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\ParkingYardGate\ParkingYardGateResource;
 use App\Models\ParkingYardGate\Parking_Yard_Gate;
 
+
 use App\Models\Vendors\Vendor_Info;
 
 use Illuminate\Http\Request;
@@ -54,6 +55,7 @@ class TripStoController extends Controller
     public function store(Request $request)
     {
 
+
         Vendor_Info::create([
             "vehicle_id" => $request->vehicle_id,
             "shed_id" => $request->shed_id,
@@ -62,6 +64,7 @@ class TripStoController extends Controller
             "pan_card_number" => $request->pan_number,
             "remarks" => $request->remarks,
         ]);
+
 
         Parking_Yard_Gate::where('vehicle_id', $request->vehicle_id)
             ->update(["trip_sto_status" => "1", "vendor_creation_status" => "1"]);

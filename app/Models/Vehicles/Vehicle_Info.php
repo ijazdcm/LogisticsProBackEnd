@@ -15,6 +15,8 @@ class Vehicle_Info extends Model
     public const INSURANCE_FRONT_PATH = "Vehicle/Insurance_copy_front/";
     public const INSURANCE_BACK_PATH = "Vehicle/Insurance_copy_back/";
     public const VEHICLE_TYPE_PARTY = 4;
+    public const VEHICLE_TYPE_OWN = 1;
+    public const VEHICLE_TYPE_CONTRACT = 2;
 
     protected $table = "vehicle__infos";
 

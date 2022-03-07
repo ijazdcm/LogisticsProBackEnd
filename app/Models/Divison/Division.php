@@ -13,6 +13,7 @@ class Division extends Model
 
     protected $fillable=[
         "division_name",
+        "division_code",
         "division_status",
         "created_by",
     ];

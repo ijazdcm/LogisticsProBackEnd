@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Http\Resources\ParkingYardGate\ParkingYardGateResource;
 use App\Models\Driver\Driver_Info;
 use App\Models\Vehicles\Vehicle_Info;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ParkingYardGateController extends Controller
@@ -22,7 +23,9 @@ class ParkingYardGateController extends Controller
     public function index()
     {
 
+
         $parking_yard_gate = Parking_Yard_Gate::with('Vehicle_Type')
+            ->with('Vehicle_Location')
             ->parkingstatus()
             ->get();
 
@@ -37,6 +40,8 @@ class ParkingYardGateController extends Controller
      */
     public function store(ParkingYardGateStoreRequest $request, ParkingYardGateAction $gateAction)
     {
+
+
 
 
         $validated = $gateAction->handleParkingStatus($request);
@@ -63,6 +68,7 @@ class ParkingYardGateController extends Controller
     {
         $parkingYardVehicle = Parking_Yard_Gate::with('Vehicle_Type')->with('Vehicle_Capacity')
             ->with('Vehicle_Inspection')
+            ->with('Vehicle_Location')
             ->gate_in_status()
             ->where('id', $id)
             ->first();
@@ -98,7 +104,7 @@ class ParkingYardGateController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+    //
     }
 
     /**
@@ -109,6 +115,6 @@ class ParkingYardGateController extends Controller
      */
     public function destroy($id)
     {
-        //
+    //
     }
 }

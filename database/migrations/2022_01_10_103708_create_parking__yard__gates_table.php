@@ -17,6 +17,8 @@ class CreateParkingYardGatesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('vehicle_type_id');
             $table->foreign('vehicle_type_id')->references('id')->on('vehicle__types');
+            $table->unsignedBigInteger('vehicle_location_id')->nullable();
+            $table->foreign('vehicle_location_id')->references('id')->on('locations');
             $table->unsignedBigInteger('vehicle_id')->nullable();
             $table->foreign('vehicle_id')->references('id')->on('vehicle__infos');
             $table->unsignedBigInteger('driver_id')->nullable();
@@ -37,7 +39,7 @@ class CreateParkingYardGatesTable extends Migration
             $table->string('parking_status')->nullable()->default(null)->comment('Waiting Outside, Gate In, Gate Out');
             $table->string('maintenance_status')->nullable()->default(null)->comment('1 means on maintenance 0 means on maintenance');
             $table->string('trip_sto_status')->nullable()->default(null)->comment('1 means trip sto 0 means on trip sto');
-            $table->string('vendor_creation_status')->nullable()->default(null)->comment('1 means vendor created  0 means vendor not created');
+            $table->string('vendor_creation_status')->nullable()->default('0')->comment('1 means vendor created  0 means vendor not created');
             $table->string('vehicle_inspection_status')->nullable()->default(null)->comment('1 means Passed on inspection  0 means failed on inspection Null means need to inspect');
             $table->string('document_verification_status')->nullable()->default(0)->comment('0 - Not Done, 1 - Done');
             $table->timestamp('gate_in_date_time')->useCurrent();
