@@ -65,6 +65,8 @@ class VehicleInspectionMasterController extends Controller
                  //this block is for move vehicle back to Gate-out
                  $vehicle_type=(new VehicleService())->getVehicleType($request->vehicle_id);
 
+
+
                   if($vehicle_type==Vehicle_Info::VEHICLE_TYPE_PARTY)
                   {
 
@@ -73,7 +75,26 @@ class VehicleInspectionMasterController extends Controller
                   }
 
                 Vehicle_Inspection::create($request->validated());
-                Parking_Yard_Gate::where('vehicle_id', (int)$request->vehicle_id)->update(['vehicle_inspection_status'=>'1','vehicle_inspection_id'=>Vehicle_Inspection::latest()->first()->id]);
+                $update_info=[];
+                if($vehicle_type===Vehicle_Info::VEHICLE_TYPE_OWN||$vehicle_type===Vehicle_Info::VEHICLE_TYPE_CONTRACT)
+                  {
+                      $update_info=[
+                      'vehicle_inspection_status'=>'1',
+                      'vehicle_inspection_id'=>Vehicle_Inspection::latest()->first()->id,
+                      'vendor_creation_status'=>"1"
+                    ];
+
+                  }
+                  else{
+
+
+                    $update_info=['vehicle_inspection_status'=>'1',
+                    'vehicle_inspection_id'=>Vehicle_Inspection::latest()->first()->id
+                    ];
+
+                  }
+                Parking_Yard_Gate::where('vehicle_id', (int)$request->vehicle_id)
+                ->update($update_info);
 
 
 

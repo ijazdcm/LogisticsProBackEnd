@@ -30,6 +30,7 @@ class ParkingYardGateStoreRequest extends FormRequest
 
         return [
             "vehicle_type_id"=>['required'],
+            "vehicle_location_id"=>['sometimes'],
             "vehicle_id"=>[Rule::requiredIf(function ()  {
                 return  ($this->vehicle_type_id==Parking_Yard_Gate::VEHICLE_VALIDATION_IDS["OWN"]||$this->vehicle_type_id==Parking_Yard_Gate::VEHICLE_VALIDATION_IDS["CONTRACT"])?true:false;
             })],

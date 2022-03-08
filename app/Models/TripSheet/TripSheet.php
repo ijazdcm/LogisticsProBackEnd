@@ -22,7 +22,7 @@ class TripSheet extends Model
         "trip_sheet_no",
         "vehicle_id",
         "driver_id",
-        "division_id",
+        "to_divison",
         "trip_advance_eligiblity",
         "advance_amount",
         "purpose",

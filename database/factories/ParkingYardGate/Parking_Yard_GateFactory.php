@@ -21,6 +21,7 @@ class Parking_Yard_GateFactory extends Factory
         return [
             "vehicle_type_id"=>$Vh_Type,
             "vehicle_id"=>rand(1,50),
+            "vehicle_location_id"=>rand(1,5),
             "driver_id"=>($Vh_Type==1||$Vh_Type==2)?rand(1,50):null,
             "odometer_km"=>($Vh_Type==1||$Vh_Type==2)?rand(9999,99999):null,
             "odometer_photo"=>($Vh_Type==1||$Vh_Type==2)?"dummyOdoPhoto.jpeg":null,

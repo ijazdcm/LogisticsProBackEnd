@@ -31,6 +31,7 @@ class AuthController extends Controller
             $user = User::with('Division')
                 ->with('Designation')
                 ->with('Department')
+                ->with('Location')
                 ->where('id', Auth::user()->id)
                 ->first();
 

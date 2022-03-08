@@ -17,7 +17,7 @@ class CreateVehicleDocumentsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('vehicle_id');
             $table->foreign('vehicle_id')->references('id')->on('vehicle__infos');
-            $table->unsignedBigInteger('vehicle_inspection_id');
+            $table->unsignedBigInteger('vehicle_inspection_id')->nullable()->default(null);
             $table->foreign('vehicle_inspection_id')->references('id')->on('vehicle__inspections');
             $table->unsignedBigInteger('vendor_id');
             $table->foreign('vendor_id')->references('id')->on('vendor__infos');

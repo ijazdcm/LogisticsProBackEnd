@@ -8,7 +8,7 @@ use DateTime;
 class TripSheetHelper
 {
 
-    public static function generateTripSheetNo($vehicle_type_id, $user_location_id): string
+    public static function generateTripSheetNo($vehicle_type_id, $vehicle_location_id): string
     {
 
         $current_date_time = new DateTime();
@@ -17,7 +17,7 @@ class TripSheetHelper
 
         $vehicle_code = TripSheet::VEHICLE_CODE_BY_TYPE[$vehicle_type_id];
 
-        $location_code = TripSheet::LOCATION_CODE_BY_LOCATION_ID[$user_location_id];
+        $location_code = (string)$vehicle_location_id;
 
         //section generate the sequence of running number of trip sheet
 

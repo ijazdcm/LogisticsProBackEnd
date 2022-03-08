@@ -3,16 +3,17 @@
 namespace App\Models\ParkingYardGate;
 
 use App\Models\Driver\Driver_Info;
+use App\Models\Location\Location;
 use App\Models\Vehicles\Vehicle_Body_Type;
 use App\Models\Vehicles\Vehicle_Capacity;
 use App\Models\Vehicles\Vehicle_Document;
 use App\Models\Vehicles\Vehicle_Info;
 use App\Models\Vehicles\Vehicle_Inspection;
-use App\Models\Vehicles\Vehicle_Maintance;
 use App\Models\Vehicles\Vehicle_Type;
 use App\Models\Vendors\Vendor_Info;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class Parking_Yard_Gate extends Model
@@ -39,6 +40,7 @@ class Parking_Yard_Gate extends Model
     protected $fillable = [
         "vehicle_type_id",
         "vehicle_id",
+        "vehicle_location_id",
         "driver_id",
         "odometer_km",
         "odometer_photo",
@@ -75,10 +77,7 @@ class Parking_Yard_Gate extends Model
     {
         return $this->hasOne(Vehicle_Inspection::class, 'vehicle_id', 'vehicle_id');
     }
-    public function Vehicle_Maintance()
-    {
-        return $this->hasOne(Vehicle_Maintance::class, 'vehicle_id', 'vehicle_id');
-    }
+
     public function Vehicle_Capacity()
     {
         return $this->hasOne(Vehicle_Capacity::class, 'id', 'vehicle_capacity_id');
@@ -105,6 +104,11 @@ class Parking_Yard_Gate extends Model
     }
 
 
+    public function Vehicle_Location()
+    {
+        return $this->hasOne(Location::class,'id','vehicle_location_id');
+    }
+
     public function Vehicle_Inspection_Trip()
     {
         return $this->hasOne(Vehicle_Inspection::class, 'id', 'vehicle_inspection_id');
@@ -118,27 +122,37 @@ class Parking_Yard_Gate extends Model
 
     public function scopeGate_in_status($query)
     {
-        return $query->where('parking_status', '1')->where('vehicle_inspection_status', null)->orderBy('id', 'DESC');
+
+        return $query->where('parking_status', '1')
+        ->where('vehicle_inspection_status', null)
+        ->where('maintenance_status',null)
+        ->where('vehicle_inspection_id',null)
+        ->where('trip_sto_status',null)
+        ->orderBy('id', 'DESC');
+
 
     }
 
     public function scopeTrip_Sto_status($query)
     {
-        return $query->where('parking_status', '1')->where('trip_sto_status', null)->where('vehicle_type_id', '!=', 4)->orderBy('id', 'DESC');
+        return $query->where('parking_status', '1')
+        ->where('vehicle_inspection_status', null)
+        ->where('maintenance_status',null)
+        ->where('vehicle_inspection_id',null)
+        ->where('trip_sto_status', null)
+        ->where('vehicle_type_id', '!=', 4)
+        ->orderBy('id', 'DESC');
     }
-    public function Maintenance_status($query)
-    {
-        return $query->where('parking_status', '1')->where('maintenance_status', null)->orderBy('id', 'DESC');
-    }
+
     public function scopeReady_to_load($query)
     {
         return $query->where('parking_status', '1')
-            ->where('maintenance_status', '1')
-            ->where('vehicle_inspection_status', '1')
-            ->where('vendor_creation_status', null)
-            ->orWhere('vendor_creation_status', 1)
+            ->where('maintenance_status', null)
+            ->where('vehicle_inspection_status',1)
+            ->where('vendor_creation_status',1)
+            ->orwhere('trip_sto_status',1)
+            ->where('vendor_creation_status',1)
             ->orderBy('id', 'DESC');
-
     }
     public function scopeInspectionStatus($query)
     {
@@ -146,10 +160,32 @@ class Parking_Yard_Gate extends Model
             ->where('vehicle_inspection_status', '1')
             ->orderBy('id', 'DESC');
     }
+
+
+
+
+
+    /**
+ * Define model event callbacks.
+ *
+ * @return void
+ */
+public static function boot()
+{
+    parent::boot();
+
+    static::saving(function ($model) {
+        $model->vehicle_location_id = (Auth::user())? Auth::user()->Location->id:1;
+    });
+}
+
+
     public function scopeMaintenanceStatus($query)
     {
         return $query->where('parking_status', '1')
             ->where('maintenance_status', '1')
             ->orderBy('id', 'DESC');
     }
+
+
 }
