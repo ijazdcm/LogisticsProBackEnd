@@ -44,4 +44,5 @@ class Vehicle_Inspection extends Model
     {
         return $this->hasOne(Parking_Yard_Gate::class, 'vehicle_id', 'vehicle_id')->with('Vehicle_Capacity');
     }
+
 }

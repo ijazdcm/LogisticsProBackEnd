@@ -33,44 +33,39 @@ class TripSheetMasterController extends Controller
      * create trip-sheet form parking-yard-gate table
      */
 
-
     public function singleVehicleInfoOnGate($id)
     {
         $vehicle_info = Parking_Yard_Gate::find($id);
 
         $vehicle_info_ready_to_trip = [];
+
         if ($vehicle_info->vehicle_type_id == Parking_Yard_Gate::VEHICLE_VALIDATION_IDS['OWN'] || $vehicle_info->vehicle_type_id == Parking_Yard_Gate::VEHICLE_VALIDATION_IDS['CONTRACT']) {
-            $vehicle_info_ready_to_trip = Parking_Yard_Gate::with('Vehicle_Type')
-            ->with('Vehicle_Inspection_Trip')
-            ->with('Vehicle_Capacity')
-            ->with('Vehicle_Location')
-            ->with('Driver_Info')
+
+            $vehicle_info_ready_to_trip = Parking_Yard_Gate::Info_of_own_contract_vehicle_tripsheet()
             ->where('id', $id)
             ->first();
         }
-        else {
-            $vehicle_info_ready_to_trip = Parking_Yard_Gate::with('Vehicle_Type')
-            ->with('Vehicle_Inspection_Trip')
-            ->with('Vehicle_Location')
+        else if($vehicle_info->vehicle_type_id==Parking_Yard_Gate::VEHICLE_VALIDATION_IDS['HIRE'] && $vehicle_info->trip_sto_status!='1'){
 
-            ->with('Vendor_Info','Vendor_Info.Shed_Info')
-            ->with('Vehicle_Capacity')
-            ->where('id', $id)->first();
+            $vehicle_info_ready_to_trip = Parking_Yard_Gate::Info_of_hire_romsto_vehicle_tripsheet()
+            ->where('id', $id)
+            ->first();
+        }
+        else{
 
-            // return $vehicle_info_ready_to_trip;
+            $vehicle_info_ready_to_trip = Parking_Yard_Gate::Info_of_normal_vehicle_tripsheet()
+            ->where('id', $id)
+            ->first();
         }
 
         return ParkingYardGateResource::make($vehicle_info_ready_to_trip);
 
     }
 
-
-
      /**
      * this function create TripSheet for vehicle
+     * @return array
      */
-
-
     public function createTripSheet(TripSheetCreateRequest $request,TripSheetAction $tripsheetaction)
     {
 
@@ -91,6 +86,7 @@ class TripSheetMasterController extends Controller
              {
                  return $request;
              } break;
+
              default:break;
          }
 
