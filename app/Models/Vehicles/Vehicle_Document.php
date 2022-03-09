@@ -57,4 +57,10 @@ class Vehicle_Document extends Model
     {
         return $this->hasOne(Vendor_Info::class, 'id', 'vendor_id');
     }
+
+    public function Vehicle_Inspection()
+    {
+
+        return $this->hasOne(Vehicle_Inspection::class,'id','vehicle_inspection_id');
+    }
 }

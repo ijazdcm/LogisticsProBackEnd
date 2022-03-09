@@ -58,6 +58,7 @@ class ParkingYardGateResource extends JsonResource
             "gate_in_date_time_string" => $this->created_at->format('d-m-Y h:i A'),
             "vehicle_inspection" => VehicleInspectionResource::make($this->whenLoaded('Vehicle_Inspection')),
             "vehicle_document" => DocumentVerificationResource::make($this->whenLoaded('Vehicle_Document')),
+            "vehicle_Freight_info" => DocumentVerificationResource::make($this->whenLoaded('Vehicle_Documents')),
             "vendor_info" => VendorInfoResource::make($this->whenLoaded('Vendor_Info')),
             "vehicle_inspection_trip" => VehicleInspectionResource::make($this->whenLoaded('Vehicle_Inspection_Trip')),
         ];
